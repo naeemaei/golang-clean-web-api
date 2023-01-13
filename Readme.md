@@ -17,4 +17,5 @@
 13. [Zap for logging](https://github.com/uber-go/zap)
 14. [Zerolog for logging](https://github.com/rs/zerolog)
 15. [Gorm as ORM](https://github.com/go-gorm/gorm)
-16. Docker compose for run project with all dependencies in docker
+16. [Swagger for documentation](https://github.com/swaggo/swag)
+17. Docker compose for run project with all dependencies in docker
