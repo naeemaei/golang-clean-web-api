@@ -1,0 +1,24 @@
+server:
+  port: 5005
+  runMode: debug
+logger:
+  filePath: ../logs/logs.log
+  Encoding: json
+  level: debug
+cors:
+  allowOrigins: "*"
+postgres:
+  host: postgres_container
+  port: 5432
+  user: postgres
+  password: admin
+  dbName: car_sale_db
+  sslMode: false
+redis:
+  host: redis_container
+  port: 6379
+  password: password
+  db: 0
+  minIdleConnections: 100
+  poolSize: 5000
+  poolTimeout: 240
