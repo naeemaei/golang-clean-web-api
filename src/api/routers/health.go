@@ -8,7 +8,5 @@ import (
 func Health (r *gin.RouterGroup){
 	handler := handlers.NewHealthHandler()
 
-	r.GET("/", handler.Health)
-	r.POST("/", handler.HealthPost)
-	r.POST("/:id", handler.HealthPostById)
+	r.GET("/", handler.Health) 
 }
