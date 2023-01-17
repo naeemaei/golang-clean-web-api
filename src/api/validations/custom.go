@@ -5,8 +5,9 @@ import (
 	"regexp"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/naeemaei/golang-clean-web-api/common"
 )
- 
+
 func IranianMobileNumberValidator(fld validator.FieldLevel) bool {
 
 	value, ok := fld.Field().Interface().(string)
@@ -19,5 +20,14 @@ func IranianMobileNumberValidator(fld validator.FieldLevel) bool {
 		log.Print(err.Error())
 	}
 	return res
+}
 
+func PasswordValidator(fld validator.FieldLevel) bool {
+	value, ok := fld.Field().Interface().(string)
+	if !ok {
+		fld.Param()
+		return false
+	}
+
+	return common.CheckPassword(value)
 }
