@@ -5,8 +5,8 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/api/handlers"
 )
 
-func Health (r *gin.RouterGroup){
+func Health(r *gin.RouterGroup) {
 	handler := handlers.NewHealthHandler()
 
-	r.GET("/", handler.Health) 
+	r.GET("/", handler.Health)
 }
