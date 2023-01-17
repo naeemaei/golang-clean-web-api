@@ -3,9 +3,11 @@
 <p align="center"><b> The project is under development </b></p>
 
 ## System Design Diagram
+
 <p align="center"><img src='/docs/files/system_diagram.png' alt='Golang Web API System Design Diagram' /></p>
 
 ## Database Design Diagram
+
 <p align="center"><img src='/docs/files/Screenshot from 2023-01-18 00-20-48.png' alt='Golang Web API System Design Diagram' /></p>
 
 ## Used Tools
@@ -27,3 +29,17 @@
 15. [Gorm as ORM](https://github.com/go-gorm/gorm)
 16. [Swagger for documentation](https://github.com/swaggo/swag)
 17. Docker compose for run project with all dependencies in docker
+
+## How to run
+
+### On docker:
+
+#### start
+```
+docker compose -f "docker/docker-compose.yml" up -d --build
+```
+
+#### stop
+```
+docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down 
+```
