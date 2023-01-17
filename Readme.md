@@ -1,5 +1,13 @@
 # Golang Clean Web API (Dockerize) with a full sample project (Car Sale project)
 
+<p align="center"><b> The project is under development </b></p>
+
+## System Design Diagram
+<p align="center"><img src='/docs/files/system_diagram.png' alt='Golang Web API System Design Diagram' /></p>
+
+## Database Design Diagram
+<p align="center"><img src='/docs/files/Screenshot from 2023-01-18 00-20-48.png' alt='Golang Web API System Design Diagram' /></p>
+
 ## Used Tools
 
 1. [Gin as web framework](https://github.com/gin-gonic/gin)
