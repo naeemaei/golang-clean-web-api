@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"os"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -35,9 +36,12 @@ type RedisConfig struct {
 	Port               string
 	Password           string
 	Db                 string
-	MinIdleConnections int
+	DialTimeout        time.Duration
+	ReadTimeout        time.Duration
+	WriteTimeout       time.Duration
+	IdleCheckFrequency time.Duration
 	PoolSize           int
-	PoolTimeout        int
+	PoolTimeout        time.Duration
 }
 
 type PasswordConfig struct {
