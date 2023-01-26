@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "swag",
+      "command": "cd src && swag init -g cmd/main.go",
+      "type": "shell"
+    }
+  ]
+}
