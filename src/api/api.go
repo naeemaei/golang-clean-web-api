@@ -10,6 +10,9 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/api/routers"
 	validation "github.com/naeemaei/golang-clean-web-api/api/validations"
 	"github.com/naeemaei/golang-clean-web-api/config"
+	"github.com/naeemaei/golang-clean-web-api/docs"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitServer(cfg *config.Config) {
@@ -21,6 +24,7 @@ func InitServer(cfg *config.Config) {
 	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
 
 	RegisterRoutes(r)
+	RegisterSwagger(r, cfg)
 
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }
@@ -50,4 +54,15 @@ func RegisterValidators() {
 		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
 		val.RegisterValidation("password", validation.PasswordValidator, true)
 	}
+}
+
+func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
+	docs.SwaggerInfo.Title = "golang web api"
+	docs.SwaggerInfo.Description = "golang web api"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.BasePath = "/api"
+	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%s", cfg.Server.Port)
+	docs.SwaggerInfo.Schemes = []string{"http"}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

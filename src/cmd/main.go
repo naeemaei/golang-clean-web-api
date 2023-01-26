@@ -9,6 +9,9 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/data/db"
 )
 
+// @securityDefinitions.apikey AuthBearer
+// @in header
+// @name Authorization
 func main() {
 	cfg := config.GetConfig()
 	
