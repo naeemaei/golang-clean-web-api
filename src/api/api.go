@@ -11,6 +11,7 @@ import (
 	validation "github.com/naeemaei/golang-clean-web-api/api/validations"
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/docs"
+	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -25,7 +26,8 @@ func InitServer(cfg *config.Config) {
 
 	RegisterRoutes(r)
 	RegisterSwagger(r, cfg)
-
+	logger := logging.NewLogger(cfg)
+	logger.Info(logging.General, logging.Startup, "Started", nil)
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }
 
