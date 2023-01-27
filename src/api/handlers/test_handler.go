@@ -125,6 +125,18 @@ func (h *TestHandler) QueryBinder2(c *gin.Context) {
 	}, true, 0))
 }
 
+// BodyBinder godoc
+// @Summary BodyBinder
+// @Description BodyBinder
+// @Tags Test
+// @Accept  json
+// @Produce  json
+// @Param id path int true "user id"
+// @Param name path string true "user name"
+// @Success 200 {object} helper.BaseHttpResponse{validationErrors=any{}} "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/test/binder/uri/{id}/{name} [post]
+// @Security AuthBearer
 func (h *TestHandler) UriBinder(c *gin.Context) {
 	id := c.Param("id")
 	name := c.Param("name")

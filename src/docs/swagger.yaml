@@ -97,6 +97,43 @@ paths:
       summary: BodyBinder
       tags:
       - Test
+  /v1/test/binder/uri/{id}/{name}:
+    post:
+      consumes:
+      - application/json
+      description: BodyBinder
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: user name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BaseHttpResponse'
+            - properties:
+                validationErrors:
+                  type: object
+              type: object
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: BodyBinder
+      tags:
+      - Test
   /v1/test/user/{id}:
     get:
       consumes:

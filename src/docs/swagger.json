@@ -90,6 +90,68 @@
                 }
             }
         },
+        "/v1/test/binder/uri/{id}/{name}": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "BodyBinder",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "BodyBinder",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "validationErrors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Failed",
+                        "schema": {
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/test/user/{id}": {
             "get": {
                 "description": "UserById",
