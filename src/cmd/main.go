@@ -5,6 +5,7 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/data/cache"
 	"github.com/naeemaei/golang-clean-web-api/data/db"
+	"github.com/naeemaei/golang-clean-web-api/data/db/migrations"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 )
 
@@ -27,6 +28,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
+	migrations.Up_1()
 
 	api.InitServer(cfg)
 }
