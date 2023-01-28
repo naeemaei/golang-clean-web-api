@@ -1,6 +1,92 @@
 version: '3.7'
 
 services:
+  
+  ####################### SETUP #######################
+  setup:
+    build:
+      context: elk/setup/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    init: true
+    volumes:
+      - ./elk/setup/entrypoint.sh:/entrypoint.sh:ro,Z
+      - ./elk/setup/helpers.sh:/helpers.sh:ro,Z
+      - ./elk/setup/roles:/roles:ro,Z
+      - setup:/state:Z
+    environment:
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      FILEBEAT_INTERNAL_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
+    networks:
+      - webapi_network
+    depends_on:
+      - elasticsearch
+  
+  ####################### ELK #######################
+  elasticsearch:
+    build:
+      context: elk/elasticsearch/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    container_name: elasticsearch
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      - elasticsearch:/usr/share/elasticsearch/data:Z
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      node.name: elasticsearch
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      discovery.type: single-node
+    networks:
+      - webapi_network
+    restart: unless-stopped
+
+  kibana:
+    build:
+      context: elk/kibana/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+      - elasticsearch:/usr/share/kibana/data:Z
+    ports:
+      - 5601:5601
+    environment:
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+    networks:
+      - webapi_network
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  filebeat:
+    build:
+      context: elk/filebeat/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    user: root
+    command:
+      - -e
+      - --strict.perms=false
+    volumes:
+      - ./elk/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ../src/logs:/var/log/filebeat/service
+      - logs:/var/log/filebeat
+      - logs:/app:ro
+ 
+    environment:
+      FILEBEAT_INTERNAL_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
+      BEATS_SYSTEM_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
+    networks:
+      - webapi_network
+    depends_on:
+      - elasticsearch
+
+  ####################### POSTGRES #######################
   postgres:
     image: postgres
     container_name: postgres_container
@@ -32,7 +118,8 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-    
+  
+  ####################### REDIS #######################
   redis:
     image: redis:latest
     container_name: redis_container
@@ -45,11 +132,14 @@ services:
     networks:
       - webapi_network
 
+####################### VOLUME AND NETWORKS #######################
 volumes:
  postgres:
  pgadmin:
  redis:
  logs:
+ setup:
+ elasticsearch:
 
 networks:
  webapi_network:

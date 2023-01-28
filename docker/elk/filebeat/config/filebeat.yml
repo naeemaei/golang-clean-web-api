@@ -1,0 +1,88 @@
+## Filebeat configuration
+## https://github.com/elastic/beats/blob/main/deploy/docker/filebeat.docker.yml
+#
+
+name: filebeat
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - "/var/log/filebeat/service/*.log"
+      - "/app/logs/*.log"
+    fields:
+      environment: Development
+    tags: ["gocourse"]
+    multiline.pattern: "^{"
+    multiline.negate: true
+    multiline.match: after
+logging.level: debug
+
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+setup.template.name: "logs-service"
+setup.template.pattern: "logs-service-*"
+setup.kibana.host: kibana:5601
+setup.template.settings:
+  index.number_of_shards: 1
+
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+      process_array: false
+      max_depth: 1
+      target: ""
+      overwrite_keys: false
+      add_error_key: true
+
+# filebeat.autodiscover:
+#   providers:
+#     - type: docker
+#       enabled: true
+#       templates:
+#         - condition:
+#             equals:
+#               contains.container.image: car-sale-api
+#           config:
+#             - type: docker
+#               containers.ids:
+#                 - "${data.docker.container.id}"
+#               paths:
+#                 - /var/lib/docker/containers/${data.docker.container.id}/app/logs/*.json
+#               fields:
+#                 environment: Docker
+#               tags: ["gocourse"]
+#               multiline.pattern: "^{"
+#               multiline.negate: true
+#               multiline.match: after
+
+filebeat.shutdown_timeout: 5s
+
+# filebeat.autodiscover:
+#   providers:
+#     # The Docker autodiscover provider automatically retrieves logs from Docker
+#     # containers as they start and stop.
+#     - type: docker
+#       hints.enabled: true
+
+# monitoring:
+#   enabled: true
+#   elasticsearch:
+#     username: beats_system
+#     password: ${BEATS_SYSTEM_PASSWORD}
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  username: filebeat_internal
+  password: ${FILEBEAT_INTERNAL_PASSWORD}
+  index: "logs-service-%{+yyyy.MM.dd}"
+
+## HTTP endpoint for health checking
+## https://www.elastic.co/guide/en/beats/filebeat/current/http-endpoint.html
+#
+
+fields_under_root: true
+fields:
+  host.ip: 127.0.0.1

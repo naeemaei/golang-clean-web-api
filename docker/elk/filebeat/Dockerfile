@@ -1,0 +1,3 @@
+ARG ELASTIC_VERSION
+
+FROM elastic/filebeat:${ELASTIC_VERSION}

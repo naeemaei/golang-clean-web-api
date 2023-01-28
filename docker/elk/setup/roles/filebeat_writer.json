@@ -1,0 +1,20 @@
+{
+  "cluster": [
+    "manage_ilm",
+    "manage_index_templates",
+    "monitor",
+    "read_pipeline"
+  ],
+  "indices": [
+    {
+      "names": ["logs-service*"],
+      "privileges": [
+        "create_doc",
+        "manage",
+        "auto_configure",
+        "create_index",
+        "all"
+      ]
+    }
+  ]
+}
