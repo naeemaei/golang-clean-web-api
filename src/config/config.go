@@ -27,6 +27,7 @@ type LoggerConfig struct {
 	FilePath string
 	Encoding string
 	Level    string
+	Logger   string
 }
 
 type PostgresConfig struct {
