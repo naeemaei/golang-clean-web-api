@@ -1,5 +1,8 @@
 package constants
 
-const AdminRoleName string = "admin"
-const DefaultRoleName string = "default"
-const DefaultUserName string = "admin"
+const (
+	AdminRoleName      string = "admin"
+	DefaultRoleName    string = "default"
+	DefaultUserName    string = "admin"
+	RedisOtpDefaultKey string = "otp"
+)

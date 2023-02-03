@@ -1,4 +1,13 @@
 definitions:
+  dto.GetOtpRequest:
+    properties:
+      mobileNumber:
+        maxLength: 11
+        minLength: 11
+        type: string
+    required:
+    - mobileNumber
+    type: object
   handlers.personData:
     properties:
       first_name:
@@ -159,6 +168,36 @@ paths:
       summary: UserById
       tags:
       - Test
+  /v1/users/send-otp:
+    post:
+      consumes:
+      - application/json
+      description: Send otp to user
+      parameters:
+      - description: GetOtpRequest
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GetOtpRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "409":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+      summary: Send otp to user
+      tags:
+      - Users
 securityDefinitions:
   AuthBearer:
     in: header
