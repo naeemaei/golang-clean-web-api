@@ -8,6 +8,55 @@ definitions:
     required:
     - mobileNumber
     type: object
+  dto.LoginByUsernameRequest:
+    properties:
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 6
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  dto.RegisterLoginByMobileRequest:
+    properties:
+      mobileNumber:
+        maxLength: 11
+        minLength: 11
+        type: string
+      otp:
+        maxLength: 6
+        minLength: 6
+        type: string
+    required:
+    - mobileNumber
+    - otp
+    type: object
+  dto.RegisterUserByUsernameRequest:
+    properties:
+      email:
+        minLength: 6
+        type: string
+      firstName:
+        minLength: 3
+        type: string
+      lastName:
+        minLength: 6
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 5
+        type: string
+    required:
+    - firstName
+    - lastName
+    - password
+    - username
+    type: object
   handlers.personData:
     properties:
       first_name:
@@ -168,6 +217,96 @@ paths:
       summary: UserById
       tags:
       - Test
+  /v1/users/login-by-mobile:
+    post:
+      consumes:
+      - application/json
+      description: RegisterLoginByMobileNumber
+      parameters:
+      - description: RegisterLoginByMobileRequest
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterLoginByMobileRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "409":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+      summary: RegisterLoginByMobileNumber
+      tags:
+      - Users
+  /v1/users/login-by-username:
+    post:
+      consumes:
+      - application/json
+      description: LoginByUsername
+      parameters:
+      - description: LoginByUsernameRequest
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginByUsernameRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "409":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+      summary: LoginByUsername
+      tags:
+      - Users
+  /v1/users/register-by-username:
+    post:
+      consumes:
+      - application/json
+      description: RegisterByUsername
+      parameters:
+      - description: RegisterUserByUsernameRequest
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterUserByUsernameRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+        "409":
+          description: Failed
+          schema:
+            $ref: '#/definitions/helper.BaseHttpResponse'
+      summary: RegisterByUsername
+      tags:
+      - Users
   /v1/users/send-otp:
     post:
       consumes:

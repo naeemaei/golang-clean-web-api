@@ -12,6 +12,10 @@ var StatusCodeMapping = map[string]int{
 	service_errors.OptExists:   409,
 	service_errors.OtpUsed:     409,
 	service_errors.OtpNotValid: 400,
+
+	// User
+	service_errors.EmailExists:    409,
+	service_errors.UsernameExists: 409,
 }
 
 func TranslateErrorToStatusCode(err error) int {
