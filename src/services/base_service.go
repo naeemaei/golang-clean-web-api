@@ -14,6 +14,7 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/constants"
 	"github.com/naeemaei/golang-clean-web-api/data/db"
+	"github.com/naeemaei/golang-clean-web-api/data/models"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
 	"gorm.io/gorm"
@@ -22,6 +23,7 @@ import (
 type BaseService[T any, Tc any, Tu any, Tr any] struct {
 	Database *gorm.DB
 	Logger   logging.Logger
+	Preloads []string
 }
 
 func NewBaseService[T any, Tc any, Tu any, Tr any](cfg *config.Config) *BaseService[T, Tc, Tu, Tr] {
@@ -44,7 +46,8 @@ func (s *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, 
 		return nil, err
 	}
 	tx.Commit()
-	return common.TypeConverter[Tr](model)
+	baseModel, _ := common.TypeConverter[models.BaseModel](model)
+	return s.GetById(ctx, baseModel.Id)
 }
 
 func (s *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu) (*Tr, error) {
@@ -97,7 +100,12 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 
 func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, error) {
 	model := new(T)
-	err := s.Database.
+	tx := s.Database
+	for _, preload := range s.Preloads {
+		tx = tx.Preload(preload)
+	}
+	err := tx.
+		Debug().
 		Where("id = ? and deleted_by is null", id).
 		First(model).
 		Error
@@ -109,7 +117,7 @@ func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, 
 
 func (s *BaseService[T, Tc, Tu, Tr]) GetByFilter(ctx context.Context, req *dto.PaginationInputWithFilter) (*dto.PagedList[Tr], error) {
 
-	pl, err := Paginate[T, Tr](req, s.Database)
+	pl, err := Paginate[T, Tr](req, s.Preloads, s.Database)
 
 	if err != nil {
 		return nil, err
@@ -127,19 +135,26 @@ func NewPagedList[T any](items *[]T, count int64, pageNumber int, pageSize int64
 	return pl
 }
 
-func Paginate[T any, Tr any](pagination *dto.PaginationInputWithFilter, db *gorm.DB) (*dto.PagedList[Tr], error) {
+func Paginate[T any, Tr any](pagination *dto.PaginationInputWithFilter, preloads []string, db *gorm.DB) (*dto.PagedList[Tr], error) {
+
 	model := new(T)
 	var items *[]T
-	var mitems *[]Tr 
+	var mitems *[]Tr
+
+	for _, preload := range preloads {
+		db = db.Preload(preload)
+	}
 	var query = getQuery[T](&pagination.DynamicFilter)
 	var order = getSort[T](&pagination.DynamicFilter)
 	var totalRows int64 = 0
 	db.
+		Debug().
 		Model(model).
 		Where(query).
 		Count(&totalRows)
 
 	err := db.
+		Debug().
 		Where(query).
 		Offset(pagination.GetOffset()).
 		Limit(pagination.GetPageSize()).
