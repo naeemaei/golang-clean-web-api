@@ -42,3 +42,8 @@ func (s *CountryService) Delete(ctx context.Context, id int) error {
 func (s *CountryService) GetById(ctx context.Context, id int) (*dto.CountryResponse, error) {
 	return s.base.GetById(ctx, id)
 }
+
+func (s *CountryService) GetByFilter(ctx context.Context, req *dto.PaginationInputWithFilter) (*dto.PagedList[dto.CountryResponse], error) {
+	return s.base.GetByFilter(ctx, req)
+
+}
