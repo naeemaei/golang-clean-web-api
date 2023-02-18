@@ -26,7 +26,7 @@ func NewUsersHandler(cfg *config.Config) *UsersHandler {
 // @Accept  json
 // @Produce  json
 // @Param Request body dto.LoginByUsernameRequest true "LoginByUsernameRequest"
-// @Success 201 {object} helper.BaseHttpResponse "Success"
+// @Success 201 {object} helper.BaseHttpResponse{result=dto.TokenDetail} "Success"
 // @Failure 400 {object} helper.BaseHttpResponse "Failed"
 // @Failure 409 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/login-by-username [post]
@@ -84,7 +84,7 @@ func (h *UsersHandler) RegisterByUsername(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param Request body dto.RegisterLoginByMobileRequest true "RegisterLoginByMobileRequest"
-// @Success 201 {object} helper.BaseHttpResponse "Success"
+// @Success 201 {object} helper.BaseHttpResponse{result=dto.TokenDetail} "Success"
 // @Failure 400 {object} helper.BaseHttpResponse "Failed"
 // @Failure 409 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/login-by-mobile [post]
