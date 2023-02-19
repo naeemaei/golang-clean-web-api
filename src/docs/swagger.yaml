@@ -29,6 +29,10 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse:
     properties:
+      cities:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse'
+        type: array
       id:
         type: integer
       name:

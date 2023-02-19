@@ -1021,6 +1021,12 @@ const docTemplate = `{
         "github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse": {
             "type": "object",
             "properties": {
+                "cities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse"
+                    }
+                },
                 "id": {
                     "type": "integer"
                 },
