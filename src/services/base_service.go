@@ -57,13 +57,17 @@ func (s *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, 
 func (s *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu) (*Tr, error) {
 
 	updateMap, _ := common.TypeConverter[map[string]interface{}](req)
-	(*updateMap)["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true}
-	(*updateMap)["modified_at"] = sql.NullTime{Valid: true, Time: time.Now().UTC()}
+	snakeMap := map[string]interface{}{}
+	for k, v := range *updateMap {
+		snakeMap[common.ToSnakeCase(k)] = v
+	}
+	snakeMap["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true}
+	snakeMap["modified_at"] = sql.NullTime{Valid: true, Time: time.Now().UTC()}
 	model := new(T)
 	tx := s.Database.WithContext(ctx).Begin()
 	if err := tx.Model(model).
 		Where("id = ? and deleted_by is null", id).
-		Updates(*updateMap).
+		Updates(snakeMap).
 		Error; err != nil {
 		tx.Rollback()
 		s.Logger.Error(logging.Postgres, logging.Update, err.Error(), nil)
@@ -83,8 +87,6 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 		"deleted_by": &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true},
 		"deleted_at": sql.NullTime{Valid: true, Time: time.Now().UTC()},
 	}
-	deleteMap["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true}
-	deleteMap["modified_at"] = sql.NullTime{Valid: true, Time: time.Now().UTC()}
 
 	if ctx.Value(constants.UserIdKey) == nil {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.PermissionDenied}
@@ -181,6 +183,7 @@ func getQuery[T any](filter *dto.DynamicFilter) string {
 	for name, filter := range filter.Filter {
 		fld, ok := typeT.FieldByName(name)
 		if ok {
+			fld.Name = common.ToSnakeCase(fld.Name)
 			switch filter.Type {
 			case "contains":
 				query = append(query, fmt.Sprintf("%s Ilike '%%%s%%'", fld.Name, filter.From))
@@ -223,6 +226,7 @@ func getSort[T any](filter *dto.DynamicFilter) string {
 
 	for _, tp := range *filter.Sort {
 		fld, ok := typeT.FieldByName(tp.ColId)
+		fld.Name = common.ToSnakeCase(fld.Name)
 		if ok {
 			sort = append(sort, fmt.Sprintf("%s %s", fld.Name, tp.Sort))
 		}

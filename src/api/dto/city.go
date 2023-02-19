@@ -8,5 +8,5 @@ type CreateUpdateCityRequest struct {
 type CityResponse struct {
 	Id      int             `json:"id"`
 	Name    string          `json:"name"`
-	Country CountryResponse `json:"country"`
+	Country CountryResponse `json:"country,omitempty"`
 }
