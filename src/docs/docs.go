@@ -612,6 +612,290 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/property-categories/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a PropertyCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PropertyCategories"
+                ],
+                "summary": "Create a PropertyCategory",
+                "parameters": [
+                    {
+                        "description": "Create a PropertyCategory",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdatePropertyCategoryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/property-categories/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "get a PropertyCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PropertyCategories"
+                ],
+                "summary": "get a PropertyCategory",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse"
+                                        },
+                                        "validationErrors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Description",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Description",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object"
+                                        },
+                                        "validationErrors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/property-categories/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a PropertyCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PropertyCategories"
+                ],
+                "summary": "Get a PropertyCategory",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a PropertyCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PropertyCategories"
+                ],
+                "summary": "Update a PropertyCategory",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a PropertyCategory",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdatePropertyCategoryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a PropertyCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PropertyCategories"
+                ],
+                "summary": "Delete a PropertyCategory",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/test/binder/body": {
             "post": {
                 "security": [
@@ -1065,6 +1349,19 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdatePropertyCategoryRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 3
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.Filter": {
             "type": "object",
             "properties": {
@@ -1166,6 +1463,32 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter": {
             "type": "object",
             "properties": {
@@ -1186,6 +1509,72 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort"
                     }
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "icon": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "minLength": 1
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 3
+                },
+                "properties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse"
+                    }
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "category": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                },
+                "dataType": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 0
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 1
+                },
+                "icon": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "minLength": 1
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 40,
+                    "minLength": 3
+                },
+                "unit": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 0
                 }
             }
         },
