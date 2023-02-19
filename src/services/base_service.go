@@ -20,10 +20,14 @@ import (
 	"gorm.io/gorm"
 )
 
+type preload struct {
+	Base  string
+	Inner []preload
+}
 type BaseService[T any, Tc any, Tu any, Tr any] struct {
 	Database *gorm.DB
 	Logger   logging.Logger
-	Preloads []string
+	Preloads []preload
 }
 
 func NewBaseService[T any, Tc any, Tu any, Tr any](cfg *config.Config) *BaseService[T, Tc, Tu, Tr] {
@@ -100,10 +104,8 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 
 func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, error) {
 	model := new(T)
-	tx := s.Database
-	for _, preload := range s.Preloads {
-		tx = tx.Preload(preload)
-	}
+	tx := Preload(s.Database, s.Preloads)
+
 	err := tx.
 		Debug().
 		Where("id = ? and deleted_by is null", id).
@@ -135,15 +137,13 @@ func NewPagedList[T any](items *[]T, count int64, pageNumber int, pageSize int64
 	return pl
 }
 
-func Paginate[T any, Tr any](pagination *dto.PaginationInputWithFilter, preloads []string, db *gorm.DB) (*dto.PagedList[Tr], error) {
+func Paginate[T any, Tr any](pagination *dto.PaginationInputWithFilter, preloads []preload, db *gorm.DB) (*dto.PagedList[Tr], error) {
 
 	model := new(T)
 	var items *[]T
 	var mitems *[]Tr
 
-	for _, preload := range preloads {
-		db = db.Preload(preload)
-	}
+	db = Preload(db, preloads)
 	var query = getQuery[T](&pagination.DynamicFilter)
 	var order = getSort[T](&pagination.DynamicFilter)
 	var totalRows int64 = 0
@@ -228,4 +228,23 @@ func getSort[T any](filter *dto.DynamicFilter) string {
 		}
 	}
 	return strings.Join(sort, ", ")
+}
+
+func Preload(db *gorm.DB, preloads []preload) *gorm.DB {
+
+	for _, item := range preloads {
+		if item.Base != "" {
+			if item.Inner != nil {
+				inner := func(db *gorm.DB) *gorm.DB {
+					return Preload(db, item.Inner)
+				}
+				db = db.Preload(item.Base, inner)
+			} else {
+				db = db.Preload(item.Base)
+			}
+		}
+	}
+
+	return db
+
 }
