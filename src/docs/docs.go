@@ -15,6 +15,290 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/car-models/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a CarModel",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModels"
+                ],
+                "summary": "Create a CarModel",
+                "parameters": [
+                    {
+                        "description": "Create a CarModel",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCarModelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-models/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "get a CarModel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModels"
+                ],
+                "summary": "get a CarModel",
+                "parameters": [
+                    {
+                        "description": "request body",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse"
+                                        },
+                                        "validationErrors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Description",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Description",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object"
+                                        },
+                                        "validationErrors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-models/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a CarModel",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModels"
+                ],
+                "summary": "Get a CarModel",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a CarModel",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModels"
+                ],
+                "summary": "Update a CarModel",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a CarModel",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCarModelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a CarModel",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModels"
+                ],
+                "summary": "Delete a CarModel",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cities/": {
             "post": {
                 "security": [
@@ -1288,7 +1572,217 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                },
+                "color": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UserResponse"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse"
+                },
+                "isMainImage": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse": {
+            "type": "object",
+            "required": [
+                "price",
+                "priceAt"
+            ],
+            "properties": {
+                "carModelYear": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "priceAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse": {
+            "type": "object",
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "property": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse": {
+            "type": "object",
+            "properties": {
+                "carModelColors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                    }
+                },
+                "carModelComments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse"
+                    }
+                },
+                "carModelImages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse"
+                    }
+                },
+                "carModelProperties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse"
+                    }
+                },
+                "carModelYears": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse"
+                    }
+                },
+                "carType": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse"
+                },
+                "company": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse"
+                },
+                "gearbox": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse": {
+            "type": "object",
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                },
+                "carModelPriceHistories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "persianYear": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse": {
+            "type": "object",
+            "properties": {
+                "carModels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse": {
             "type": "object",
             "properties": {
                 "country": {
@@ -1311,11 +1805,42 @@ const docTemplate = `{
                         "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse"
                     }
                 },
+                "companies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse"
+                    }
+                },
                 "id": {
                     "type": "integer"
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCarModelRequest": {
+            "type": "object",
+            "required": [
+                "carTypeId",
+                "companyId",
+                "gearboxId",
+                "name"
+            ],
+            "properties": {
+                "carTypeId": {
+                    "type": "integer"
+                },
+                "companyId": {
+                    "type": "integer"
+                },
+                "gearboxId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 0
                 }
             }
         },
@@ -1362,6 +1887,20 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.Filter": {
             "type": "object",
             "properties": {
@@ -1377,6 +1916,23 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "contains notContains equals notEqual startsWith lessThan lessThanOrEqual greaterThan greaterThanOrEqual inRange endsWith",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse": {
+            "type": "object",
+            "properties": {
+                "carModels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
                     "type": "string"
                 }
             }
@@ -1408,6 +1964,32 @@ const docTemplate = `{
                 "username": {
                     "type": "string",
                     "minLength": 5
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
                 }
             }
         },
@@ -1509,6 +2091,31 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort"
                     }
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse": {
+            "type": "object",
+            "required": [
+                "persianTitle"
+            ],
+            "properties": {
+                "endAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "persianTitle": {
+                    "type": "string",
+                    "maxLength": 4,
+                    "minLength": 4
+                },
+                "startAt": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "integer"
                 }
             }
         },
@@ -1656,13 +2263,33 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.UserResponse": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse": {
             "type": "object",
             "properties": {
                 "error": {},
                 "result": {},
                 "resultCode": {
-                    "type": "integer"
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.ResultCode"
                 },
                 "success": {
                     "type": "boolean"
@@ -1674,6 +2301,27 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_helper.ResultCode": {
+            "type": "integer",
+            "enum": [
+                4001,
+                4002,
+                5000,
+                5001,
+                5002,
+                5003,
+                0
+            ],
+            "x-enum-varnames": [
+                "ValidationError",
+                "OtpLimiterError",
+                "CustomRecovery",
+                "InternalError",
+                "LimiterError",
+                "AuthError",
+                "Success"
+            ]
         },
         "github_com_naeemaei_golang-clean-web-api_api_validations.ValidationError": {
             "type": "object",

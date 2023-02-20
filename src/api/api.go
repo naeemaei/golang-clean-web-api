@@ -42,14 +42,16 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		users := v1.Group("/users")
 		countries := v1.Group("/countries", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		cities := v1.Group("/cities", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		PropertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		propertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModels := v1.Group("/car-models", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 
 		routers.Health(health)
 		routers.TestRouter(test_router)
 		routers.User(users, cfg)
 		routers.Country(countries, cfg)
 		routers.City(cities, cfg)
-		routers.PropertyCategory(PropertyCategories, cfg)
+		routers.PropertyCategory(propertyCategories, cfg)
+		routers.CarModel(carModels, cfg)
 	}
 
 	v2 := api.Group("/v2")
