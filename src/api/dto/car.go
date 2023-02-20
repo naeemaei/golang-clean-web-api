@@ -94,7 +94,7 @@ type CarModelImageResponse struct {
 	IsMainImage bool             `json:"isMainImage"`
 }
 
-type CreateCarModelCommentRequest struct {
+type CreateUpdateCarModelCommentRequest struct {
 	CarModelId int    `json:"carModelId" binding:"required"`
 	UserId     int    `json:"userId" binding:"required"`
 	Message    string `json:"message" binding:"required"`
