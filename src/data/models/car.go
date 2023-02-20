@@ -5,11 +5,13 @@ import "time"
 type Gearbox struct {
 	BaseModel
 	Name string `gorm:"size=15;type:string;not null;unique"`
+	CarModels []CarModel
 }
 
 type CarType struct {
 	BaseModel
 	Name string `gorm:"size=15;type:string;not null;unique"`
+	CarModels []CarModel
 }
 
 type Company struct {
@@ -17,6 +19,7 @@ type Company struct {
 	Name      string  `gorm:"size=15;type:string;not null;unique"`
 	Country   Country `gorm:"foreignKey:CountryId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	CountryId int
+	CarModels []CarModel
 }
 
 type CarModel struct {
@@ -28,6 +31,11 @@ type CarModel struct {
 	CarTypeId int
 	Gearbox   Gearbox `gorm:"foreignKey:GearboxId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	GearboxId int
+	CarModelProperties []CarModelProperty
+	CarModelColors []CarModelColor 
+	CarModelYears []CarModelYear 
+	CarModelImages []CarModelImage 
+	CarModelComments []CarModelComment 
 }
 
 type CarModelColor struct {
@@ -36,6 +44,7 @@ type CarModelColor struct {
 	CarModelId int
 	Color      Color `gorm:"foreignKey:ColorId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	ColorId    int
+	
 }
 
 type CarModelYear struct {
@@ -44,6 +53,7 @@ type CarModelYear struct {
 	CarModelId    int
 	PersianYear   PersianYear `gorm:"foreignKey:PersianYearId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	PersianYearId int
+	CarModelPriceHistories []CarModelPriceHistory
 }
 
 type CarModelImage struct {
@@ -69,7 +79,7 @@ type CarModelProperty struct {
 	CarModelId int
 	Property   Property `gorm:"foreignKey:PropertyId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	PropertyId int
-	Value      string `gorm:"size=40;type:string;not null;"`
+	Value      string `gorm:"size=100;type:string;not null;"`
 }
 
 type CarModelComment struct {

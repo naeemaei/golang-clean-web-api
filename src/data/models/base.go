@@ -22,12 +22,14 @@ type PersianYear struct {
 	Year         int       `gorm:"type:int;uniqueIndex;not null;unique"`
 	StartAt      time.Time `gorm:"type:TIMESTAMP with time zone;not null;unique"`
 	EndAt        time.Time `gorm:"type:TIMESTAMP with time zone;not null"`
+	CarModelYears []CarModelYear 
 }
 
 type Color struct {
 	BaseModel
 	Name    string `gorm:"size=15;type:string;not null;unique" json:"name"`
 	HexCode string `gorm:"size=6;type:string;not null;unique" json:"hexCode"`
+	CarModelColors []CarModelColor
 }
 
 type File struct {
