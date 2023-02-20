@@ -26,6 +26,7 @@ func NewCountryService(cfg *config.Config) *CountryService {
 				// 	},
 				// },
 
+				{Base: "Companies"},
 			},
 		},
 	}
