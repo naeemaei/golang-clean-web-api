@@ -262,6 +262,17 @@ definitions:
     required:
     - name
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest:
+    properties:
+      description:
+        type: string
+      directory:
+        type: string
+      mimeType:
+        type: string
+      name:
+        type: string
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdatePropertyCategoryRequest:
     properties:
       icon:
@@ -302,12 +313,16 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse:
     properties:
-      address:
-        type: string
       description:
+        type: string
+      directory:
         type: string
       id:
         type: integer
+      mimeType:
+        type: string
+      name:
+        type: string
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.Filter:
     properties:
@@ -466,6 +481,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      total:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
         type: array
       pageNumber:
         type: integer
@@ -1845,6 +1877,213 @@ paths:
       summary: get a country
       tags:
       - Countries
+  /v1/files/:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Create a file
+      parameters:
+      - in: formData
+        name: description
+        type: string
+      - description: Update a file
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a file
+      tags:
+      - Files
+  /v1/files/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a file
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "201":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a file
+      tags:
+      - Files
+    get:
+      consumes:
+      - application/json
+      description: Get a file
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a file
+      tags:
+      - Files
+    put:
+      consumes:
+      - application/json
+      description: Update a file
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a file
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a file
+      tags:
+      - Files
+  /v1/files/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: get a file
+      parameters:
+      - description: request body
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse'
+                validationErrors:
+                  type: object
+              type: object
+        "400":
+          description: Description
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "401":
+          description: Description
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  type: object
+                validationErrors:
+                  type: object
+              type: object
+      security:
+      - AuthBearer: []
+      summary: get a file
+      tags:
+      - Files
+  /v1/files/multiple:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a file
+      parameters:
+      - description: description
+        in: formData
+        items:
+          type: string
+        name: description
+        required: true
+        type: array
+      - description: file
+        in: formData
+        items:
+          type: file
+        name: file
+        required: true
+        type: array
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a file
+      tags:
+      - Files
   /v1/health/:
     get:
       consumes:

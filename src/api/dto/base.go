@@ -27,15 +27,28 @@ type CityResponse struct {
 	Country CountryResponse `json:"country,omitempty"`
 }
 
-type CreateFileRequest struct {
-	File        *multipart.FileHeader `json:"file"`
-	Description string                `json:"description"`
+type CreateUpdateFileRequest struct {
+	Name        string `json:"name"`
+	Directory   string `json:"directory"`
+	MimeType    string `json:"mimeType"`
+	Description string `json:"description"`
+}
+
+type UploadFileRequest struct {
+	FileFormRequest
+	Description string `json:"description" form:"description"`
+}
+
+type FileFormRequest struct {
+	File *multipart.FileHeader `json:"file" form:"file" binding:"required" swaggerignore:"true"`
 }
 
 type FileResponse struct {
 	Id          int    `json:"id"`
-	Address     string `json:"address"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
+	Directory   string `json:"directory"`
+	MimeType    string `json:"mimeType"`
 }
 
 type CreateUpdatePersianYearRequest struct {
