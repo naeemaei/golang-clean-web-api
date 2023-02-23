@@ -19,24 +19,15 @@ func NewCarModelPriceHistoryService(cfg *config.Config) *CarModelPriceHistorySer
 		base: &BaseService[models.CarModelPriceHistory, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CarModelPriceHistoryResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []preload{{Base: "CarModelYear",
-				Inner: []preload{{Base: "CarModel", Inner: []preload{
-					{Base: "Company"},
-					{Base: "CarType"},
-					{Base: "Gearbox"},
-					{Base: "CarModelProperties",
-						Inner: []preload{{Base: "Property",
-							Inner: []preload{{Base: "Category"}},
-						}},
-					}, {Base: "CarModelYears",
-						Inner: []preload{{Base: "PersianYear"} /*{Base: "CarModelPriceHistories"}*/},
-					}, {Base: "CarModelColors",
-						Inner: []preload{{Base: "Color"}},
-					},
-				},
-				},
-				}},
-			},
+			Preloads : []string{
+				"CarModelYear.CarModel.Company",
+				"CarModelYear.CarModel.CarType",
+				"CarModelYear.CarModel.Gearbox",
+				"CarModelYear.CarModel.CarModelProperties.Property.Category",
+				"CarModelYear.CarModel.CarModelYears.PersianYear",
+				"CarModelYear.CarModel.CarModelImages.Image",
+				"CarModelYear.CarModel.CarModelColors.Color",
+			}, 
 		},
 	}
 }

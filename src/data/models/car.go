@@ -31,7 +31,7 @@ type CarModel struct {
 	CarTypeId int
 	Gearbox   Gearbox `gorm:"foreignKey:GearboxId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION;"`
 	GearboxId int
-	CarModelProperties []CarModelProperty
+	CarModelProperties []CarModelProperty `gorm:"foreignKey:CarModelId"`
 	CarModelColors []CarModelColor 
 	CarModelYears []CarModelYear 
 	CarModelImages []CarModelImage 

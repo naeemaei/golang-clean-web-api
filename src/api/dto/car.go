@@ -9,7 +9,7 @@ type CreateUpdateCarTypeRequest struct {
 type CarTypeResponse struct {
 	Id        int                `json:"id"`
 	Name      string             `json:"name"`
-	CarModels []CarModelResponse `json:"carModels"`
+	//CarModels []CarModelResponse `json:"carModels,omitempty"`
 }
 
 type CreateUpdateGearboxRequest struct {
@@ -19,7 +19,7 @@ type CreateUpdateGearboxRequest struct {
 type GearboxResponse struct {
 	Id        int                `json:"id"`
 	Name      string             `json:"name"`
-	CarModels []CarModelResponse `json:"carModels,omitempty"`
+	//CarModels []CarModelResponse `json:"carModels,omitempty"`
 }
 
 type CreateUpdateCarModelRequest struct {
@@ -32,14 +32,14 @@ type CreateUpdateCarModelRequest struct {
 type CarModelResponse struct {
 	Id                 int                        `json:"id"`
 	Name               string                     `json:"name"`
-	Company            CompanyResponse            `json:"company"`
-	CarType            CarTypeResponse            `json:"carType"`
-	Gearbox            GearboxResponse            `json:"gearbox"`
-	CarModelProperties []CarModelPropertyResponse `json:"carModelProperties"`
-	CarModelColors     []CarModelColorResponse    `json:"carModelColors"`
-	CarModelYears      []CarModelYearResponse     `json:"carModelYears"`
-	CarModelImages     []CarModelImageResponse    `json:"carModelImages"`
-	CarModelComments   []CarModelCommentResponse  `json:"carModelComments"`
+	Company            CompanyResponse            `json:"company,omitempty"`
+	CarType            CarTypeResponse            `json:"carType,omitempty"`
+	Gearbox            GearboxResponse            `json:"gearbox,omitempty"`
+	CarModelProperties []CarModelPropertyResponse `json:"carModelProperties,omitempty"`
+	CarModelColors     []CarModelColorResponse    `json:"carModelColors,omitempty"`
+	CarModelYears      []CarModelYearResponse     `json:"carModelYears,omitempty"`
+	CarModelImages     []CarModelImageResponse    `json:"carModelImages,omitempty"`
+	CarModelComments   []CarModelCommentResponse  `json:"carModelComments,omitempty"`
 }
 
 type CreateUpdateCarModelYearRequest struct {
@@ -49,9 +49,9 @@ type CreateUpdateCarModelYearRequest struct {
 
 type CarModelYearResponse struct {
 	Id                     int                            `json:"id"`
-	CarModel               CarModelResponse               `json:"carModel"`
-	PersianYear            PersianYearResponse            `json:"persianYear"`
-	CarModelPriceHistories []CarModelPriceHistoryResponse `json:"carModelPriceHistories"`
+	CarModel               CarModelResponse               `json:"carModel,omitempty"`
+	PersianYear            PersianYearResponse            `json:"persianYear,omitempty"`
+	CarModelPriceHistories []CarModelPriceHistoryResponse `json:"carModelPriceHistories,omitempty"`
 }
 
 type CreateUpdateCarModelPropertyRequest struct {
@@ -62,8 +62,8 @@ type CreateUpdateCarModelPropertyRequest struct {
 
 type CarModelPropertyResponse struct {
 	Id       int              `json:"id"`
-	CarModel CarModelResponse `json:"carModel"`
-	Property PropertyResponse `json:"property"`
+	//CarModel CarModelResponse `json:"carModel,omitempty"`
+	Property PropertyResponse `json:"property,omitempty"`
 	Value    string           `json:"value"`
 }
 
@@ -75,7 +75,7 @@ type CreateUpdateCarModelPriceHistoryRequest struct {
 
 type CarModelPriceHistoryResponse struct {
 	Id           int                  `json:"id"`
-	CarModelYear CarModelYearResponse `json:"carModelYear"`
+	//CarModelYear CarModelYearResponse `json:"carModelYear,omitempty"`
 	Price        float32              `json:"price" binding:"required"`
 	PriceAt      time.Time            `json:"priceAt" binding:"required"`
 }
@@ -88,8 +88,8 @@ type CreateUpdateCarModelImageRequest struct {
 
 type CarModelImageResponse struct {
 	Id          int              `json:"id"`
-	CarModel    CarModelResponse `json:"carModel"`
-	Image       FileResponse     `json:"image"`
+	//CarModel    CarModelResponse `json:"carModel,omitempty"`
+	Image       FileResponse     `json:"image,omitempty"`
 	Description string           `json:"description"`
 	IsMainImage bool             `json:"isMainImage"`
 }
@@ -102,7 +102,7 @@ type CreateUpdateCarModelCommentRequest struct {
 
 type CarModelCommentResponse struct {
 	Id       int              `json:"id"`
-	CarModel CarModelResponse `json:"carModel"`
+	//CarModel CarModelResponse `json:"carModel,omitempty"`
 	User     UserResponse     `json:"user"`
 	Message  string           `json:"message" binding:"required"`
 }
@@ -123,6 +123,6 @@ type CreateUpdateCarModelColorRequest struct {
 type CarModelColorResponse struct {
 	Id       int              `json:"id"`
 	Name     string           `json:"name"`
-	CarModel CarModelResponse `json:"carModel"`
-	Color    ColorResponse    `json:"color"`
+	//CarModel CarModelResponse `json:"carModel,omitempty"`
+	Color    ColorResponse    `json:"color,omitempty"`
 }

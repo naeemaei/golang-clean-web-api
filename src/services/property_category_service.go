@@ -19,7 +19,7 @@ func NewPropertyCategoryService(cfg *config.Config) *PropertyCategoryService {
 		base: &BaseService[models.PropertyCategory, dto.CreateUpdatePropertyCategoryRequest, dto.CreateUpdatePropertyCategoryRequest, dto.PropertyCategoryResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []preload{{Base: "Properties"}},
+			Preloads: []string{"Properties"},
 		},
 	}
 }

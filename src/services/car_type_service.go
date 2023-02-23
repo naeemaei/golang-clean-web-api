@@ -19,7 +19,9 @@ func NewCarTypeService(cfg *config.Config) *CarTypeService {
 		base: &BaseService[models.CarType, dto.CreateUpdateCarTypeRequest, dto.CreateUpdateCarTypeRequest, dto.CarTypeResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []preload{{Base: "CarModels"}},
+			Preloads : []string{
+				"CarModels",
+			},    
 		},
 	}
 }

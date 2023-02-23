@@ -20,10 +20,10 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse:
     properties:
-      carModel:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
       color:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse'
+        allOf:
+        - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse'
+        description: CarModel CarModelResponse `json:"carModel,omitempty"`
       id:
         type: integer
       name:
@@ -31,37 +31,36 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse:
     properties:
-      carModel:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
       id:
         type: integer
       message:
         type: string
       user:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UserResponse'
+        allOf:
+        - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UserResponse'
+        description: CarModel CarModelResponse `json:"carModel,omitempty"`
     required:
     - message
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse:
     properties:
-      carModel:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
       description:
         type: string
       id:
         type: integer
       image:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+        allOf:
+        - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+        description: CarModel    CarModelResponse `json:"carModel,omitempty"`
       isMainImage:
         type: boolean
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse:
     properties:
-      carModelYear:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
       id:
         type: integer
       price:
+        description: CarModelYear CarModelYearResponse `json:"carModelYear,omitempty"`
         type: number
       priceAt:
         type: string
@@ -71,12 +70,12 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse:
     properties:
-      carModel:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
       id:
         type: integer
       property:
-        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+        allOf:
+        - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+        description: CarModel CarModelResponse `json:"carModel,omitempty"`
       value:
         type: string
     type: object
@@ -128,10 +127,6 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse:
     properties:
-      carModels:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
-        type: array
       id:
         type: integer
       name:
@@ -340,10 +335,6 @@ definitions:
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse:
     properties:
-      carModels:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
-        type: array
       id:
         type: integer
       name:
@@ -2043,45 +2034,6 @@ paths:
       security:
       - AuthBearer: []
       summary: get a file
-      tags:
-      - Files
-  /v1/files/multiple:
-    post:
-      consumes:
-      - multipart/form-data
-      description: Create a file
-      parameters:
-      - description: description
-        in: formData
-        items:
-          type: string
-        name: description
-        required: true
-        type: array
-      - description: file
-        in: formData
-        items:
-          type: file
-        name: file
-        required: true
-        type: array
-      responses:
-        "201":
-          description: Created
-          schema:
-            allOf:
-            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
-            - properties:
-                result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
-              type: object
-        "400":
-          description: Bad request
-          schema:
-            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
-      security:
-      - AuthBearer: []
-      summary: Create a file
       tags:
       - Files
   /v1/health/:

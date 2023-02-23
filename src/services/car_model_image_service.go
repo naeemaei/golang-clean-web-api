@@ -19,27 +19,14 @@ func NewCarModelImageService(cfg *config.Config) *CarModelImageService {
 		base: &BaseService[models.CarModelImage, dto.CreateUpdateCarModelImageRequest, dto.CreateUpdateCarModelImageRequest, dto.CarModelImageResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []preload{
-				{Base: "CarModel", Inner: []preload{
-					{Base: "Company"},
-					{Base: "CarType"},
-					{Base: "Gearbox"},
-					{Base: "CarModelProperties",
-						Inner: []preload{{Base: "Property",
-							Inner: []preload{{Base: "Category"}},
-						}},
-					}, {Base: "CarModelYears",
-						Inner: []preload{{Base: "PersianYear"} /*{Base: "CarModelPriceHistories"}*/},
-					}, {Base: "CarModelColors",
-						Inner: []preload{{Base: "Color"}},
-					},
-					// {Base: "CarModelComments",
-					// 	Inner: []preload{{Base: "User"}},
-					// },
-				},
-				},
-				{Base: "Image"},
-			},
+			Preloads : []string{
+				"CarModel.Company",
+				"CarModel.CarType",
+				"CarModel.Gearbox",
+				"CarModel.CarModelProperties.Property.Category",
+				"CarModel.CarModelYears.PersianYear",
+				"CarModel.CarModelColors.Color",
+			}, 
 		},
 	}
 }

@@ -19,25 +19,13 @@ func NewCarModelColorService(cfg *config.Config) *CarModelColorService {
 		base: &BaseService[models.CarModelColor, dto.CreateUpdateCarModelColorRequest, dto.CreateUpdateCarModelColorRequest, dto.CarModelColorResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []preload{
-				{Base: "CarModel", Inner: []preload{
-					{Base: "Company"},
-					{Base: "CarType"},
-					{Base: "Gearbox"},
-					{Base: "CarModelProperties",
-						Inner: []preload{{Base: "Property",
-							Inner: []preload{{Base: "Category"}},
-						}},
-					}, {Base: "CarModelYears",
-						Inner: []preload{{Base: "PersianYear"}, /*{Base: "CarModelPriceHistories"}*/},
-					}, {Base: "CarModelImages",
-						Inner: []preload{{Base: "Image"}},
-					},
-					// {Base: "CarModelComments",
-					// 	Inner: []preload{{Base: "User"}},
-					// },
-				},
-				}, 
+			Preloads : []string{
+				"CarModel.Company",
+				"CarModel.CarType",
+				"CarModel.Gearbox",
+				"CarModel.CarModelProperties.Property.Category",
+				"CarModel.CarModelYears.PersianYear",
+				"CarModel.CarModelImages.Image",
 			},
 		},
 	}
