@@ -21,8 +21,7 @@ import (
 )
 
 type preload struct {
-	Base  string
-	Inner []preload
+	string
 }
 type BaseService[T any, Tc any, Tu any, Tr any] struct {
 	Database *gorm.DB
@@ -235,16 +234,7 @@ func getSort[T any](filter *dto.DynamicFilter) string {
 // Preload
 func Preload(db *gorm.DB, preloads []preload) *gorm.DB {
 	for _, item := range preloads {
-		if item.Base != "" {
-			if item.Inner != nil {
-				inner := func(db *gorm.DB) *gorm.DB {
-					return Preload(db, item.Inner)
-				}
-				db = db.Preload(item.Base, inner)
-			} else {
-				db = db.Preload(item.Base)
-			}
-		}
+		db = db.Preload(item.string)
 	}
 	return db
 }
