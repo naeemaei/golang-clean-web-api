@@ -19,7 +19,10 @@ func NewCompanyService(cfg *config.Config) *CompanyService {
 		base: &BaseService[models.Company, dto.CreateUpdateCompanyRequest, dto.CreateUpdateCompanyRequest, dto.CompanyResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []string{ "Country","CarModels"},
+			Preloads: []preload{
+				{string: "Country"},
+				{string: "CarModels"},
+			},
 		},
 	}
 }

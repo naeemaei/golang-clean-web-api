@@ -19,14 +19,14 @@ func NewCarModelPropertyService(cfg *config.Config) *CarModelPropertyService {
 		base: &BaseService[models.CarModelProperty, dto.CreateUpdateCarModelPropertyRequest, dto.CreateUpdateCarModelPropertyRequest, dto.CarModelPropertyResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads : []string{
-				"CarModel.Company",
-				"CarModel.CarType",
-				"CarModel.Gearbox",
-				"CarModel.CarModelColors.Color",
-				"CarModel.CarModelYears.PersianYear",
-				"CarModel.CarModelImages.Image",
-			},  
+			Preloads: []preload{
+				{string: "CarModel.Company"},
+				{string: "CarModel.CarType"},
+				{string: "CarModel.Gearbox"},
+				{string: "CarModel.CarModelColors.Color"},
+				{string: "CarModel.CarModelYears.PersianYear"},
+				{string: "CarModel.CarModelImages.Image"},
+			},
 		},
 	}
 }
