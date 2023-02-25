@@ -91,7 +91,6 @@ func createAdminUserIfNotExists(database *gorm.DB, u *models.User, roleId int) {
 	}
 }
 
-
 func createCountry(database *gorm.DB) {
 	count := 0
 	database.
