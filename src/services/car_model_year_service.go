@@ -19,14 +19,14 @@ func NewCarModelYearService(cfg *config.Config) *CarModelYearService {
 		base: &BaseService[models.CarModelYear, dto.CreateUpdateCarModelYearRequest, dto.CreateUpdateCarModelYearRequest, dto.CarModelYearResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads : []string{
-				"CarModel.Company",
-				"CarModel.CarType",
-				"CarModel.Gearbox",
-				"CarModel.CarModelProperties.Property.Category",
-				"CarModel.CarModelColors.Color",
-				"CarModel.CarModelImages.Image",
-			},   
+			Preloads: []preload{
+				{string: "CarModel.Company"},
+				{string: "CarModel.CarType"},
+				{string: "CarModel.Gearbox"},
+				{string: "CarModel.CarModelProperties.Property.Category"},
+				{string: "CarModel.CarModelColors.Color"},
+				{string: "CarModel.CarModelImages.Image"},
+			},
 		},
 	}
 }

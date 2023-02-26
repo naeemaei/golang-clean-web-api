@@ -19,7 +19,7 @@ func NewCarModelCommentService(cfg *config.Config) *CarModelCommentService {
 		base: &BaseService[models.CarModelComment, dto.CreateUpdateCarModelCommentRequest, dto.CreateUpdateCarModelCommentRequest, dto.CarModelCommentResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads: []string{"User"},
+			Preloads: []preload{{string: "User"}},
 			
 		}}
 }

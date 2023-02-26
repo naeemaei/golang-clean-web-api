@@ -19,7 +19,7 @@ func NewPersianYearService(cfg *config.Config) *PersianYearService {
 		base: &BaseService[models.PersianYear, dto.CreateUpdatePersianYearRequest, dto.CreateUpdatePersianYearRequest, dto.PersianYearResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			//Preloads: []preload{{Base: "CarModelPersianYears"}},
+			Preloads: []preload{{string: "CarModelYears"}},
 		},
 	}
 }

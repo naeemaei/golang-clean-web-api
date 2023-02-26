@@ -19,7 +19,7 @@ func NewGearboxService(cfg *config.Config) *GearboxService {
 		base: &BaseService[models.Gearbox, dto.CreateUpdateGearboxRequest, dto.CreateUpdateGearboxRequest, dto.GearboxResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			//Preloads: []preload{{Base: ""}},
+			Preloads: []preload{{string: "CarModels"}},
 		},
 	}
 }

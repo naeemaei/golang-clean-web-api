@@ -19,7 +19,7 @@ func NewColorService(cfg *config.Config) *ColorService {
 		base: &BaseService[models.Color, dto.CreateUpdateColorRequest, dto.CreateUpdateColorRequest, dto.ColorResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			//Preloads: []preload{{Base: "CarModelColors"}},
+			Preloads: []preload{{string: "CarModelColors"}},
 		},
 	}
 }
