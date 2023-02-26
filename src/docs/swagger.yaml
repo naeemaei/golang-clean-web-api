@@ -38,7 +38,7 @@ definitions:
       name:
         type: string
     type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCityRequest:
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreateCityRequest:
     properties:
       countryId:
         type: integer
@@ -47,6 +47,7 @@ definitions:
         minLength: 3
         type: string
     required:
+    - countryId
     - name
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCountryRequest:
@@ -186,6 +187,15 @@ definitions:
       sort:
         type: string
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCityRequest:
+    properties:
+      countryId:
+        type: integer
+      name:
+        maxLength: 20
+        minLength: 3
+        type: string
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse:
     properties:
       error: {}
@@ -224,7 +234,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCityRequest'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateCityRequest'
       responses:
         "201":
           description: City response
@@ -264,6 +274,10 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
       security:
       - AuthBearer: []
       summary: Delete a City
@@ -293,6 +307,10 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
       security:
       - AuthBearer: []
       summary: Get a City
@@ -313,7 +331,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCityRequest'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCityRequest'
       responses:
         "200":
           description: City response
@@ -326,6 +344,10 @@ paths:
               type: object
         "400":
           description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
           schema:
             $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
       security:
