@@ -15,6 +15,5 @@ func TestMiddleware() gin.HandlerFunc {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"result": "Api key is required",
 		})
-		return
 	}
 }

@@ -32,7 +32,6 @@ type PaginationInput struct {
 	PageSize   int `json:"pageSize"`
 	PageNumber int `json:"pageNumber"`
 }
-
 type PaginationInputWithFilter struct {
 	PaginationInput
 	DynamicFilter

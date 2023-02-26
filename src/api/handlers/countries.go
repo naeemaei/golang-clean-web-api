@@ -23,7 +23,7 @@ func NewCountryHandler(cfg *config.Config) *CountryHandler {
 // @Accept json
 // @produces json
 // @Param Request body dto.CreateUpdateCountryRequest true "Create a country"
-// @Success 201 {object} helper.BaseHttpResponse{result=dto.CountryResponse} "Country response"
+// @Success 201 {object} helper.BaseHttpResponse{result=dto.CountryResponse}
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/countries/ [post]
 // @Security AuthBearer
@@ -69,7 +69,7 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Accept json
 // @produces json
 // @Param id path int true "Id"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.CountryResponse} "Country response"
+// @Success 200 {object} helper.BaseHttpResponse{result=dto.CountryResponse}
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/countries/{id} [get]
 // @Security AuthBearer

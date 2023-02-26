@@ -4,14 +4,14 @@ import "time"
 
 type Country struct {
 	BaseModel
-	Name      string `gorm:"size:15;type:string;not null;"`
+	Name      string `gorm:"size:15;type:string;not null;unique"`
 	Cities    []City
 	Companies []Company
 }
 
 type City struct {
 	BaseModel
-	Name      string `gorm:"size:10;type:string;not null;"`
+	Name      string `gorm:"size:10;type:string;not null;unique"`
 	CountryId int
 	Country   Country `gorm:"foreignKey:CountryId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
 }
@@ -39,3 +39,4 @@ type File struct {
 	Description string `gorm:"size:500;type:string;not null"`
 	MimeType    string `gorm:"size:20;type:string;not null"`
 }
+ 

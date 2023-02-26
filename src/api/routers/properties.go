@@ -6,8 +6,8 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 )
 
-func Country(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCountryHandler(cfg)
+func PropertyCategory(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewPropertyCategoryHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -16,8 +16,8 @@ func Country(r *gin.RouterGroup, cfg *config.Config) {
 	r.POST("/get-by-filter", h.GetByFilter)
 }
 
-func City(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCityHandler(cfg)
+func Property(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewPropertyHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)

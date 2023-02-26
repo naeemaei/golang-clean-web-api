@@ -23,7 +23,6 @@ import (
 type preload struct {
 	string
 }
-
 type BaseService[T any, Tc any, Tu any, Tr any] struct {
 	Database *gorm.DB
 	Logger   logging.Logger

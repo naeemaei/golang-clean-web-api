@@ -318,7 +318,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "201": {
-                        "description": "Country response",
+                        "description": "Created",
                         "schema": {
                             "allOf": [
                                 {
@@ -424,7 +424,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Country response",
+                        "description": "OK",
                         "schema": {
                             "allOf": [
                                 {
@@ -1209,7 +1209,7 @@ const docTemplate = `{
                 "error": {},
                 "result": {},
                 "resultCode": {
-                    "type": "integer"
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.ResultCode"
                 },
                 "success": {
                     "type": "boolean"

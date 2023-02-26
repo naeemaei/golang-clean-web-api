@@ -29,13 +29,13 @@ func (h *TestHandler) Test(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"result": "Test",
 	})
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse("Test", true, 0))
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse("Test", true, helper.Success))
 
 }
 
 func (h *TestHandler) Users(c *gin.Context) {
 
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse("Users", true, 0))
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse("Users", true, helper.Success))
 
 }
 
@@ -55,7 +55,7 @@ func (h *TestHandler) UserById(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "UserById",
 		"id":     id,
-	}, true, 0))
+	}, true, helper.Success))
 
 }
 
@@ -65,14 +65,14 @@ func (h *TestHandler) UserByUsername(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result":   "UserByUsername",
 		"username": username,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) Accounts(c *gin.Context) {
 
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "Accounts",
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) AddUser(c *gin.Context) {
@@ -81,7 +81,7 @@ func (h *TestHandler) AddUser(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "AddUser",
 		"id":     id,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) HeaderBinder1(c *gin.Context) {
@@ -90,7 +90,7 @@ func (h *TestHandler) HeaderBinder1(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "HeaderBinder1",
 		"userId": userId,
-	}, true, 0))
+	}, true, helper.Success))
 
 }
 
@@ -100,7 +100,7 @@ func (h *TestHandler) HeaderBinder2(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "HeaderBinder1",
 		"header": header,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) QueryBinder1(c *gin.Context) {
@@ -111,7 +111,7 @@ func (h *TestHandler) QueryBinder1(c *gin.Context) {
 		"result": "QueryBinder1",
 		"id":     id,
 		"name":   name,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) QueryBinder2(c *gin.Context) {
@@ -122,7 +122,7 @@ func (h *TestHandler) QueryBinder2(c *gin.Context) {
 		"result": "QueryBinder2",
 		"ids":    ids,
 		"name":   name,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 // BodyBinder godoc
@@ -144,7 +144,7 @@ func (h *TestHandler) UriBinder(c *gin.Context) {
 		"result": "UriBinder",
 		"id":     id,
 		"name":   name,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 // BodyBinder godoc
@@ -164,13 +164,13 @@ func (h *TestHandler) BodyBinder(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,
 			helper.GenerateBaseResponseWithValidationError(nil,
-				false, -1, err))
+				false, helper.ValidationError, err))
 		return
 	}
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "BodyBinder",
 		"person": p,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) FormBinder(c *gin.Context) {
@@ -179,7 +179,7 @@ func (h *TestHandler) FormBinder(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "FormBinder",
 		"person": p,
-	}, true, 0))
+	}, true, helper.Success))
 }
 
 func (h *TestHandler) FileBinder(c *gin.Context) {
@@ -187,11 +187,11 @@ func (h *TestHandler) FileBinder(c *gin.Context) {
 	err := c.SaveUploadedFile(file, "file")
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError,
-			helper.GenerateBaseResponseWithError(nil, false, -1, err))
+			helper.GenerateBaseResponseWithError(nil, false, helper.ValidationError, err))
 		return
 	}
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "FileBinder",
 		"file":   file.Filename,
-	}, true, 0))
+	}, true, helper.Success))
 }
