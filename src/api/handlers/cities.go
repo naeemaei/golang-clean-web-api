@@ -65,7 +65,6 @@ func (h *CityHandler) Update(c *gin.Context) {
 // @Security AuthBearer
 func (h *CityHandler) Delete(c *gin.Context) {
 	Delete(c, h.service.Delete)
-
 }
 
 // GetCity godoc

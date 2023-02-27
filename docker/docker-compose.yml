@@ -111,10 +111,12 @@ services:
       PGADMIN_DEFAULT_PASSWORD: 123456
     volumes:
       - pgadmin:/var/lib/pgadmin
+      - ./pg-servers.json:/pgadmin4/servers.json 
     ports:
       - "8090:80"
     networks:
       - webapi_network
+    
     restart: unless-stopped
     depends_on:
       - postgres

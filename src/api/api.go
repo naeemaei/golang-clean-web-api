@@ -16,6 +16,8 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+var logger logging.Logger = logging.NewLogger(config.GetConfig())
+
 func InitServer(cfg *config.Config) {
 	r := gin.New()
 
@@ -29,7 +31,8 @@ func InitServer(cfg *config.Config) {
 	RegisterSwagger(r, cfg)
 	logger := logging.NewLogger(cfg)
 	logger.Info(logging.General, logging.Startup, "Started", nil)
-	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+	logger.Fatal(logging.General, logging.Startup, err.Error(), nil)
 }
 
 func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
@@ -44,6 +47,9 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		countries := v1.Group("/countries", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		companies := v1.Group("/companies", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		cities := v1.Group("/cities", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		colors := v1.Group("/colors", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		files := v1.Group("/files", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		years := v1.Group("/years", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 
 		propertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		properties := v1.Group("/properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
@@ -52,15 +58,21 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		carModelColors := v1.Group("/car-model-colors", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		carModelComments := v1.Group("/car-model-comments", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		carTypes := v1.Group("/car-types", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		files := v1.Group("/files", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModelHistories := v1.Group("/car-model-price-histories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModelImages := v1.Group("/car-model-images", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModelProperties := v1.Group("/car-model-properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModelYears := v1.Group("/car-model-years", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		gearboxes := v1.Group("/gearboxes", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 
 		routers.Health(health)
 		routers.TestRouter(test_router)
 		routers.User(users, cfg)
 
 		routers.Country(countries, cfg)
-		routers.City(cities, cfg)
 		routers.Company(companies, cfg)
+		routers.City(cities, cfg)
+		routers.Color(colors, cfg)
+		routers.Year(years, cfg)
 		routers.File(files, cfg)
 
 		routers.PropertyCategory(propertyCategories, cfg)
@@ -68,8 +80,13 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 
 		routers.CarModel(carModels, cfg)
 		routers.CarType(carTypes, cfg)
+		routers.Gearbox(gearboxes, cfg)
 		routers.CarModelColor(carModelColors, cfg)
 		routers.CarModelComment(carModelComments, cfg)
+		routers.CarModelHistory(carModelHistories, cfg)
+		routers.CarModelImage(carModelImages, cfg)
+		routers.CarModelProperty(carModelProperties, cfg)
+		routers.CarModelYear(carModelYears, cfg)
 	}
 
 	v2 := api.Group("/v2")
@@ -82,8 +99,14 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
-		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
-		val.RegisterValidation("password", validation.PasswordValidator, true)
+		err := val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
+		if err != nil {
+			logger.Error(logging.Validation, logging.Startup, err.Error(), nil)
+		}
+		err = val.RegisterValidation("password", validation.PasswordValidator, true)
+		if err != nil {
+			logger.Error(logging.Validation, logging.Startup, err.Error(), nil)
+		}
 	}
 }
 

@@ -36,8 +36,58 @@ func CarModelComment(r *gin.RouterGroup, cfg *config.Config) {
 	r.POST("/get-by-filter", h.GetByFilter)
 }
 
+func CarModelHistory(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelPriceHistoryHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
+func CarModelImage(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelImageHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
+func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelPropertyHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
+func CarModelYear(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelYearHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
 func CarType(r *gin.RouterGroup, cfg *config.Config) {
 	h := handlers.NewCarTypeHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
+func Gearbox(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewGearboxHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)

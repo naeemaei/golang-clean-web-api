@@ -21,10 +21,7 @@ type UpdateCityRequest struct {
 }
 
 type CreateCityRequest struct {
-	Id        int               `json:"id"`
-	Name      string            `json:"name"`
-	Cities    []CityResponse    `json:"cities,omitempty"`
-	Companies []CompanyResponse `json:"companies,omitempty"`
+	Name string `json:"name"`
 }
 
 type CityResponse struct {
@@ -57,11 +54,18 @@ type FileResponse struct {
 	MimeType    string `json:"mimeType"`
 }
 
-type CreateUpdatePersianYearRequest struct {
+type CreatePersianYearRequest struct {
 	PersianTitle string    `json:"persianTitle" binding:"required,min=4,max=4"`
 	Year         int       `json:"year"`
 	StartAt      time.Time `json:"startAt"`
 	EndAt        time.Time `json:"endAt"`
+}
+
+type UpdatePersianYearRequest struct {
+	PersianTitle string    `json:"persianTitle,omitempty" binding:"min=4,max=4"`
+	Year         int       `json:"year,omitempty"`
+	StartAt      time.Time `json:"startAt,omitempty"`
+	EndAt        time.Time `json:"endAt,omitempty"`
 }
 
 type PersianYearResponse struct {
@@ -72,9 +76,14 @@ type PersianYearResponse struct {
 	EndAt        time.Time `json:"endAt"`
 }
 
-type CreateUpdateColorRequest struct {
+type CreateColorRequest struct {
 	Name    string `json:"name" binding:"required,min=0,max=15"`
 	HexCode string `json:"hexCode" binding:"required,min=0,max=6"`
+}
+
+type UpdateColorRequest struct {
+	Name    string `json:"name,omitempty" binding:"min=0,max=15"`
+	HexCode string `json:"hexCode,omitempty" binding:"min=0,max=6"`
 }
 
 type ColorResponse struct {
@@ -83,9 +92,14 @@ type ColorResponse struct {
 	HexCode string `json:"hexCode"`
 }
 
-type CreateUpdateCompanyRequest struct {
+type CreateCompanyRequest struct {
 	Name      string `json:"name" binding:"required,min=0,max=15"`
 	CountryId int    `json:"countryId" binding:"required"`
+}
+
+type UpdateCompanyRequest struct {
+	Name      string `json:"name,omitempty"`
+	CountryId int    `json:"countryId,omitempty"`
 }
 
 type CompanyResponse struct {

@@ -11,12 +11,12 @@ import (
 )
 
 type CompanyService struct {
-	base *BaseService[models.Company, dto.CreateUpdateCompanyRequest, dto.CreateUpdateCompanyRequest, dto.CompanyResponse]
+	base *BaseService[models.Company, dto.CreateCompanyRequest, dto.UpdateCompanyRequest, dto.CompanyResponse]
 }
 
 func NewCompanyService(cfg *config.Config) *CompanyService {
 	return &CompanyService{
-		base: &BaseService[models.Company, dto.CreateUpdateCompanyRequest, dto.CreateUpdateCompanyRequest, dto.CompanyResponse]{
+		base: &BaseService[models.Company, dto.CreateCompanyRequest, dto.UpdateCompanyRequest, dto.CompanyResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{
@@ -28,12 +28,12 @@ func NewCompanyService(cfg *config.Config) *CompanyService {
 }
 
 // Create
-func (s *CompanyService) Create(ctx context.Context, req *dto.CreateUpdateCompanyRequest) (*dto.CompanyResponse, error) {
+func (s *CompanyService) Create(ctx context.Context, req *dto.CreateCompanyRequest) (*dto.CompanyResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *CompanyService) Update(ctx context.Context, id int, req *dto.CreateUpdateCompanyRequest) (*dto.CompanyResponse, error) {
+func (s *CompanyService) Update(ctx context.Context, id int, req *dto.UpdateCompanyRequest) (*dto.CompanyResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

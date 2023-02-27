@@ -11,12 +11,14 @@ import (
 )
 
 type CarModelPriceHistoryService struct {
-	base *BaseService[models.CarModelPriceHistory, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CarModelPriceHistoryResponse]
+	base *BaseService[models.CarModelPriceHistory, dto.CreateCarModelPriceHistoryRequest,
+	 dto.UpdateCarModelPriceHistoryRequest, dto.CarModelPriceHistoryResponse]
 }
 
 func NewCarModelPriceHistoryService(cfg *config.Config) *CarModelPriceHistoryService {
 	return &CarModelPriceHistoryService{
-		base: &BaseService[models.CarModelPriceHistory, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CreateUpdateCarModelPriceHistoryRequest, dto.CarModelPriceHistoryResponse]{
+		base: &BaseService[models.CarModelPriceHistory, dto.CreateCarModelPriceHistoryRequest, 
+		dto.UpdateCarModelPriceHistoryRequest, dto.CarModelPriceHistoryResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{
@@ -33,12 +35,12 @@ func NewCarModelPriceHistoryService(cfg *config.Config) *CarModelPriceHistorySer
 }
 
 // Create
-func (s *CarModelPriceHistoryService) Create(ctx context.Context, req *dto.CreateUpdateCarModelPriceHistoryRequest) (*dto.CarModelPriceHistoryResponse, error) {
+func (s *CarModelPriceHistoryService) Create(ctx context.Context, req *dto.CreateCarModelPriceHistoryRequest) (*dto.CarModelPriceHistoryResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *CarModelPriceHistoryService) Update(ctx context.Context, id int, req *dto.CreateUpdateCarModelPriceHistoryRequest) (*dto.CarModelPriceHistoryResponse, error) {
+func (s *CarModelPriceHistoryService) Update(ctx context.Context, id int, req *dto.UpdateCarModelPriceHistoryRequest) (*dto.CarModelPriceHistoryResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

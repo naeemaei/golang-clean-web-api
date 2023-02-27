@@ -11,12 +11,12 @@ import (
 )
 
 type ColorService struct {
-	base *BaseService[models.Color, dto.CreateUpdateColorRequest, dto.CreateUpdateColorRequest, dto.ColorResponse]
+	base *BaseService[models.Color, dto.CreateColorRequest, dto.UpdateColorRequest, dto.ColorResponse]
 }
 
 func NewColorService(cfg *config.Config) *ColorService {
 	return &ColorService{
-		base: &BaseService[models.Color, dto.CreateUpdateColorRequest, dto.CreateUpdateColorRequest, dto.ColorResponse]{
+		base: &BaseService[models.Color, dto.CreateColorRequest, dto.UpdateColorRequest, dto.ColorResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{{string: "CarModelColors"}},
@@ -25,12 +25,12 @@ func NewColorService(cfg *config.Config) *ColorService {
 }
 
 // Create
-func (s *ColorService) Create(ctx context.Context, req *dto.CreateUpdateColorRequest) (*dto.ColorResponse, error) {
+func (s *ColorService) Create(ctx context.Context, req *dto.CreateColorRequest) (*dto.ColorResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *ColorService) Update(ctx context.Context, id int, req *dto.CreateUpdateColorRequest) (*dto.ColorResponse, error) {
+func (s *ColorService) Update(ctx context.Context, id int, req *dto.UpdateColorRequest) (*dto.ColorResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

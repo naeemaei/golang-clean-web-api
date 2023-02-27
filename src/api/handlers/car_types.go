@@ -1,12 +1,9 @@
 package handlers
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/gin-gonic/gin"
-	"github.com/naeemaei/golang-clean-web-api/api/dto"
-	"github.com/naeemaei/golang-clean-web-api/api/helper"
+	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/services"
 )
@@ -25,27 +22,13 @@ func NewCarTypeHandler(cfg *config.Config) *CarTypeHandler {
 // @Tags CarTypes
 // @Accept json
 // @produces json
-// @Param Request body dto.CreateUpdateCarTypeRequest true "Create a CarType"
+// @Param Request body dto.CreateCarTypeRequest true "Create a CarType"
 // @Success 201 {object} helper.BaseHttpResponse{result=dto.CarTypeResponse}
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-types/ [post]
 // @Security AuthBearer
 func (h *CarTypeHandler) Create(c *gin.Context) {
-	req := dto.CreateUpdateCarTypeRequest{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithValidationError(nil, false, 121, err))
-		return
-	}
-
-	res, err := h.service.Create(c, &req)
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(res, true, 0))
+	Create(c, h.service.Create)
 }
 
 // UpdateCarType godoc
@@ -55,28 +38,13 @@ func (h *CarTypeHandler) Create(c *gin.Context) {
 // @Accept json
 // @produces json
 // @Param id path int true "Id"
-// @Param Request body dto.CreateUpdateCarTypeRequest true "Update a CarType"
+// @Param Request body dto.UpdateCarTypeRequest true "Update a CarType"
 // @Success 201 {object} helper.BaseHttpResponse{result=dto.CarTypeResponse}
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-types/{id} [put]
 // @Security AuthBearer
 func (h *CarTypeHandler) Update(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	req := dto.CreateUpdateCarTypeRequest{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithValidationError(nil, false, 121, err))
-		return
-	}
-
-	res, err := h.service.Update(c, id, &req)
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, 0))
+	Update(c, h.service.Update)
 }
 
 // DeleteCarType godoc
@@ -91,20 +59,7 @@ func (h *CarTypeHandler) Update(c *gin.Context) {
 // @Router /v1/car-types/{id} [delete]
 // @Security AuthBearer
 func (h *CarTypeHandler) Delete(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	if id == 0 {
-		c.AbortWithStatusJSON(http.StatusNotFound,
-			helper.GenerateBaseResponse(nil, false, 121))
-		return
-	}
-
-	err := h.service.Delete(c, id)
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(nil, true, 0))
+	Delete(c, h.service.Delete)
 }
 
 // GetCarType godoc
@@ -119,20 +74,7 @@ func (h *CarTypeHandler) Delete(c *gin.Context) {
 // @Router /v1/car-types/{id} [get]
 // @Security AuthBearer
 func (h *CarTypeHandler) GetById(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	if id == 0 {
-		c.AbortWithStatusJSON(http.StatusNotFound,
-			helper.GenerateBaseResponse(nil, false, 121))
-		return
-	}
-
-	res, err := h.service.GetById(c, id)
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, 0))
+	GetById(c, h.service.GetById)
 }
 
 // GetCarType godoc
@@ -148,20 +90,5 @@ func (h *CarTypeHandler) GetById(c *gin.Context) {
 // @Router /v1/car-types/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarTypeHandler) GetByFilter(c *gin.Context) {
-
-	filter := new(dto.PaginationInputWithFilter)
-	err := c.ShouldBindJSON(&filter)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err))
-		return
-	}
-
-	response, err := h.service.GetByFilter(c, filter)
-	if err != nil {
-		c.JSON(helper.TranslateErrorToStatusCode(err), helper.GenerateBaseResponseWithError(nil, false, -1, err))
-		return
-	}
-
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(response, true, 0))
+	GetByFilter(c, h.service.GetByFilter)
 }

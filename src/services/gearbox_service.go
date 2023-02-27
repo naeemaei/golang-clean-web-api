@@ -11,12 +11,12 @@ import (
 )
 
 type GearboxService struct {
-	base *BaseService[models.Gearbox, dto.CreateUpdateGearboxRequest, dto.CreateUpdateGearboxRequest, dto.GearboxResponse]
+	base *BaseService[models.Gearbox, dto.CreateGearboxRequest, dto.UpdateGearboxRequest, dto.GearboxResponse]
 }
 
 func NewGearboxService(cfg *config.Config) *GearboxService {
 	return &GearboxService{
-		base: &BaseService[models.Gearbox, dto.CreateUpdateGearboxRequest, dto.CreateUpdateGearboxRequest, dto.GearboxResponse]{
+		base: &BaseService[models.Gearbox, dto.CreateGearboxRequest, dto.UpdateGearboxRequest, dto.GearboxResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{{string: "CarModels"}},
@@ -25,12 +25,12 @@ func NewGearboxService(cfg *config.Config) *GearboxService {
 }
 
 // Create
-func (s *GearboxService) Create(ctx context.Context, req *dto.CreateUpdateGearboxRequest) (*dto.GearboxResponse, error) {
+func (s *GearboxService) Create(ctx context.Context, req *dto.CreateGearboxRequest) (*dto.GearboxResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *GearboxService) Update(ctx context.Context, id int, req *dto.CreateUpdateGearboxRequest) (*dto.GearboxResponse, error) {
+func (s *GearboxService) Update(ctx context.Context, id int, req *dto.UpdateGearboxRequest) (*dto.GearboxResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

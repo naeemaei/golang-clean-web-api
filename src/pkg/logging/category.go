@@ -11,6 +11,7 @@ const (
 	Redis           Category = "Redis"
 	Validation      Category = "Validation"
 	RequestResponse Category = "RequestResponse"
+	IO              Category = "IO"
 )
 
 const (
@@ -34,6 +35,9 @@ const (
 	// Validation
 	MobileValidation   SubCategory = "MobileValidation"
 	PasswordValidation SubCategory = "PasswordValidation"
+
+	// IO
+	RemoveFile SubCategory = "RemoveFile"
 )
 
 const (

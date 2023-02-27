@@ -14,6 +14,7 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	"github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
+	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/services"
 )
 
@@ -115,8 +116,12 @@ func (h *FileHandler) Delete(c *gin.Context) {
 			helper.GenerateBaseResponse(nil, false, helper.ValidationError))
 		return
 	}
-
-	err := h.service.Delete(c, id)
+	file, _ := h.service.GetById(c, id)
+	err := os.Remove(fmt.Sprintf("%s/%s", file.Directory, file.Name))
+	if err != nil {
+		logger.Error(logging.General, logging.RemoveFile, err.Error(), nil)
+	}
+	err = h.service.Delete(c, id)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))

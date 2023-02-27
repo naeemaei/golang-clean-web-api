@@ -11,12 +11,12 @@ import (
 )
 
 type PropertyService struct {
-	base *BaseService[models.Property, dto.CreateUpdatePropertyRequest, dto.CreateUpdatePropertyRequest, dto.PropertyResponse]
+	base *BaseService[models.Property, dto.CreatePropertyRequest, dto.UpdatePropertyRequest, dto.PropertyResponse]
 }
 
 func NewPropertyService(cfg *config.Config) *PropertyService {
 	return &PropertyService{
-		base: &BaseService[models.Property, dto.CreateUpdatePropertyRequest, dto.CreateUpdatePropertyRequest, dto.PropertyResponse]{
+		base: &BaseService[models.Property, dto.CreatePropertyRequest, dto.UpdatePropertyRequest, dto.PropertyResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{{string: "Category"}},
@@ -25,12 +25,12 @@ func NewPropertyService(cfg *config.Config) *PropertyService {
 }
 
 // Create
-func (s *PropertyService) Create(ctx context.Context, req *dto.CreateUpdatePropertyRequest) (*dto.PropertyResponse, error) {
+func (s *PropertyService) Create(ctx context.Context, req *dto.CreatePropertyRequest) (*dto.PropertyResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *PropertyService) Update(ctx context.Context, id int, req *dto.CreateUpdatePropertyRequest) (*dto.PropertyResponse, error) {
+func (s *PropertyService) Update(ctx context.Context, id int, req *dto.UpdatePropertyRequest) (*dto.PropertyResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

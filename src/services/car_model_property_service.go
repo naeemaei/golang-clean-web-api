@@ -11,12 +11,14 @@ import (
 )
 
 type CarModelPropertyService struct {
-	base *BaseService[models.CarModelProperty, dto.CreateUpdateCarModelPropertyRequest, dto.CreateUpdateCarModelPropertyRequest, dto.CarModelPropertyResponse]
+	base *BaseService[models.CarModelProperty, dto.CreateCarModelPropertyRequest, 
+	dto.UpdateCarModelPropertyRequest, dto.CarModelPropertyResponse]
 }
 
 func NewCarModelPropertyService(cfg *config.Config) *CarModelPropertyService {
 	return &CarModelPropertyService{
-		base: &BaseService[models.CarModelProperty, dto.CreateUpdateCarModelPropertyRequest, dto.CreateUpdateCarModelPropertyRequest, dto.CarModelPropertyResponse]{
+		base: &BaseService[models.CarModelProperty, dto.CreateCarModelPropertyRequest,
+		 dto.UpdateCarModelPropertyRequest, dto.CarModelPropertyResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{
@@ -32,12 +34,12 @@ func NewCarModelPropertyService(cfg *config.Config) *CarModelPropertyService {
 }
 
 // Create
-func (s *CarModelPropertyService) Create(ctx context.Context, req *dto.CreateUpdateCarModelPropertyRequest) (*dto.CarModelPropertyResponse, error) {
+func (s *CarModelPropertyService) Create(ctx context.Context, req *dto.CreateCarModelPropertyRequest) (*dto.CarModelPropertyResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *CarModelPropertyService) Update(ctx context.Context, id int, req *dto.CreateUpdateCarModelPropertyRequest) (*dto.CarModelPropertyResponse, error) {
+func (s *CarModelPropertyService) Update(ctx context.Context, id int, req *dto.UpdateCarModelPropertyRequest) (*dto.CarModelPropertyResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

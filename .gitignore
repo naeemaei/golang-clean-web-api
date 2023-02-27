@@ -23,4 +23,4 @@ go.work
 *.log
 *.log.gz
 __debug_bin
-*/uploads/*
+*/cmd/uploads/*

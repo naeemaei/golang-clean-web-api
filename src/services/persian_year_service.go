@@ -11,12 +11,12 @@ import (
 )
 
 type PersianYearService struct {
-	base *BaseService[models.PersianYear, dto.CreateUpdatePersianYearRequest, dto.CreateUpdatePersianYearRequest, dto.PersianYearResponse]
+	base *BaseService[models.PersianYear, dto.CreatePersianYearRequest, dto.UpdatePersianYearRequest, dto.PersianYearResponse]
 }
 
 func NewPersianYearService(cfg *config.Config) *PersianYearService {
 	return &PersianYearService{
-		base: &BaseService[models.PersianYear, dto.CreateUpdatePersianYearRequest, dto.CreateUpdatePersianYearRequest, dto.PersianYearResponse]{
+		base: &BaseService[models.PersianYear, dto.CreatePersianYearRequest, dto.UpdatePersianYearRequest, dto.PersianYearResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{{string: "CarModelYears"}},
@@ -25,12 +25,12 @@ func NewPersianYearService(cfg *config.Config) *PersianYearService {
 }
 
 // Create
-func (s *PersianYearService) Create(ctx context.Context, req *dto.CreateUpdatePersianYearRequest) (*dto.PersianYearResponse, error) {
+func (s *PersianYearService) Create(ctx context.Context, req *dto.CreatePersianYearRequest) (*dto.PersianYearResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *PersianYearService) Update(ctx context.Context, id int, req *dto.CreateUpdatePersianYearRequest) (*dto.PersianYearResponse, error) {
+func (s *PersianYearService) Update(ctx context.Context, id int, req *dto.UpdatePersianYearRequest) (*dto.PersianYearResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

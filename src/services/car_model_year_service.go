@@ -11,12 +11,12 @@ import (
 )
 
 type CarModelYearService struct {
-	base *BaseService[models.CarModelYear, dto.CreateUpdateCarModelYearRequest, dto.CreateUpdateCarModelYearRequest, dto.CarModelYearResponse]
+	base *BaseService[models.CarModelYear, dto.CreateCarModelYearRequest, dto.UpdateCarModelYearRequest, dto.CarModelYearResponse]
 }
 
 func NewCarModelYearService(cfg *config.Config) *CarModelYearService {
 	return &CarModelYearService{
-		base: &BaseService[models.CarModelYear, dto.CreateUpdateCarModelYearRequest, dto.CreateUpdateCarModelYearRequest, dto.CarModelYearResponse]{
+		base: &BaseService[models.CarModelYear, dto.CreateCarModelYearRequest, dto.UpdateCarModelYearRequest, dto.CarModelYearResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			Preloads: []preload{
@@ -32,12 +32,12 @@ func NewCarModelYearService(cfg *config.Config) *CarModelYearService {
 }
 
 // Create
-func (s *CarModelYearService) Create(ctx context.Context, req *dto.CreateUpdateCarModelYearRequest) (*dto.CarModelYearResponse, error) {
+func (s *CarModelYearService) Create(ctx context.Context, req *dto.CreateCarModelYearRequest) (*dto.CarModelYearResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *CarModelYearService) Update(ctx context.Context, id int, req *dto.CreateUpdateCarModelYearRequest) (*dto.CarModelYearResponse, error) {
+func (s *CarModelYearService) Update(ctx context.Context, id int, req *dto.UpdateCarModelYearRequest) (*dto.CarModelYearResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 

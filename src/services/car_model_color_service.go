@@ -11,33 +11,37 @@ import (
 )
 
 type CarModelColorService struct {
-	base *BaseService[models.CarModelColor, dto.CreateUpdateCarModelColorRequest, dto.CreateUpdateCarModelColorRequest, dto.CarModelColorResponse]
+	base *BaseService[models.CarModelColor, dto.CreateCarModelColorRequest,
+		dto.UpdateCarModelColorRequest, dto.CarModelColorResponse]
 }
 
 func NewCarModelColorService(cfg *config.Config) *CarModelColorService {
 	return &CarModelColorService{
-		base: &BaseService[models.CarModelColor, dto.CreateUpdateCarModelColorRequest, dto.CreateUpdateCarModelColorRequest, dto.CarModelColorResponse]{
+		base: &BaseService[models.CarModelColor, dto.CreateCarModelColorRequest,
+			dto.UpdateCarModelColorRequest, dto.CarModelColorResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
-			Preloads : []preload{
-				{string :"CarModel.Company"},
-				{string :"CarModel.CarType"},
-				{string :"CarModel.Gearbox"},
-				{string :"CarModel.CarModelProperties.Property.Category"},
-				{string :"CarModel.CarModelYears.PersianYear"},
-				{string :"CarModel.CarModelImages.Image"},
+			Preloads: []preload{
+				{string: "Color"},
+				{string: "CarModel"},
+				{string: "CarModel.Company"},
+				{string: "CarModel.CarType"},
+				{string: "CarModel.Gearbox"},
+				{string: "CarModel.CarModelProperties.Property.Category"},
+				{string: "CarModel.CarModelYears.PersianYear"},
+				{string: "CarModel.CarModelImages.Image"},
 			},
 		},
 	}
 }
 
 // Create
-func (s *CarModelColorService) Create(ctx context.Context, req *dto.CreateUpdateCarModelColorRequest) (*dto.CarModelColorResponse, error) {
+func (s *CarModelColorService) Create(ctx context.Context, req *dto.CreateCarModelColorRequest) (*dto.CarModelColorResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *CarModelColorService) Update(ctx context.Context, id int, req *dto.CreateUpdateCarModelColorRequest) (*dto.CarModelColorResponse, error) {
+func (s *CarModelColorService) Update(ctx context.Context, id int, req *dto.UpdateCarModelColorRequest) (*dto.CarModelColorResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 
