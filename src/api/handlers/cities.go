@@ -27,7 +27,7 @@ func NewCityHandler(cfg *config.Config) *CityHandler {
 // @Tags Cities
 // @Accept json
 // @produces json
-// @Param Request body dto.CreateUpdateCityRequest true "Create a City"
+// @Param Request body dto.CreateCityRequest true "Create a City"
 // @Success 201 {object} helper.BaseHttpResponse{result=dto.CityResponse} "City response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/cities/ [post]
@@ -57,7 +57,7 @@ func (h *CityHandler) Create(c *gin.Context) {
 // @Accept json
 // @produces json
 // @Param id path int true "Id"
-// @Param Request body dto.CreateUpdateCityRequest true "Update a City"
+// @Param Request body dto.UpdateCityRequest true "Update a City"
 // @Success 200 {object} helper.BaseHttpResponse{result=dto.CityResponse} "City response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Failure 404 {object} helper.BaseHttpResponse "Not found"
