@@ -46,7 +46,7 @@ func (h *FileHandler) Create(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	req := dto.CreateUpdateFileRequest{}
+	req := dto.CreateFileRequest{}
 
 	req.Name = upl.File.Filename
 	req.Description = upl.Description
@@ -74,14 +74,14 @@ func (h *FileHandler) Create(c *gin.Context) {
 // @Accept json
 // @produces json
 // @Param id path int true "Id"
-// @Param Request body dto.CreateUpdateFileRequest true "Update a file"
+// @Param Request body dto.UpdateFileRequest true "Update a file"
 // @Success 201 {object} helper.BaseHttpResponse{result=dto.FileResponse}
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/files/{id} [put]
 // @Security AuthBearer
 func (h *FileHandler) Update(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	req := dto.CreateUpdateFileRequest{}
+	req := dto.UpdateFileRequest{}
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,

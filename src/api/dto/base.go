@@ -30,7 +30,14 @@ type CityResponse struct {
 	Country CountryResponse `json:"country,omitempty"`
 }
 
-type CreateUpdateFileRequest struct {
+type CreateFileRequest struct {
+	Name        string `json:"name"`
+	Directory   string `json:"directory"`
+	MimeType    string `json:"mimeType"`
+	Description string `json:"description"`
+}
+
+type UpdateFileRequest struct {
 	Name        string `json:"name"`
 	Directory   string `json:"directory"`
 	MimeType    string `json:"mimeType"`

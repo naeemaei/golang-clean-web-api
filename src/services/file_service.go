@@ -11,12 +11,12 @@ import (
 )
 
 type FileService struct {
-	base *BaseService[models.File, dto.CreateUpdateFileRequest, dto.CreateUpdateFileRequest, dto.FileResponse]
+	base *BaseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse]
 }
 
 func NewFileService(cfg *config.Config) *FileService {
 	return &FileService{
-		base: &BaseService[models.File, dto.CreateUpdateFileRequest, dto.CreateUpdateFileRequest, dto.FileResponse]{
+		base: &BaseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse]{
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			// Preloads: []preload{
@@ -33,12 +33,12 @@ func NewFileService(cfg *config.Config) *FileService {
 }
 
 // Create
-func (s *FileService) Create(ctx context.Context, req *dto.CreateUpdateFileRequest) (*dto.FileResponse, error) {
+func (s *FileService) Create(ctx context.Context, req *dto.CreateFileRequest) (*dto.FileResponse, error) {
 	return s.base.Create(ctx, req)
 }
 
 // Update
-func (s *FileService) Update(ctx context.Context, id int, req *dto.CreateUpdateFileRequest) (*dto.FileResponse, error) {
+func (s *FileService) Update(ctx context.Context, id int, req *dto.UpdateFileRequest) (*dto.FileResponse, error) {
 	return s.base.Update(ctx, id, req)
 }
 
