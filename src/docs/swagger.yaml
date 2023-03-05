@@ -50,6 +50,42 @@ definitions:
     - countryId
     - name
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreatePropertyCategoryRequest:
+    properties:
+      icon:
+        maxLength: 1000
+        type: string
+      name:
+        maxLength: 15
+        minLength: 3
+        type: string
+    required:
+    - name
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreatePropertyRequest:
+    properties:
+      categoryId:
+        type: integer
+      dataType:
+        maxLength: 15
+        type: string
+      description:
+        maxLength: 1000
+        type: string
+      icon:
+        maxLength: 1000
+        type: string
+      name:
+        maxLength: 15
+        minLength: 3
+        type: string
+      unit:
+        maxLength: 15
+        type: string
+    required:
+    - categoryId
+    - name
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateCountryRequest:
     properties:
       name:
@@ -158,6 +194,40 @@ definitions:
       totalRows:
         type: integer
     type: object
+  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter:
     properties:
       filter:
@@ -172,6 +242,36 @@ definitions:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort'
         type: array
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse:
+    properties:
+      icon:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      properties:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+        type: array
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse:
+    properties:
+      category:
+        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+      dataType:
+        type: string
+      description:
+        type: string
+      icon:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      unit:
+        type: string
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.RegisterLoginByMobileRequest:
     properties:
@@ -229,6 +329,32 @@ definitions:
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdateFileRequest:
     properties:
       description:
+        type: string
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePropertyCategoryRequest:
+    properties:
+      icon:
+        type: string
+      name:
+        type: string
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePropertyRequest:
+    properties:
+      categoryId:
+        type: integer
+      dataType:
+        maxLength: 15
+        type: string
+      description:
+        maxLength: 1000
+        type: string
+      icon:
+        maxLength: 1000
+        type: string
+      name:
+        type: string
+      unit:
+        maxLength: 15
         type: string
     type: object
   github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse:
@@ -782,6 +908,332 @@ paths:
       summary: Health Check
       tags:
       - health
+  /v1/properties/:
+    post:
+      consumes:
+      - application/json
+      description: Create a Property
+      parameters:
+      - description: Create a Property
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreatePropertyRequest'
+      responses:
+        "201":
+          description: Property response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a Property
+      tags:
+      - Properties
+  /v1/properties/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Property
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a Property
+      tags:
+      - Properties
+    get:
+      consumes:
+      - application/json
+      description: Get a Property
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Property response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a Property
+      tags:
+      - Properties
+    put:
+      consumes:
+      - application/json
+      description: Update a Property
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a Property
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePropertyRequest'
+      responses:
+        "200":
+          description: Property response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a Property
+      tags:
+      - Properties
+  /v1/properties/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get Properties
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: Property response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get Properties
+      tags:
+      - Properties
+  /v1/property-categories/:
+    post:
+      consumes:
+      - application/json
+      description: Create a PropertyCategory
+      parameters:
+      - description: Create a PropertyCategory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreatePropertyCategoryRequest'
+      responses:
+        "201":
+          description: PropertyCategory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a PropertyCategory
+      tags:
+      - PropertyCategories
+  /v1/property-categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a PropertyCategory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a PropertyCategory
+      tags:
+      - PropertyCategories
+    get:
+      consumes:
+      - application/json
+      description: Get a PropertyCategory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: PropertyCategory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a PropertyCategory
+      tags:
+      - PropertyCategories
+    put:
+      consumes:
+      - application/json
+      description: Update a PropertyCategory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a PropertyCategory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePropertyCategoryRequest'
+      responses:
+        "200":
+          description: PropertyCategory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a PropertyCategory
+      tags:
+      - PropertyCategories
+  /v1/property-categories/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get PropertyCategories
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: PropertyCategory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get PropertyCategories
+      tags:
+      - PropertyCategories
   /v1/test/binder/body:
     post:
       consumes:
