@@ -18,6 +18,7 @@ func Up_1() {
 	createTables(database)
 	createDefaultUserInformation(database)
 	createCountry(database)
+	createPropertyCategory(database)
 
 }
 
@@ -152,6 +153,102 @@ func createCountry(database *gorm.DB) {
 			{Name: "Seoul"},
 			{Name: "Ulsan"},
 		}})
+	}
+}
+
+func createPropertyCategory(database *gorm.DB) {
+	count := 0
+
+	database.
+		Model(&models.PropertyCategory{}).
+		Select("count(*)").
+		Find(&count)
+	if count == 0 {
+		database.Create(&models.PropertyCategory{Name: "Body"}) // بدنه
+		database.Create(&models.PropertyCategory{Name: "Engine"}) // موتور
+		database.Create(&models.PropertyCategory{Name: "Drivetrain"}) // پیشرانه
+		database.Create(&models.PropertyCategory{Name: "Suspension"}) // تعلیق
+		database.Create(&models.PropertyCategory{Name: "Equipment"}) // تجهیزات
+		database.Create(&models.PropertyCategory{Name: "Driver support systems"}) // سیستم های پشتیبانی راننده
+		database.Create(&models.PropertyCategory{Name: "Lights"}) // چراغ ها
+		database.Create(&models.PropertyCategory{Name: "Multimedia"}) // چند رسانه ای
+		database.Create(&models.PropertyCategory{Name: "Safety equipment"}) // تجهیزات ایمنی
+		database.Create(&models.PropertyCategory{Name: "Seats and steering wheel"}) // صندلی و فرمان
+		database.Create(&models.PropertyCategory{Name: "Windows and mirrors"}) // پنجره و آینه
+	}
+	createProperty(database, "Body")
+	createProperty(database, "Engine")
+	createProperty(database, "Drivetrain")
+	createProperty(database, "Suspension")
+	createProperty(database, "Comfort")
+	createProperty(database, "Driver support systems")
+	createProperty(database, "Lights")
+	createProperty(database, "Multimedia")
+	createProperty(database, "Safety equipment")
+	createProperty(database, "Seats and steering wheel")
+	createProperty(database, "Windows and mirrors")
+
+}
+
+func createProperty(database *gorm.DB, cat string) {
+	count := 0
+	catModel := models.PropertyCategory{}
+
+	database.
+		Model(models.PropertyCategory{}).
+		Where("name = ?", cat).
+		Find(&catModel)
+
+	database.
+		Model(&models.Property{}).
+		Select("count(*)").
+		Where("category_id = ?", catModel.Id).
+		Find(&count)
+
+	if count > 0 || catModel.Id == 0 {
+		return
+	}
+	var props *[]models.Property
+	switch cat {
+	case "Body":
+		props = getBodyProperties(catModel.Id)
+
+	case "Engine":
+		props = getEngineProperties(catModel.Id)
+
+	case "Drivetrain":
+		props = getDrivetrainProperties(catModel.Id)
+
+	case "Suspension":
+		props = getSuspensionProperties(catModel.Id)
+
+	case "Comfort":
+		props = getComfortProperties(catModel.Id)
+
+	case "Driver support systems":
+		props = getDriverSupportSystemProperties(catModel.Id)
+
+	case "Lights":
+		props = getLightsProperties(catModel.Id)
+
+	case "Multimedia":
+		props = getMultimediaProperties(catModel.Id)
+
+	case "Safety equipment":
+		props = getSafetyEquipmentProperties(catModel.Id)
+
+	case "Seats and steering wheel":
+		props = getSeatsProperties(catModel.Id)
+
+	case "Windows and mirrors":
+		props = getWindowsProperties(catModel.Id)
+
+	default:
+		props = &([]models.Property{})
+	}
+
+	for _, prop := range *props {
+		database.Create(&prop)
 	}
 }
 
