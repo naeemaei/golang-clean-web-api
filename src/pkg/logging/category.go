@@ -10,6 +10,7 @@ const (
 	Postgres        Category = "Postgres"
 	Redis           Category = "Redis"
 	Validation      Category = "Validation"
+	Prometheus      Category = "Prometheus"
 	RequestResponse Category = "RequestResponse"
 	IO              Category = "IO"
 )

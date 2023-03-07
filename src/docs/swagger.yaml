@@ -367,17 +367,6 @@ definitions:
     required:
     - name
     type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest:
-    properties:
-      description:
-        type: string
-      directory:
-        type: string
-      mimeType:
-        type: string
-      name:
-        type: string
-    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse:
     properties:
       description:
@@ -922,6 +911,17 @@ definitions:
     properties:
       countryId:
         type: integer
+      name:
+        type: string
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdateFileRequest:
+    properties:
+      description:
+        type: string
+      directory:
+        type: string
+      mimeType:
+        type: string
       name:
         type: string
     type: object
@@ -3107,7 +3107,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateFileRequest'
       responses:
         "201":
           description: Created

@@ -3595,7 +3595,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateFileRequest"
                         }
                     }
                 ],
@@ -5712,23 +5712,6 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.CreateUpdateFileRequest": {
-            "type": "object",
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "directory": {
-                    "type": "string"
-                },
-                "mimeType": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse": {
             "type": "object",
             "properties": {
@@ -6546,6 +6529,23 @@ const docTemplate = `{
             "properties": {
                 "countryId": {
                     "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.UpdateFileRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "directory": {
+                    "type": "string"
+                },
+                "mimeType": {
+                    "type": "string"
                 },
                 "name": {
                     "type": "string"
