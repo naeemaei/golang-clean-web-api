@@ -25,3 +25,25 @@ type GearboxResponse struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
 }
+
+type CreateCarModelRequest struct {
+	Name string `json:"name" binding:"required,min=3,max=15"`
+	CompanyId          int `json:"companyId" binding:"required"`
+	CarTypeId          int `json:"carTypeId" binding:"required"`
+	GearboxId          int `json:"gearboxId" binding:"required"`
+}
+
+type UpdateCarModelRequest struct {
+	Name string `json:"name,omitempty"`
+	CompanyId          int `json:"companyId,omitempty"`
+	CarTypeId          int `json:"carTypeId,omitempty"`
+	GearboxId          int `json:"gearboxId,omitempty"`
+}
+
+type CarModelResponse struct{
+	Id int `json:"id"`
+	Name string `json:"name"`
+	CarType CarTypeResponse `json:"carType"`
+	Company CompanyResponse `json:"company"`
+	Gearbox GearboxResponse `json:"gearbox"`
+}
