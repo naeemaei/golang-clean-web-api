@@ -4,6 +4,281 @@
         "contact": {}
     },
     "paths": {
+        "/v1/car-model-colors/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a CarModelColor",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Create a CarModelColor",
+                "parameters": [
+                    {
+                        "description": "Create a CarModelColor",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-colors/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get CarModelColors",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Get CarModelColors",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-colors/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a CarModelColor",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Get a CarModelColor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a CarModelColor",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Update a CarModelColor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a CarModelColor",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a CarModelColor",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Delete a CarModelColor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/car-models/": {
             "post": {
                 "security": [
@@ -798,6 +1073,281 @@
                     "Cities"
                 ],
                 "summary": "Delete a City",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a Color",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Create a Color",
+                "parameters": [
+                    {
+                        "description": "Create a Color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get Colors",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get Colors",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a Color",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get a Color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a Color",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Update a Color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a Color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a Color",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Delete a Color",
                 "parameters": [
                     {
                         "type": "integer",
@@ -2844,9 +3394,26 @@
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse": {
             "type": "object",
             "properties": {
+                "carModelColors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                    }
+                },
                 "carType": {
                     "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse"
                 },
@@ -2880,6 +3447,20 @@
             "properties": {
                 "country": {
                     "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string"
                 },
                 "id": {
                     "type": "integer"
@@ -2923,6 +3504,21 @@
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelColorRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "colorId"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "colorId": {
+                    "type": "integer"
                 }
             }
         },
@@ -2977,6 +3573,21 @@
                 "name": {
                     "type": "string",
                     "maxLength": 20,
+                    "minLength": 3
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.CreateColorRequest": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string",
+                    "maxLength": 7,
+                    "minLength": 7
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15,
                     "minLength": 3
                 }
             }
@@ -3154,6 +3765,32 @@
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse": {
             "type": "object",
             "properties": {
@@ -3219,6 +3856,32 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
                     }
                 },
                 "pageNumber": {
@@ -3518,6 +4181,17 @@
                 }
             }
         },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelColorRequest": {
+            "type": "object",
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "colorId": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelRequest": {
             "type": "object",
             "properties": {
@@ -3557,6 +4231,21 @@
                 "name": {
                     "type": "string",
                     "maxLength": 20,
+                    "minLength": 3
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_api_dto.UpdateColorRequest": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string",
+                    "maxLength": 7,
+                    "minLength": 7
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15,
                     "minLength": 3
                 }
             }
