@@ -55,3 +55,13 @@ func Color(r *gin.RouterGroup, cfg *config.Config) {
 	r.GET("/:id", h.GetById)
 	r.POST("/get-by-filter", h.GetByFilter)
 }
+
+func Year(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewPersianYearHandler(cfg)
+
+	r.POST("/", h.Create)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
