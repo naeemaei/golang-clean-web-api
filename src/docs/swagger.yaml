@@ -31,6 +31,10 @@ definitions:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse'
         type: array
+      carModelYears:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+        type: array
       carType:
         $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse'
       company:
@@ -41,6 +45,15 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse:
+    properties:
+      carModelId:
+        type: integer
+      id:
+        type: integer
+      persianYear:
+        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearWithoutDateResponse'
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse:
     properties:
@@ -119,6 +132,16 @@ definitions:
     - gearboxId
     - name
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelYearRequest:
+    properties:
+      carModelId:
+        type: integer
+      persianYearId:
+        type: integer
+    required:
+    - carModelId
+    - persianYearId
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarTypeRequest:
     properties:
       name:
@@ -171,6 +194,19 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreatePersianYearRequest:
+    properties:
+      endAt:
+        type: string
+      persianTitle:
+        maxLength: 4
+        minLength: 4
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreatePropertyCategoryRequest:
     properties:
@@ -306,6 +342,23 @@ definitions:
       totalRows:
         type: integer
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse:
     properties:
       hasNextPage:
@@ -425,6 +478,23 @@ definitions:
       totalRows:
         type: integer
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse
   : properties:
       hasNextPage:
@@ -473,6 +543,28 @@ definitions:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort'
         type: array
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse:
+    properties:
+      endAt:
+        type: string
+      id:
+        type: integer
+      persianTitle:
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearWithoutDateResponse:
+    properties:
+      id:
+        type: integer
+      persianTitle:
+        type: string
+      year:
+        type: integer
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse:
     properties:
@@ -566,6 +658,13 @@ definitions:
       name:
         type: string
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelYearRequest:
+    properties:
+      carModelId:
+        type: integer
+      persianYearId:
+        type: integer
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarTypeRequest:
     properties:
       name:
@@ -617,6 +716,19 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePersianYearRequest:
+    properties:
+      endAt:
+        type: string
+      persianTitle:
+        maxLength: 4
+        minLength: 4
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePropertyCategoryRequest:
     properties:
@@ -871,6 +983,169 @@ paths:
       summary: Get CarModelColors
       tags:
       - CarModelColors
+  /v1/car-model-years/:
+    post:
+      consumes:
+      - application/json
+      description: Create a CarModelYear
+      parameters:
+      - description: Create a CarModelYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelYearRequest'
+      responses:
+        "201":
+          description: CarModelYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a CarModelYear
+      tags:
+      - CarModelYears
+  /v1/car-model-years/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a CarModelYear
+      tags:
+      - CarModelYears
+    get:
+      consumes:
+      - application/json
+      description: Get a CarModelYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a CarModelYear
+      tags:
+      - CarModelYears
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelYearRequest'
+      responses:
+        "200":
+          description: CarModelYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a CarModelYear
+      tags:
+      - CarModelYears
+  /v1/car-model-years/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get CarModelYears
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get CarModelYears
+      tags:
+      - CarModelYears
   /v1/car-models/:
     post:
       consumes:
@@ -2714,6 +2989,169 @@ paths:
       summary: Send otp to user
       tags:
       - Users
+  /v1/years/:
+    post:
+      consumes:
+      - application/json
+      description: Create a PersianYear
+      parameters:
+      - description: Create a PersianYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreatePersianYearRequest'
+      responses:
+        "201":
+          description: PersianYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a PersianYear
+      tags:
+      - PersianYears
+  /v1/years/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a PersianYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a PersianYear
+      tags:
+      - PersianYears
+    get:
+      consumes:
+      - application/json
+      description: Get a PersianYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: PersianYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a PersianYear
+      tags:
+      - PersianYears
+    put:
+      consumes:
+      - application/json
+      description: Update a PersianYear
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a PersianYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdatePersianYearRequest'
+      responses:
+        "200":
+          description: PersianYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a PersianYear
+      tags:
+      - PersianYears
+  /v1/years/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get PersianYears
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: PersianYear response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get PersianYears
+      tags:
+      - PersianYears
 securityDefinitions:
   AuthBearer:
     in: header
