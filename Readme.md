@@ -28,22 +28,72 @@
 16. [Swagger for documentation](https://github.com/swaggo/swag)
 17. Docker compose for run project with all dependencies in docker
 
-## Project preview
-
-<p align="center"><img src='/docs/files/swagger.png' alt='Golang Web API preview' /></p>
-
 ## How to run
 
-### On docker:
-
-#### start
+### start
 
 ```
 docker compose -f "docker/docker-compose.yml" up -d --build
 ```
 
-#### stop
+#### Web API
+
+##### Run local manually [http://localhost:5005](http://localhost:5005)
+
+##### Run in docker [http://localhost:9001](http://localhost:9001)
+
+```
+GetTokenUrl: http://localhost:5005/api/v1/users/login-by-username
+Username: admin
+Password: 12345678
+```
+
+#### Kibana
+
+##### [http://localhost:5601](http://localhost:5601)
+
+```
+Username: elastic
+Password: changeme
+```
+
+#### Grafana
+
+##### [http://localhost:3000](http://localhost:3000)
+
+```
+Username: admin
+Password: foobar
+```
+
+#### PgAdmin
+
+##### [http://localhost:8090](http://localhost:8090)
+
+```
+Username: h.naimaei@gmail.com
+Password: 123456
+```
+
+Postgres Server info:
+
+```
+Host: postgres_container
+Port: 5432
+Username: postgres
+Password: admin
+```
+
+#### Prometheus
+
+##### [http://localhost:9090](http://localhost:9090)
+
+### Stop
 
 ```
 docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down
 ```
+
+## Project preview
+
+<p align="center"><img src='/docs/files/swagger.png' alt='Golang Web API preview' /></p>
