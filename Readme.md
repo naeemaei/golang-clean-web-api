@@ -1,14 +1,12 @@
 # Golang Clean Web API (Dockerize) with a full sample project (Car Sale project)
 
-<p align="center"><b> The project is under development </b></p>
-
 ## System Design Diagram
 
 <p align="center"><img src='/docs/files/system_diagram.png' alt='Golang Web API System Design Diagram' /></p>
 
 ## Database Design Diagram
 
-<p align="center"><img src='/docs/files/Screenshot from 2023-01-18 00-20-48.png' alt='Golang Web API System Design Diagram' /></p>
+<p align="center"><img src='/docs/files/db_diagram.png' alt='Golang Web API System Design Diagram' /></p>
 
 ## Used Tools
 
@@ -30,16 +28,22 @@
 16. [Swagger for documentation](https://github.com/swaggo/swag)
 17. Docker compose for run project with all dependencies in docker
 
+## Project preview
+
+<p align="center"><img src='/docs/files/swagger.png' alt='Golang Web API preview' /></p>
+
 ## How to run
 
 ### On docker:
 
 #### start
+
 ```
 docker compose -f "docker/docker-compose.yml" up -d --build
 ```
 
 #### stop
+
 ```
-docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down 
+docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down
 ```
