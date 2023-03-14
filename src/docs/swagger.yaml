@@ -25,6 +25,17 @@ definitions:
       id:
         type: integer
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse:
+    properties:
+      carModelYearId:
+        type: integer
+      id:
+        type: integer
+      price:
+        type: number
+      priceAt:
+        type: string
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse:
     properties:
       carModelColors:
@@ -50,6 +61,10 @@ definitions:
     properties:
       carModelId:
         type: integer
+      carModelPriceHistories:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+        type: array
       id:
         type: integer
       persianYear:
@@ -113,6 +128,19 @@ definitions:
     required:
     - carModelId
     - colorId
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelPriceHistoryRequest:
+    properties:
+      carModelYearId:
+        type: integer
+      price:
+        type: number
+      priceAt:
+        type: string
+    required:
+    - carModelYearId
+    - price
+    - priceAt
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelRequest:
     properties:
@@ -317,6 +345,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
         type: array
       pageNumber:
         type: integer
@@ -646,6 +691,13 @@ definitions:
         type: integer
       colorId:
         type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelPriceHistoryRequest:
+    properties:
+      price:
+        type: number
+      priceAt:
+        type: string
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelRequest:
     properties:
@@ -983,6 +1035,169 @@ paths:
       summary: Get CarModelColors
       tags:
       - CarModelColors
+  /v1/car-model-price-histories/:
+    post:
+      consumes:
+      - application/json
+      description: Create a CarModelPriceHistory
+      parameters:
+      - description: Create a CarModelPriceHistory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelPriceHistoryRequest'
+      responses:
+        "201":
+          description: CarModelPriceHistory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+  /v1/car-model-price-histories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelPriceHistory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+    get:
+      consumes:
+      - application/json
+      description: Get a CarModelPriceHistory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelPriceHistory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelPriceHistory
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelPriceHistory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelPriceHistoryRequest'
+      responses:
+        "200":
+          description: CarModelPriceHistory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+  /v1/car-model-price-histories/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get CarModelPriceHistories
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelPriceHistory response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get CarModelPriceHistories
+      tags:
+      - CarModelPriceHistories
   /v1/car-model-years/:
     post:
       consumes:
