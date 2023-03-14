@@ -93,6 +93,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModelProperty(carModelProperties, cfg)
 		routers.CarModelYear(carModelYears, cfg)
 
+		r.Static("/static", "./uploads")
+
 		// Prometheus
 		r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	}
