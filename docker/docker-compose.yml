@@ -201,6 +201,24 @@ services:
       - webapi_network 
     restart: always
 
+
+  ##################### Monitoring #################
+  car-sale-api:
+    build: ../src/
+    image: car-sale-api:0.0.0
+    container_name: web-api1
+    environment:
+      - PORT=9001
+    ports:
+      - "9001:9001"
+    networks:
+      - go_project
+    volumes:
+      - logs:/app
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
 ####################### VOLUME AND NETWORKS #######################
 volumes:
  postgres:
