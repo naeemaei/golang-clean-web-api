@@ -1,0 +1,33 @@
+groups:
+  - name: duration
+    rules:
+      - alert: response_time_high
+        expr: sum (rate(application_request_duration[1m])) / sum (rate(application_request_counter[1m])) > 3000
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} response time very high: {{$value}}"
+          description: ""
+
+  - name: error_percent_increased
+    rules:
+      - alert: error_percent_increased
+        expr: sum (rate(application_request_counter{responsecode!="0"}[5m])) / sum (rate(application_request_counter[5m])) * 100 > 10
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} error percent is {{$value}}"
+          description: ""
+
+  - name: errors_increased
+    rules:
+      - alert: errors_increased
+        expr: sum (increase(application_request_counter{responsecode!="0"}[1m])) > 100
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} errors count in  minutes is {{$value}}"
+          description: "."
