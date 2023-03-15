@@ -47,6 +47,17 @@ definitions:
       priceAt:
         type: string
     type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse:
+    properties:
+      carModelId:
+        type: integer
+      id:
+        type: integer
+      property:
+        $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+      value:
+        type: string
+    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse:
     properties:
       carModelColors:
@@ -56,6 +67,10 @@ definitions:
       carModelImages:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse'
+        type: array
+      carModelProperties:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
         type: array
       carModelYears:
         items:
@@ -168,6 +183,20 @@ definitions:
     - carModelYearId
     - price
     - priceAt
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelPropertyRequest:
+    properties:
+      carModelId:
+        type: integer
+      propertyId:
+        type: integer
+      value:
+        maxLength: 100
+        type: string
+    required:
+    - carModelId
+    - propertyId
+    - value
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelRequest:
     properties:
@@ -406,6 +435,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
         type: array
       pageNumber:
         type: integer
@@ -747,6 +793,14 @@ definitions:
         type: number
       priceAt:
         type: string
+    type: object
+  github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelPropertyRequest:
+    properties:
+      value:
+        maxLength: 100
+        type: string
+    required:
+    - value
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelRequest:
     properties:
@@ -1410,6 +1464,169 @@ paths:
       summary: Get CarModelPriceHistories
       tags:
       - CarModelPriceHistories
+  /v1/car-model-properties/:
+    post:
+      consumes:
+      - application/json
+      description: Create a CarModelProperty
+      parameters:
+      - description: Create a CarModelProperty
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CreateCarModelPropertyRequest'
+      responses:
+        "201":
+          description: CarModelProperty response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a CarModelProperty
+      tags:
+      - CarModelProperties
+  /v1/car-model-properties/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelProperty
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a CarModelProperty
+      tags:
+      - CarModelProperties
+    get:
+      consumes:
+      - application/json
+      description: Get a CarModelProperty
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelProperty response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a CarModelProperty
+      tags:
+      - CarModelProperties
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelProperty
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelProperty
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelPropertyRequest'
+      responses:
+        "200":
+          description: CarModelProperty response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "404":
+          description: Not found
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a CarModelProperty
+      tags:
+      - CarModelProperties
+  /v1/car-model-properties/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get CarModelProperties
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelProperty response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get CarModelProperties
+      tags:
+      - CarModelProperties
   /v1/car-model-years/:
     post:
       consumes:
