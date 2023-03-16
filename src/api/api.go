@@ -12,6 +12,9 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/docs"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
+	"github.com/naeemaei/golang-clean-web-api/pkg/metrics"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -22,9 +25,11 @@ func InitServer(cfg *config.Config) {
 	r := gin.New()
 
 	RegisterValidators()
+	RegisterPrometheus()
 
 	r.Use(middlewares.DefaultStructuredLogger(cfg))
 	r.Use(middlewares.Cors(cfg))
+	r.Use(middlewares.Prometheus())
 	r.Use(gin.Logger(), gin.CustomRecovery(middlewares.ErrorHandler) /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
 
 	RegisterRoutes(r, cfg)
@@ -103,6 +108,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModelComment(carModelComments, cfg)
 
 		r.Static("/static", "./uploads")
+
+		r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	}
 
 	v2 := api.Group("/v2")
@@ -135,4 +142,16 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+}
+
+func RegisterPrometheus(){
+	err := prometheus.Register(metrics.DbCall)
+	if err != nil {
+		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
+	}
+	
+	err = prometheus.Register(metrics.HttpDuration)
+	if err != nil {
+		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
+	}
 }

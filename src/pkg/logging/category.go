@@ -12,6 +12,7 @@ const (
 	Redis           Category = "Redis"
 	Validation      Category = "Validation"
 	RequestResponse Category = "RequestResponse"
+	Prometheus Category = "Prometheus"
 )
 
 const (
