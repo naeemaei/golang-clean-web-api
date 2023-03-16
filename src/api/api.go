@@ -107,7 +107,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 }
 
 func RegisterPrometheus() {
-	err := prometheus.Register(metrics.TotalRequests)
+	err := prometheus.Register(metrics.DbCalls)
 	if err != nil {
 		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
 	}

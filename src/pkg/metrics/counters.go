@@ -2,10 +2,10 @@ package metrics
 
 import "github.com/prometheus/client_golang/prometheus"
 
-var TotalRequests = prometheus.NewCounterVec(
+var DbCalls = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "http_requests_total",
-		Help: "Number of requests.",
+		Name: "db_call_total",
+		Help: "Number of database calls",
 	},
-	[]string{"path", "method", "status_code"},
+	[]string{"type_name", "operation_name", "status"},
 )
