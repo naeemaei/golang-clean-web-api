@@ -3,7 +3,7 @@ server:
   externalPort: 5000
   runMode: debug
 logger:
-  filePath: ../logs/
+  filePath: /logs/
   encoding: json
   level: debug
   logger: zap
@@ -44,5 +44,5 @@ otp:
 jwt:
   secret: "mySecretKey"
   refreshSecret: "mySecretKey"
-  accessTokenExpireDuration: 1440
+  accessTokenExpireDuration: 60
   refreshTokenExpireDuration: 60
