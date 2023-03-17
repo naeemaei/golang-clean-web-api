@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-  
   ####################### SETUP #######################
   setup:
     build:
@@ -132,7 +131,7 @@ services:
     networks:
       - webapi_network
 
-##################### Monitoring #################
+  ##################### Monitoring #################
   prometheus:
     image: prom/prometheus:latest
     volumes:
@@ -145,11 +144,11 @@ services:
       - "--web.console.templates=/usr/share/prometheus/consoles"
     ports:
       - 9090:9090
-    links: 
-      - alertmanager:alertmanager 
+    links:
+      - alertmanager:alertmanager
     networks:
-      - webapi_network 
-    restart: always 
+      - webapi_network
+    restart: always
 
   node-exporter:
     image: prom/node-exporter
@@ -165,7 +164,7 @@ services:
     ports:
       - 9100:9100
     networks:
-      - webapi_network 
+      - webapi_network
     restart: always
     deploy:
       mode: global
@@ -198,18 +197,49 @@ services:
     networks:
       - webapi_network 
     restart: always
-
+  car-api1:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api1
+    environment:
+      - PORT=9001
+    ports:
+      - 9001:5000
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+  car-api2:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api2
+    environment:
+      - PORT=9002
+    ports:
+      - 9002:5000
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
 ####################### VOLUME AND NETWORKS #######################
 volumes:
- postgres:
- pgadmin:
- redis:
- logs:
- setup:
- elasticsearch:
- prometheus_data:
- grafana_data: 
+  postgres:
+  pgadmin:
+  redis:
+  logs:
+  setup:
+  elasticsearch:
+  prometheus_data:
+  grafana_data:
 
 networks:
- webapi_network:
-  driver: bridge
+  webapi_network:
+    driver: bridge
