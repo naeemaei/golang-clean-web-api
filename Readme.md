@@ -100,7 +100,7 @@ docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down
 
 ```
 /src > go build -o ../prod/server ./cmd/main.go
-/src > cp config/config-production.yml ../prod/config/config-production.yml
+/src > mkdir ../prod/config/ && cp config/config-production.yml ../prod/config/config-production.yml
 ```
 
 1. Create systemd unit
