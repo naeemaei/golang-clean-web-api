@@ -46,7 +46,13 @@ scrape_configs:
     metrics_path: /metrics
     scheme: http
     static_configs:
-      - targets: ["web-api1:5000", "web-api2:5000", "192.168.1.114:5005"]
+      - targets:
+          [
+            "web-api1:5000",
+            "web-api2:5000",
+            "192.168.1.114:5005",
+            "192.168.1.114:5010",
+          ]
 
   - job_name: "node-exporter"
 

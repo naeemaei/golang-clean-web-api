@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -315,7 +314,7 @@
           "refId": "A"
         }
       ],
-      "title": "OS Thread Usage",
+      "title": "Goroutines Usage",
       "type": "stat"
     },
     {
@@ -800,9 +799,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "1m",
-          "value": "1m"
+          "selected": false,
+          "text": "2m",
+          "value": "2m"
         },
         "hide": 0,
         "includeAll": false,
@@ -811,12 +810,12 @@
         "name": "interval",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "1m",
             "value": "1m"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "2m",
             "value": "2m"
           },
@@ -1005,6 +1004,6 @@
   "timezone": "",
   "title": "Golang Web API Dashboard",
   "uid": "JQu_Xw-Vz",
-  "version": 11,
+  "version": 1,
   "weekStart": ""
 }
