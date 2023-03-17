@@ -6,13 +6,13 @@ type ExtraKey string
 
 const (
 	General         Category = "General"
-	IO         Category = "IO"
+	IO              Category = "IO"
 	Internal        Category = "Internal"
 	Postgres        Category = "Postgres"
 	Redis           Category = "Redis"
 	Validation      Category = "Validation"
 	RequestResponse Category = "RequestResponse"
-	Prometheus Category = "Prometheus"
+	Prometheus      Category = "Prometheus"
 )
 
 const (
