@@ -35,11 +35,61 @@
 ### On docker:
 
 #### start
+
 ```
 docker compose -f "docker/docker-compose.yml" up -d --build
 ```
 
 #### stop
+
 ```
-docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down 
+docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down
+```
+
+### Linux
+
+0. build Project and copy configuration
+```
+/src > go build -o ../prod/server ./cmd/main.go
+/src > cp config/config-production.yml ../prod/config/config-production.yml
+```
+1. Create systemd unit
+
+```
+sudo vi /lib/systemd/system/go-api.service
+```
+
+2. Service config
+
+```
+[Unit]
+Description=go-api
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=20s
+ExecStart=/home/hamed/github/golang-clean-web-api/prod/server
+Environment="APP_ENV=production"
+WorkingDirectory=/home/hamed/github/golang-clean-web-api/prod
+[Install]
+WantedBy=multi-user.target
+```
+
+3. Start service
+
+```
+sudo systemctl start go-api
+```
+
+4. Stop service
+
+```
+sudo systemctl stop go-api
+```
+
+5. Show service logs
+
+```
+sudo journalctl -u go-api -e
 ```

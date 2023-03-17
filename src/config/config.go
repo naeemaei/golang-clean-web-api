@@ -85,6 +85,7 @@ type JWTConfig struct {
 }
 
 func GetConfig() *Config {
+	log.Print(os.Getenv("APP_ENV"))
 	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
 	v, err := LoadConfig(cfgPath, "yml")
 	if err != nil {
@@ -135,7 +136,7 @@ func getConfigPath(env string) string {
 	if env == "docker" {
 		return "/app/config/config-docker"
 	} else if env == "production" {
-		return "config/config-production"
+		return "/config/config-production"
 	} else {
 		return "../config/config-development"
 	}
