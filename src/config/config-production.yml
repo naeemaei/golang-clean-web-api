@@ -3,7 +3,7 @@ server:
   externalPort: 5005
   runMode: debug
 logger:
-  filePath: ../logs/
+  filePath: /logs/
   encoding: json
   level: debug
   logger: zap
