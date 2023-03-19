@@ -43,7 +43,7 @@ docker compose -f "docker/docker-compose.yml" up -d --build
 ##### Run in docker [http://localhost:9001](http://localhost:9001)
 
 ```
-GetTokenUrl: http://localhost:5005/api/v1/users/login-by-username
+Token Url: http://localhost:5005/api/v1/users/login-by-username
 Username: admin
 Password: 12345678
 ```
