@@ -8,6 +8,10 @@
 
 <p align="center"><img src='/docs/files/db_diagram.png' alt='Golang Web API System Design Diagram' /></p>
 
+## Give a Star! :star:
+
+If you like this repo or found it helpful, please give it a star. Thanks!
+
 ## Used Tools
 
 1. [Gin as web framework](https://github.com/gin-gonic/gin)
