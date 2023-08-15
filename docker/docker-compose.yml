@@ -73,8 +73,8 @@ services:
       - --strict.perms=false
     volumes:
       - ./elk/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ../src/logs:/var/log/filebeat/service
-      - ../prod/logs:/var/log/filebeat/service
+      - ../src/logs:/var/log/filebeat/service:ro
+      #- ../prod/logs:/var/log/filebeat/service:ro
       - logs:/var/log/filebeat
       - logs:/app:ro
  
@@ -203,9 +203,9 @@ services:
     image: car-api:latest
     container_name: web-api1
     environment:
-      - PORT=9001
+      - PORT=9003
     ports:
-      - 9001:5000
+      - 9003:5000
     networks:
       - webapi_network
     volumes:
