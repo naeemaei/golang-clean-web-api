@@ -58,7 +58,7 @@ Password: 12345678
 
 ```
 Username: elastic
-Password: changeme
+Password: @aA123456
 ```
 
 #### Grafana
