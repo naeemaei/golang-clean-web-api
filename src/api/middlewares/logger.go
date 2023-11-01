@@ -42,7 +42,7 @@ func structuredLogger(logger logging.Logger) gin.HandlerFunc {
 			raw := c.Request.URL.RawQuery
 
 			bodyBytes, _ := io.ReadAll(c.Request.Body)
-			c.Request.Body.Close()
+			//c.Request.Body.Close()
 			c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
 			c.Writer = blw
