@@ -1,6 +1,6 @@
 module github.com/naeemaei/golang-clean-web-api
 
-go 1.19
+go 1.22
 
 require (
 	github.com/didip/tollbooth v4.0.2+incompatible
