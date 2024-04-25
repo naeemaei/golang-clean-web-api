@@ -34,45 +34,121 @@ If you like this repo or found it helpful, please give it a star. Thanks!
 
 ## How to run
 
-### Docker start
+### Run on local system
+
+#### Start dependencies on docker
+```bash 
+docker compose -f "docker/docker-compose.yml" up -d setup elasticsearch kibana filebeat postgres pgadmin redis prometheus node-exporter alertmanager grafana
+```
+
+#### Install swagger and run app
+```bash
+cd src
+go install github.com/swaggo/swag/cmd/swag@latest
+cd src/cmd
+go run main.go
+```
+
+##### Address: [http://localhost:5005](http://localhost:5005)
+
+#### Stop
+```
+docker compose -f "docker/docker-compose.yml" down
+```
+
+#### Examples
+
+##### Login
+```
+curl -X 'POST' \
+  'http://localhost:5005/api/v1/users/login-by-username' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "password": "12345678",
+  "username": "admin"
+}'
+```
+
+##### Sample filters request body
+
+###### City filter and sort
+
+```
+{
+  "filter": {
+    "Name": {
+      "filterType": "text",
+      "from": "t", 
+      "type": "contains"
+    } 
+  },
+  "pageNumber": 1,
+  "pageSize": 10,
+  "sort": [
+    {
+      "colId": "name",
+      "sort": "desc"
+    }
+  ]
+}
+```
+
+
+###### City in range filter 
+
+```
+{
+  "filter": {
+    "Id": { // Column name
+      "filterType": "number", // number, text,...
+      "from": "1", 
+      "to": "7", 
+      "type": "inRange" // contains, equals,...
+    } 
+  },
+  "pageNumber": 1,
+  "pageSize": 10,
+  "sort": [
+    {
+      "colId": "name",
+      "sort": "desc"
+    }
+  ]
+}
+```
+
+### Run project with dependencies on Docker
 
 ```
 docker compose -f "docker/docker-compose.yml" up -d --build
 ```
 
-#### Web API
-
-##### Run local manually [http://localhost:5005](http://localhost:5005)
-
-##### Run in docker [http://localhost:9001](http://localhost:9001)
+#### Web API  Run in docker  [http://localhost:9001](http://localhost:9001)
 
 ```
-Token Url: http://localhost:5005/api/v1/users/login-by-username
+Token Url: http://localhost:9001/api/v1/users/login-by-username
 Username: admin
 Password: 12345678
 ```
 
-#### Kibana
-
-##### [http://localhost:5601](http://localhost:5601)
+#### Kibana  [http://localhost:5601](http://localhost:5601)
 
 ```
 Username: elastic
 Password: @aA123456
 ```
 
-#### Grafana
+#### Prometheus  [http://localhost:9090](http://localhost:9090)
 
-##### [http://localhost:3000](http://localhost:3000)
+#### Grafana  [http://localhost:3000](http://localhost:3000)
 
 ```
 Username: admin
 Password: foobar
 ```
 
-#### PgAdmin
-
-##### [http://localhost:8090](http://localhost:8090)
+#### PgAdmin  [http://localhost:8090](http://localhost:8090)
 
 ```
 Username: h.naimaei@gmail.com
@@ -88,14 +164,10 @@ Username: postgres
 Password: admin
 ```
 
-#### Prometheus
-
-##### [http://localhost:9090](http://localhost:9090)
-
 ### Docker Stop
 
 ```
-docker compose --file 'docker/docker-compose.yml' --project-name 'docker' down
+docker compose -f 'docker/docker-compose.yml' --project-name 'docker' down
 ```
 
 ### Linux
