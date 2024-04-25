@@ -52,14 +52,14 @@ go run main.go
 ##### Address: [http://localhost:5005](http://localhost:5005)
 
 #### Stop
-```
+```bash
 docker compose -f "docker/docker-compose.yml" down
 ```
 
 #### Examples
 
 ##### Login
-```
+```bash
 curl -X 'POST' \
   'http://localhost:5005/api/v1/users/login-by-username' \
   -H 'accept: application/json' \
@@ -74,7 +74,7 @@ curl -X 'POST' \
 
 ###### City filter and sort
 
-```
+```json
 {
   "filter": {
     "Name": {
@@ -97,7 +97,7 @@ curl -X 'POST' \
 
 ###### City in range filter 
 
-```
+```json
 {
   "filter": {
     "Id": { // Column name
@@ -120,7 +120,7 @@ curl -X 'POST' \
 
 ### Run project with dependencies on Docker
 
-```
+```bash
 docker compose -f "docker/docker-compose.yml" up -d --build
 ```
 
@@ -166,7 +166,7 @@ Password: admin
 
 ### Docker Stop
 
-```
+```bash
 docker compose -f 'docker/docker-compose.yml' --project-name 'docker' down
 ```
 
@@ -174,14 +174,14 @@ docker compose -f 'docker/docker-compose.yml' --project-name 'docker' down
 
 0. build Project and copy configuration
 
-```
+```bash
 /src > go build -o ../prod/server ./cmd/main.go
 /src > mkdir ../prod/config/ && cp config/config-production.yml ../prod/config/config-production.yml
 ```
 
 1. Create systemd unit
 
-```
+```bash
 sudo vi /lib/systemd/system/go-api.service
 ```
 
@@ -204,19 +204,19 @@ WantedBy=multi-user.target
 
 3. Start service
 
-```
+```bash
 sudo systemctl start go-api
 ```
 
 4. Stop service
 
-```
+```bash
 sudo systemctl stop go-api
 ```
 
 5. Show service logs
 
-```
+```bash
 sudo journalctl -u go-api -e
 ```
 
