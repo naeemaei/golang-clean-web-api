@@ -13,7 +13,7 @@ func PropertyCategory(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func Property(r *gin.RouterGroup, cfg *config.Config) {
@@ -23,5 +23,5 @@ func Property(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }

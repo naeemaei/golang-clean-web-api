@@ -22,7 +22,6 @@ type BaseModel struct {
 func (m *BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
 	var userId = -1
-	// TODO: check userId type
 	if value != nil {
 		userId = int(value.(float64))
 	}
@@ -34,7 +33,6 @@ func (m *BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
 func (m *BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
 	var userId = &sql.NullInt64{Valid: false}
-	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{Valid: true, Int64: int64(value.(float64))}
 	}
@@ -46,7 +44,6 @@ func (m *BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
 func (m *BaseModel) BeforeDelete(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
 	var userId = &sql.NullInt64{Valid: false}
-	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{Valid: true, Int64: int64(value.(float64))}
 	}

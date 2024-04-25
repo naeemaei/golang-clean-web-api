@@ -49,7 +49,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	{
 		// Test
 		health := v1.Group("/health")
-		test_router := v1.Group("/test" /*middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"})*/)
+		testRouter := v1.Group("/test" /*middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"})*/)
 
 		// User
 		users := v1.Group("/users")
@@ -79,7 +79,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 
 		// Test
 		routers.Health(health)
-		routers.TestRouter(test_router)
+		routers.TestRouter(testRouter)
 
 		// User
 		routers.User(users, cfg)

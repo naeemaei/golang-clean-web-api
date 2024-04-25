@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
-	migrations.Up_1()
+	migrations.Up1()
 
 	api.InitServer(cfg)
 }

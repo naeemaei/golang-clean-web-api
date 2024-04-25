@@ -12,9 +12,11 @@ import (
 	"gorm.io/gorm"
 )
 
+const countStarExp = "count(*)"
+
 var logger = logging.NewLogger(config.GetConfig())
 
-func Up_1() {
+func Up1() {
 	database := db.GetDb()
 
 	createTables(database)
@@ -121,7 +123,7 @@ func createCountry(database *gorm.DB) {
 	count := 0
 	database.
 		Model(&models.Country{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 		database.Create(&models.Country{Name: "Iran", Cities: []models.City{
@@ -191,7 +193,7 @@ func createPropertyCategory(database *gorm.DB) {
 
 	database.
 		Model(&models.PropertyCategory{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 		database.Create(&models.PropertyCategory{Name: "Body"})                     // بدنه
@@ -231,7 +233,7 @@ func createProperty(database *gorm.DB, cat string) {
 
 	database.
 		Model(&models.Property{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Where("category_id = ?", catModel.Id).
 		Find(&count)
 
@@ -286,7 +288,7 @@ func createCarType(database *gorm.DB) {
 	count := 0
 	database.
 		Model(&models.CarType{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 		database.Create(&models.CarType{Name: "Crossover"})
@@ -301,7 +303,7 @@ func createGearbox(database *gorm.DB) {
 	count := 0
 	database.
 		Model(&models.Gearbox{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 		database.Create(&models.Gearbox{Name: "Manual"})
@@ -313,7 +315,7 @@ func createColor(database *gorm.DB) {
 	count := 0
 	database.
 		Model(&models.Color{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 		database.Create(&models.Color{Name: "Black", HexCode: "#000000"})
@@ -326,7 +328,7 @@ func createYear(database *gorm.DB) {
 	count := 0
 	database.
 		Model(&models.PersianYear{}).
-		Select("count(*)").
+		Select(countStarExp).
 		Find(&count)
 	if count == 0 {
 
@@ -374,6 +376,6 @@ func createYear(database *gorm.DB) {
 	}
 }
 
-func Down_1() {
-
+func Down1() {
+	// nothing
 }

@@ -29,5 +29,4 @@ func NewLogger(cfg *config.Config) Logger {
 	}
 	panic("logger not supported")
 }
-
-// file <- filebeat -> elasticsearch -> kibana
+ 

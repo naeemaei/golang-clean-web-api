@@ -22,7 +22,7 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 		claimMap := map[string]interface{}{}
 		auth := c.GetHeader(constants.AuthorizationHeaderKey)
 		token := strings.Split(auth, " ")
-		if auth == "" {
+		if auth == "" || len(token) < 2 {
 			err = &service_errors.ServiceError{EndUserMessage: service_errors.TokenRequired}
 		} else {
 			claimMap, err = tokenService.GetClaims(token[1])

@@ -21,6 +21,7 @@ import (
 	"gorm.io/gorm"
 )
 
+const softDeleteExp string = "id = ? and deleted_by is null"
 type preload struct {
 	string
 }
@@ -69,7 +70,7 @@ func (s *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu
 	model := new(T)
 	tx := s.Database.WithContext(ctx).Begin()
 	if err := tx.Model(model).
-		Where("id = ? and deleted_by is null", id).
+		Where(softDeleteExp, id).
 		Updates(snakeMap).
 		Error; err != nil {
 		tx.Rollback()
@@ -98,7 +99,7 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 	}
 	if cnt := tx.
 		Model(model).
-		Where("id = ? and deleted_by is null", id).
+		Where(softDeleteExp, id).
 		Updates(deleteMap).
 		RowsAffected; cnt == 0 {
 		tx.Rollback()
@@ -115,7 +116,7 @@ func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, 
 	model := new(T)
 	db := Preload(s.Database, s.Preloads)
 	err := db.
-		Where("id = ? and deleted_by is null", id).
+		Where(softDeleteExp, id).
 		First(model).
 		Error
 	if err != nil {
@@ -192,43 +193,48 @@ func getQuery[T any](filter *dto.DynamicFilter) string {
 	query = append(query, "deleted_by is null")
 	if filter.Filter != nil {
 		for name, filter := range filter.Filter {
-			fld, ok := typeT.FieldByName(name)
-			if ok {
-				fld.Name = common.ToSnakeCase(fld.Name)
-				switch filter.Type {
-				case "contains":
-					query = append(query, fmt.Sprintf("%s ILike '%%%s%%'", fld.Name, filter.From))
-				case "notContains":
-					query = append(query, fmt.Sprintf("%s not ILike '%%%s%%'", fld.Name, filter.From))
-				case "startsWith":
-					query = append(query, fmt.Sprintf("%s ILike '%s%%'", fld.Name, filter.From))
-				case "endsWith":
-					query = append(query, fmt.Sprintf("%s ILike '%%%s'", fld.Name, filter.From))
-				case "equals":
-					query = append(query, fmt.Sprintf("%s = '%s'", fld.Name, filter.From))
-				case "notEqual":
-					query = append(query, fmt.Sprintf("%s != '%s'", fld.Name, filter.From))
-				case "lessThan":
-					query = append(query, fmt.Sprintf("%s < %s", fld.Name, filter.From))
-				case "lessThanOrEqual":
-					query = append(query, fmt.Sprintf("%s <= %s", fld.Name, filter.From))
-				case "greaterThan":
-					query = append(query, fmt.Sprintf("%s > %s", fld.Name, filter.From))
-				case "greaterThanOrEqual":
-					query = append(query, fmt.Sprintf("%s >= %s", fld.Name, filter.From))
-				case "inRange":
-					if fld.Type.Kind() == reflect.String {
-						query = append(query, fmt.Sprintf("%s >= '%s'", fld.Name, filter.From))
-						query = append(query, fmt.Sprintf("%s <= '%s'", fld.Name, filter.To))
-					} else {
-						query = append(query, fmt.Sprintf("%s >= %s", fld.Name, filter.From))
-						query = append(query, fmt.Sprintf("%s <= %s", fld.Name, filter.To))
-					}
-				}
+			if fld, ok := typeT.FieldByName(name); ok{
+				query = append(query, generateDynamicFilter(fld, filter))
 			}
 		}
 	}
 	return strings.Join(query, " AND ")
+}
+
+func generateDynamicFilter(fld reflect.StructField, filter dto.Filter) string {
+	conditionQuery := ""
+	fld.Name = common.ToSnakeCase(fld.Name)
+	switch filter.Type {
+	case "contains":
+		conditionQuery = fmt.Sprintf("%s ILike '%%%s%%'", fld.Name, filter.From)
+	case "notContains":
+		conditionQuery = fmt.Sprintf("%s not ILike '%%%s%%'", fld.Name, filter.From)
+	case "startsWith":
+		conditionQuery = fmt.Sprintf("%s ILike '%s%%'", fld.Name, filter.From)
+	case "endsWith":
+		conditionQuery = fmt.Sprintf("%s ILike '%%%s'", fld.Name, filter.From)
+	case "equals":
+		conditionQuery = fmt.Sprintf("%s = '%s'", fld.Name, filter.From)
+	case "notEqual":
+		conditionQuery = fmt.Sprintf("%s != '%s'", fld.Name, filter.From)
+	case "lessThan":
+		conditionQuery = fmt.Sprintf("%s < %s", fld.Name, filter.From)
+	case "lessThanOrEqual":
+		conditionQuery = fmt.Sprintf("%s <= %s", fld.Name, filter.From)
+	case "greaterThan":
+		conditionQuery = fmt.Sprintf("%s > %s", fld.Name, filter.From)
+	case "greaterThanOrEqual":
+		conditionQuery = fmt.Sprintf("%s >= %s", fld.Name, filter.From)
+	case "inRange":
+		if fld.Type.Kind() == reflect.String {
+			conditionQuery = fmt.Sprintf("%s >= '%s%%' AND ", fld.Name, filter.From)
+			conditionQuery += fmt.Sprintf("%s <= '%%%s'", fld.Name, filter.To)
+		} else {
+			conditionQuery = fmt.Sprintf("%s >= %s AND ", fld.Name, filter.From)
+			conditionQuery += fmt.Sprintf("%s <= %s", fld.Name, filter.To)
+		}
+	}
+	return conditionQuery
 }
 
 // getSort

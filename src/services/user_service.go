@@ -13,6 +13,9 @@ import (
 	"gorm.io/gorm"
 )
 
+const userFilterExp string = "username = ?"
+const countFilterExp string = "count(*) > 0"
+
 type UserService struct {
 	logger       logging.Logger
 	cfg          *config.Config
@@ -38,7 +41,7 @@ func (s *UserService) LoginByUsername(req *dto.LoginByUsernameRequest) (*dto.Tok
 	var user models.User
 	err := s.database.
 		Model(&models.User{}).
-		Where("username = ?", req.Username).
+		Where(userFilterExp, req.Username).
 		Preload("UserRoles", func(tx *gorm.DB) *gorm.DB {
 			return tx.Preload("Role")
 		}).
@@ -50,16 +53,16 @@ func (s *UserService) LoginByUsername(req *dto.LoginByUsernameRequest) (*dto.Tok
 	if err != nil {
 		return nil, err
 	}
-	tdto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
+	tokenDto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
 		Email: user.Email, MobileNumber: user.MobileNumber}
 
 	if len(*user.UserRoles) > 0 {
 		for _, ur := range *user.UserRoles {
-			tdto.Roles = append(tdto.Roles, ur.Role.Name)
+			tokenDto.Roles = append(tokenDto.Roles, ur.Role.Name)
 		}
 	}
 
-	token, err := s.tokenService.GenerateToken(&tdto)
+	token, err := s.tokenService.GenerateToken(&tokenDto)
 	if err != nil {
 		return nil, err
 	}
@@ -131,34 +134,10 @@ func (s *UserService) RegisterLoginByMobileNumber(req *dto.RegisterLoginByMobile
 	u := models.User{MobileNumber: req.MobileNumber, Username: req.MobileNumber}
 
 	if exists {
-		var user models.User
-		err = s.database.
-			Model(&models.User{}).
-			Where("username = ?", u.Username).
-			Preload("UserRoles", func(tx *gorm.DB) *gorm.DB {
-				return tx.Preload("Role")
-			}).
-			Find(&user).Error
-		if err != nil {
-			return nil, err
-		}
-		tdto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
-			Email: user.Email, MobileNumber: user.MobileNumber}
-
-		if len(*user.UserRoles) > 0 {
-			for _, ur := range *user.UserRoles {
-				tdto.Roles = append(tdto.Roles, ur.Role.Name)
-			}
-		}
-
-		token, err := s.tokenService.GenerateToken(&tdto)
-		if err != nil {
-			return nil, err
-		}
-		return token, nil
-
+		return s.loginByMobileNumber(u.Username)
 	}
 
+	// Register and login
 	bp := []byte(common.GeneratePassword())
 	hp, err := bcrypt.GenerateFromPassword(bp, bcrypt.DefaultCost)
 	if err != nil {
@@ -187,10 +166,15 @@ func (s *UserService) RegisterLoginByMobileNumber(req *dto.RegisterLoginByMobile
 	}
 	tx.Commit()
 
+	return s.loginByMobileNumber(u.Username)
+
+}
+
+func (s *UserService) loginByMobileNumber(username string) (*dto.TokenDetail, error) {
 	var user models.User
-	err = s.database.
+	err := s.database.
 		Model(&models.User{}).
-		Where("username = ?", u.Username).
+		Where(userFilterExp, username).
 		Preload("UserRoles", func(tx *gorm.DB) *gorm.DB {
 			return tx.Preload("Role")
 		}).
@@ -198,21 +182,20 @@ func (s *UserService) RegisterLoginByMobileNumber(req *dto.RegisterLoginByMobile
 	if err != nil {
 		return nil, err
 	}
-	tdto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
+	tokenDto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
 		Email: user.Email, MobileNumber: user.MobileNumber}
 
 	if len(*user.UserRoles) > 0 {
 		for _, ur := range *user.UserRoles {
-			tdto.Roles = append(tdto.Roles, ur.Role.Name)
+			tokenDto.Roles = append(tokenDto.Roles, ur.Role.Name)
 		}
 	}
 
-	token, err := s.tokenService.GenerateToken(&tdto)
+	token, err := s.tokenService.GenerateToken(&tokenDto)
 	if err != nil {
 		return nil, err
 	}
 	return token, nil
-
 }
 
 func (s *UserService) SendOtp(req *dto.GetOtpRequest) error {
@@ -227,7 +210,7 @@ func (s *UserService) SendOtp(req *dto.GetOtpRequest) error {
 func (s *UserService) existsByEmail(email string) (bool, error) {
 	var exists bool
 	if err := s.database.Model(&models.User{}).
-		Select("count(*) > 0").
+		Select(countFilterExp).
 		Where("email = ?", email).
 		Find(&exists).
 		Error; err != nil {
@@ -240,8 +223,8 @@ func (s *UserService) existsByEmail(email string) (bool, error) {
 func (s *UserService) existsByUsername(username string) (bool, error) {
 	var exists bool
 	if err := s.database.Model(&models.User{}).
-		Select("count(*) > 0").
-		Where("username = ?", username).
+		Select(countFilterExp).
+		Where(userFilterExp, username).
 		Find(&exists).
 		Error; err != nil {
 		s.logger.Error(logging.Postgres, logging.Select, err.Error(), nil)
@@ -253,7 +236,7 @@ func (s *UserService) existsByUsername(username string) (bool, error) {
 func (s *UserService) existsByMobileNumber(mobileNumber string) (bool, error) {
 	var exists bool
 	if err := s.database.Model(&models.User{}).
-		Select("count(*) > 0").
+		Select(countFilterExp).
 		Where("mobile_number = ?", mobileNumber).
 		Find(&exists).
 		Error; err != nil {

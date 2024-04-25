@@ -25,15 +25,3 @@ type UserRole struct {
 	UserId int
 	RoleId int
 }
-
-/*
-user -> n roles
-role -> n users
-
-users n <-> n roles
-
-user
-user_role -> user_id, role_id, ....
-role
-
-*/

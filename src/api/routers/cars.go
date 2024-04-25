@@ -13,7 +13,7 @@ func CarType(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func Gearbox(r *gin.RouterGroup, cfg *config.Config) {
@@ -23,7 +23,7 @@ func Gearbox(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModel(r *gin.RouterGroup, cfg *config.Config) {
@@ -33,7 +33,7 @@ func CarModel(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelColor(r *gin.RouterGroup, cfg *config.Config) {
@@ -43,7 +43,7 @@ func CarModelColor(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelYear(r *gin.RouterGroup, cfg *config.Config) {
@@ -53,7 +53,7 @@ func CarModelYear(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelPriceHistory(r *gin.RouterGroup, cfg *config.Config) {
@@ -63,7 +63,7 @@ func CarModelPriceHistory(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelImage(r *gin.RouterGroup, cfg *config.Config) {
@@ -73,7 +73,7 @@ func CarModelImage(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
@@ -83,7 +83,7 @@ func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
 
 func CarModelComment(r *gin.RouterGroup, cfg *config.Config) {
@@ -93,5 +93,5 @@ func CarModelComment(r *gin.RouterGroup, cfg *config.Config) {
 	r.PUT("/:id", h.Update)
 	r.DELETE("/:id", h.Delete)
 	r.GET("/:id", h.GetById)
-	r.POST("/get-by-filter", h.GetByFilter)
+	r.POST(GetByFilterExp, h.GetByFilter)
 }
