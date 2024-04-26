@@ -6,7 +6,6 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/constants"
 	"github.com/naeemaei/golang-clean-web-api/data/db"
-	"github.com/naeemaei/golang-clean-web-api/data/models"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
 	"golang.org/x/crypto/bcrypt"
@@ -71,7 +70,7 @@ func (s *UserService) LoginByUsername(req *dto.LoginByUsernameRequest) (*dto.Tok
 }
 
 // Register by username
-func (s *UserService) RegisterByUsername(req *dto.RegisterUserByUsernameRequest) error {
+func (s *UserService) RegisterByUsername(req *dto.RegisterUserByUsername) error {
 	u := models.User{Username: req.Username, FirstName: req.FirstName, LastName: req.LastName, Email: req.Email}
 
 	exists, err := s.existsByEmail(req.Email)

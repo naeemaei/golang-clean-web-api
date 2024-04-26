@@ -1,22 +1,34 @@
-package dto
+package filter
 
-type Sort struct {
-	ColId string `json:"colId"`
-	Sort  string `json:"sort"`
+import (
+	"math"
+
+	"github.com/naeemaei/golang-clean-web-api/common"
+)
+
+func NewPagedList[T any](items *[]T, count int64, pageNumber int, pageSize int64) *PagedList[T] {
+	pl := &PagedList[T]{
+		PageNumber: pageNumber,
+		TotalRows:  count,
+		Items:      items,
+	}
+	pl.TotalPages = int(math.Ceil(float64(count) / float64(pageSize)))
+	pl.HasNextPage = pl.PageNumber < pl.TotalPages
+	pl.HasPreviousPage = pl.PageNumber > 1
+
+	return pl
 }
 
-type Filter struct {
-	// contains notContains equals notEqual startsWith lessThan lessThanOrEqual greaterThan greaterThanOrEqual inRange endsWith
-	Type string `json:"type"`
-	From string `json:"from"`
-	To   string `json:"to"`
-	// text number
-	FilterType string `json:"filterType"`
-}
+// Paginate
+func Paginate[T any, Tr any](totalRows int64, items *[]T, pageNumber int, pageSize int64) (*PagedList[Tr], error) {
+	var rItems []Tr
 
-type DynamicFilter struct {
-	Sort   *[]Sort           `json:"sort"`
-	Filter map[string]Filter `json:"filter"`
+	rItems, err := common.TypeConverter[[]Tr](items)
+	if err != nil {
+		return nil, err
+	}
+	return NewPagedList(&rItems, totalRows, pageNumber, pageSize), err
+
 }
 
 type PagedList[T any] struct {

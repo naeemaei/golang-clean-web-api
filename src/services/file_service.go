@@ -6,23 +6,21 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/data/db"
-	"github.com/naeemaei/golang-clean-web-api/data/models"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 )
 
 type FileService struct {
-	base *BaseService[models.File,dto.CreateFileRequest, dto.UpdateFileRequest,dto.FileResponse]
+	base *BaseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse]
 }
 
 func NewFileService(cfg *config.Config) *FileService {
 	return &FileService{
 		base: &BaseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse]{
 			Database: db.GetDb(),
-			Logger: logging.NewLogger(cfg),
+			Logger:   logging.NewLogger(cfg),
 		},
 	}
 }
-
 
 // Create
 func (s *FileService) Create(ctx context.Context, req *dto.CreateFileRequest) (*dto.FileResponse, error) {

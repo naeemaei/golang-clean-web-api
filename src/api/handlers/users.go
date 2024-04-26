@@ -4,19 +4,21 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/naeemaei/golang-clean-web-api/api/dto"
+	dto "github.com/naeemaei/golang-clean-web-api/api/dto"
 	"github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type UsersHandler struct {
-	service *services.UserService
+	usecase    *usecase.UserUsecase
+	otpUsecase *usecase.OtpUsecase
 }
 
 func NewUsersHandler(cfg *config.Config) *UsersHandler {
-	service := services.NewUserService(cfg)
-	return &UsersHandler{service: service}
+	usecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
+	return &UsersHandler{usecase: usecase}
 }
 
 // LoginByUsername godoc
@@ -38,7 +40,7 @@ func (h *UsersHandler) LoginByUsername(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	token, err := h.service.LoginByUsername(req)
+	token, err := h.usecase.LoginByUsername(c, req.Username, req.Password)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
@@ -67,7 +69,7 @@ func (h *UsersHandler) RegisterByUsername(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	err = h.service.RegisterByUsername(req)
+	err = h.usecase.RegisterByUsername(c, req.ToRegisterUserByUsername())
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
@@ -96,7 +98,7 @@ func (h *UsersHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	token, err := h.service.RegisterLoginByMobileNumber(req)
+	token, err := h.usecase.RegisterAndLoginByMobileNumber(c, req.MobileNumber, req.Otp)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
@@ -125,7 +127,7 @@ func (h *UsersHandler) SendOtp(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	err = h.service.SendOtp(req)
+	err = h.otpUsecase.SendOtp(req.MobileNumber)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))

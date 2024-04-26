@@ -5,16 +5,17 @@ import (
 	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type PersianYearHandler struct {
-	service *services.PersianYearService
+	usecase *usecase.PersianYearUsecase
 }
 
 func NewPersianYearHandler(cfg *config.Config) *PersianYearHandler {
 	return &PersianYearHandler{
-		service: services.NewPersianYearService(cfg),
+		usecase: usecase.NewPersianYearUsecase(cfg, dependency.GetPersianYearRepository(cfg)),
 	}
 }
 
@@ -30,7 +31,7 @@ func NewPersianYearHandler(cfg *config.Config) *PersianYearHandler {
 // @Router /v1/years/ [post]
 // @Security AuthBearer
 func (h *PersianYearHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, h.usecase.Create)
 }
 
 // UpdatePersianYear godoc
@@ -47,7 +48,7 @@ func (h *PersianYearHandler) Create(c *gin.Context) {
 // @Router /v1/years/{id} [put]
 // @Security AuthBearer
 func (h *PersianYearHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, h.usecase.Update)
 }
 
 // DeletePersianYear godoc
@@ -63,7 +64,7 @@ func (h *PersianYearHandler) Update(c *gin.Context) {
 // @Router /v1/years/{id} [delete]
 // @Security AuthBearer
 func (h *PersianYearHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetPersianYear godoc
@@ -79,7 +80,7 @@ func (h *PersianYearHandler) Delete(c *gin.Context) {
 // @Router /v1/years/{id} [get]
 // @Security AuthBearer
 func (h *PersianYearHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, h.usecase.GetById)
 }
 
 // GetPersianYears godoc
@@ -94,5 +95,5 @@ func (h *PersianYearHandler) GetById(c *gin.Context) {
 // @Router /v1/years/get-by-filter [post]
 // @Security AuthBearer
 func (h *PersianYearHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, h.usecase.GetByFilter)
 }

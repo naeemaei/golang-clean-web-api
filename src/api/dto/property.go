@@ -1,4 +1,4 @@
-package dto
+package api
 
 type CreatePropertyCategoryRequest struct {
 	Name string `json:"name" binding:"required,alpha,min=3,max=50"`

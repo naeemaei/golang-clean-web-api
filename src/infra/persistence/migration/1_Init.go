@@ -1,12 +1,12 @@
-package migrations
+package migration
 
 import (
 	"time"
 
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/constants"
-	"github.com/naeemaei/golang-clean-web-api/data/db"
-	"github.com/naeemaei/golang-clean-web-api/data/models"
+	models "github.com/naeemaei/golang-clean-web-api/domain/model"
+	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -17,7 +17,7 @@ const countStarExp = "count(*)"
 var logger = logging.NewLogger(config.GetConfig())
 
 func Up1() {
-	database := db.GetDb()
+	database := database.GetDb()
 
 	createTables(database)
 	createDefaultUserInformation(database)

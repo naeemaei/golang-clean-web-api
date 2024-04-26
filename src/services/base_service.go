@@ -14,7 +14,8 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/constants"
 	"github.com/naeemaei/golang-clean-web-api/data/db"
-	"github.com/naeemaei/golang-clean-web-api/data/models"
+	domain "github.com/naeemaei/golang-clean-web-api/domain/model"
+	infra "github.com/naeemaei/golang-clean-web-api/infra/persistence/repository"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/pkg/metrics"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
@@ -22,6 +23,7 @@ import (
 )
 
 const softDeleteExp string = "id = ? and deleted_by is null"
+
 type preload struct {
 	string
 }
@@ -40,6 +42,9 @@ func NewBaseService[T any, Tc any, Tu any, Tr any](cfg *config.Config) *BaseServ
 }
 
 func (s *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, error) {
+	var c domain.CountryRepository
+	c = &infra.NewBaseRepository[models.country]()
+	c.Create()
 
 	model, _ := common.TypeConverter[T](req)
 	tx := s.Database.WithContext(ctx).Begin()
@@ -53,7 +58,7 @@ func (s *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, 
 		return nil, err
 	}
 	tx.Commit()
-	bm, _ := common.TypeConverter[models.BaseModel](model)
+	bm, _ := common.TypeConverter[domain.BaseModel](model)
 	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Success").Inc()
 	return s.GetById(ctx, bm.Id)
 }
@@ -193,7 +198,7 @@ func getQuery[T any](filter *dto.DynamicFilter) string {
 	query = append(query, "deleted_by is null")
 	if filter.Filter != nil {
 		for name, filter := range filter.Filter {
-			if fld, ok := typeT.FieldByName(name); ok{
+			if fld, ok := typeT.FieldByName(name); ok {
 				query = append(query, generateDynamicFilter(fld, filter))
 			}
 		}
