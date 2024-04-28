@@ -11,8 +11,7 @@ type UpdatePropertyCategory struct {
 }
 
 type PropertyCategory struct {
-	Id         int
-	Name       string
+	IdName
 	Icon       string
 	Properties []Property
 }
@@ -36,8 +35,7 @@ type UpdateProperty struct {
 }
 
 type Property struct {
-	Id          int
-	Name        string
+	IdName
 	Icon        string
 	Description string
 	DataType    string

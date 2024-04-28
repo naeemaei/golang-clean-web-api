@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/constants"
+	constants "github.com/naeemaei/golang-clean-web-api/constant"
 	models "github.com/naeemaei/golang-clean-web-api/domain/model"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"

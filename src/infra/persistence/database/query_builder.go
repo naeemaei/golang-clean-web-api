@@ -12,7 +12,7 @@ import (
 )
 
 type PreloadEntity struct {
-	string
+	Entity string
 }
 
 // GenerateDynamicQuery
@@ -87,7 +87,7 @@ func GenerateDynamicSort[T any](filter *filter.DynamicFilter) string {
 // Preload
 func Preload(db *gorm.DB, preloads []PreloadEntity) *gorm.DB {
 	for _, item := range preloads {
-		db = db.Preload(item.string)
+		db = db.Preload(item.Entity)
 	}
 	return db
 }

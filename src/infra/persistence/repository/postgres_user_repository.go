@@ -4,8 +4,9 @@ import (
 	"context"
 
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/constants"
+	constants "github.com/naeemaei/golang-clean-web-api/constant"
 	model "github.com/naeemaei/golang-clean-web-api/domain/model"
+	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -19,7 +20,8 @@ type PostgresUserRepository struct {
 }
 
 func NewUserRepository(cfg *config.Config) *PostgresUserRepository {
-	return &PostgresUserRepository{BaseRepository: NewBaseRepository[model.User](cfg)}
+	var preloads []database.PreloadEntity = []database.PreloadEntity{}
+	return &PostgresUserRepository{BaseRepository: NewBaseRepository[model.User](cfg, preloads)}
 }
 
 func (r *PostgresUserRepository) CreateUser(ctx context.Context, u model.User) (model.User, error) {

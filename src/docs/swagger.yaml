@@ -1,5 +1,5 @@
 definitions:
-  api_handlers.personData:
+  api_handler.personData:
     properties:
       first_name:
         maxLength: 10
@@ -378,20 +378,6 @@ definitions:
       name:
         type: string
     type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.Filter:
-    properties:
-      filterType:
-        description: text number
-        type: string
-      from:
-        type: string
-      to:
-        type: string
-      type:
-        description: contains notContains equals notEqual startsWith lessThan lessThanOrEqual
-          greaterThan greaterThanOrEqual inRange endsWith
-        type: string
-    type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse:
     properties:
       id:
@@ -419,310 +405,6 @@ definitions:
     required:
     - password
     - username
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  ? github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse
-  : properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse:
-    properties:
-      hasNextPage:
-        type: boolean
-      hasPreviousPage:
-        type: boolean
-      items:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
-        type: array
-      pageNumber:
-        type: integer
-      totalPages:
-        type: integer
-      totalRows:
-        type: integer
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter:
-    properties:
-      filter:
-        additionalProperties:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Filter'
-        type: object
-      pageNumber:
-        type: integer
-      pageSize:
-        type: integer
-      sort:
-        items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort'
-        type: array
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse:
     properties:
@@ -812,13 +494,6 @@ definitions:
     - lastName
     - password
     - username
-    type: object
-  github_com_naeemaei_golang-clean-web-api_api_dto.Sort:
-    properties:
-      colId:
-        type: string
-      sort:
-        type: string
     type: object
   github_com_naeemaei_golang-clean-web-api_api_dto.UpdateCarModelColorRequest:
     properties:
@@ -987,7 +662,7 @@ definitions:
         type: boolean
       validationErrors:
         items:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_validations.ValidationError'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_validation.ValidationError'
         type: array
     type: object
   github_com_naeemaei_golang-clean-web-api_api_helper.ResultCode:
@@ -1012,7 +687,7 @@ definitions:
     - OtpLimiterError
     - CustomRecovery
     - InternalError
-  github_com_naeemaei_golang-clean-web-api_api_validations.ValidationError:
+  github_com_naeemaei_golang-clean-web-api_api_validation.ValidationError:
     properties:
       message:
         type: string
@@ -1023,20 +698,364 @@ definitions:
       value:
         type: string
     type: object
-  multipart.FileHeader:
+  github_com_naeemaei_golang-clean-web-api_domain_filter.Filter:
     properties:
-      filename:
+      filterType:
+        description: text number
         type: string
-      header:
-        $ref: '#/definitions/textproto.MIMEHeader'
-      size:
+      from:
+        type: string
+      to:
+        type: string
+      type:
+        description: contains notContains equals notEqual startsWith lessThan lessThanOrEqual
+          greaterThan greaterThanOrEqual inRange endsWith
+        type: string
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
         type: integer
     type: object
-  textproto.MIMEHeader:
-    additionalProperties:
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
       items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse'
+        type: array
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter:
+    properties:
+      filter:
+        additionalProperties:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.Filter'
+        type: object
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+      sort:
+        items:
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.Sort'
+        type: array
+    type: object
+  github_com_naeemaei_golang-clean-web-api_domain_filter.Sort:
+    properties:
+      colId:
         type: string
-      type: array
+      sort:
+        type: string
     type: object
 info:
   contact: {}
@@ -1184,7 +1203,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelColor response
@@ -1193,7 +1212,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse'
               type: object
         "400":
           description: Bad request
@@ -1347,7 +1366,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelComment response
@@ -1356,7 +1375,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse'
               type: object
         "400":
           description: Bad request
@@ -1510,7 +1529,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelImage response
@@ -1519,7 +1538,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse'
               type: object
         "400":
           description: Bad request
@@ -1673,7 +1692,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelPriceHistory response
@@ -1682,7 +1701,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse'
               type: object
         "400":
           description: Bad request
@@ -1836,7 +1855,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelProperty response
@@ -1845,7 +1864,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse'
               type: object
         "400":
           description: Bad request
@@ -1999,7 +2018,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModelYear response
@@ -2008,7 +2027,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse'
               type: object
         "400":
           description: Bad request
@@ -2162,7 +2181,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarModel response
@@ -2171,7 +2190,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse'
               type: object
         "400":
           description: Bad request
@@ -2325,7 +2344,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: CarType response
@@ -2334,7 +2353,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse'
               type: object
         "400":
           description: Bad request
@@ -2488,7 +2507,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: City response
@@ -2497,7 +2516,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse'
               type: object
         "400":
           description: Bad request
@@ -2651,7 +2670,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: Color response
@@ -2660,7 +2679,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse'
               type: object
         "400":
           description: Bad request
@@ -2814,7 +2833,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: Company response
@@ -2823,7 +2842,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse'
               type: object
         "400":
           description: Bad request
@@ -2965,7 +2984,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: Country response
@@ -2974,7 +2993,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse'
               type: object
         "400":
           description: Bad request
@@ -3119,7 +3138,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: File response
@@ -3128,7 +3147,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse'
               type: object
         "400":
           description: Bad request
@@ -3282,7 +3301,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: Gearbox response
@@ -3291,7 +3310,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse'
               type: object
         "400":
           description: Bad request
@@ -3464,7 +3483,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: Property response
@@ -3473,7 +3492,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse'
               type: object
         "400":
           description: Bad request
@@ -3627,7 +3646,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: PropertyCategory response
@@ -3636,7 +3655,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse'
               type: object
         "400":
           description: Bad request
@@ -3658,7 +3677,7 @@ paths:
         name: person
         required: true
         schema:
-          $ref: '#/definitions/api_handlers.personData'
+          $ref: '#/definitions/api_handler.personData'
       produces:
       - application/json
       responses:
@@ -4005,7 +4024,7 @@ paths:
         name: Request
         required: true
         schema:
-          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter'
+          $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter'
       responses:
         "200":
           description: PersianYear response
@@ -4014,7 +4033,7 @@ paths:
             - $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
             - properties:
                 result:
-                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse'
+                  $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse'
               type: object
         "400":
           description: Bad request

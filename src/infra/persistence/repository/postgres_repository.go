@@ -8,7 +8,7 @@ import (
 
 	"github.com/naeemaei/golang-clean-web-api/common"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/constants"
+	constants "github.com/naeemaei/golang-clean-web-api/constant"
 	filter "github.com/naeemaei/golang-clean-web-api/domain/filter"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -25,17 +25,18 @@ type BaseRepository[TEntity any] struct {
 	preloads []database.PreloadEntity
 }
 
-func NewBaseRepository[TEntity any](cfg *config.Config) *BaseRepository[TEntity] {
+func NewBaseRepository[TEntity any](cfg *config.Config, preloads []database.PreloadEntity) *BaseRepository[TEntity] {
 	return &BaseRepository[TEntity]{
 		database: database.GetDb(),
 		logger:   logging.NewLogger(cfg),
+		preloads: preloads,
 	}
 }
 
 func (r BaseRepository[TEntity]) Create(ctx context.Context, entity TEntity) (TEntity, error) {
 	tx := r.database.WithContext(ctx).Begin()
 	err := tx.
-		Create(entity).
+		Create(&entity).
 		Error
 	if err != nil {
 		tx.Rollback()
@@ -134,7 +135,7 @@ func (r BaseRepository[TEntity]) GetByFilter(ctx context.Context, req filter.Pag
 		Offset(req.GetOffset()).
 		Limit(req.GetPageSize()).
 		Order(sort).
-		Find(items).
+		Find(&items).
 		Error
 
 	if err != nil {

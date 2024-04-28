@@ -59,7 +59,7 @@ func (u *UserUsecase) LoginByUsername(ctx context.Context, username string, pass
 
 // Register by username
 func (u *UserUsecase) RegisterByUsername(ctx context.Context, req dto.RegisterUserByUsername) error {
-	user := req.ToUserModel()
+	user := dto.ToUserModel(req)
 
 	exists, err := u.repository.ExistsEmail(ctx, req.Email)
 	if err != nil {

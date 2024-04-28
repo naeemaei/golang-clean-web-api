@@ -91,7 +91,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -107,7 +107,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse"
                                         }
                                     }
                                 }
@@ -366,7 +366,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -382,7 +382,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse"
                                         }
                                     }
                                 }
@@ -641,7 +641,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -657,7 +657,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse"
                                         }
                                     }
                                 }
@@ -916,7 +916,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -932,7 +932,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse"
                                         }
                                     }
                                 }
@@ -1191,7 +1191,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -1207,7 +1207,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse"
                                         }
                                     }
                                 }
@@ -1466,7 +1466,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -1482,7 +1482,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse"
                                         }
                                     }
                                 }
@@ -1741,7 +1741,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -1757,7 +1757,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse"
                                         }
                                     }
                                 }
@@ -2016,7 +2016,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -2032,7 +2032,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse"
                                         }
                                     }
                                 }
@@ -2291,7 +2291,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -2307,7 +2307,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse"
                                         }
                                     }
                                 }
@@ -2566,7 +2566,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -2582,7 +2582,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse"
                                         }
                                     }
                                 }
@@ -2841,7 +2841,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -2857,7 +2857,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse"
                                         }
                                     }
                                 }
@@ -3116,7 +3116,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -3132,7 +3132,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse"
                                         }
                                     }
                                 }
@@ -3377,7 +3377,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -3393,7 +3393,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse"
                                         }
                                     }
                                 }
@@ -3634,7 +3634,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -3650,7 +3650,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse"
                                         }
                                     }
                                 }
@@ -3938,7 +3938,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -3954,7 +3954,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse"
                                         }
                                     }
                                 }
@@ -4213,7 +4213,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -4229,7 +4229,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse"
                                         }
                                     }
                                 }
@@ -4437,7 +4437,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api_handlers.personData"
+                            "$ref": "#/definitions/api_handler.personData"
                         }
                     }
                 ],
@@ -4829,7 +4829,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter"
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter"
                         }
                     }
                 ],
@@ -4845,7 +4845,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "result": {
-                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse"
+                                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse"
                                         }
                                     }
                                 }
@@ -5030,7 +5030,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api_handlers.personData": {
+        "api_handler.personData": {
             "type": "object",
             "required": [
                 "first_name",
@@ -5588,25 +5588,6 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.Filter": {
-            "type": "object",
-            "properties": {
-                "filterType": {
-                    "description": "text number",
-                    "type": "string"
-                },
-                "from": {
-                    "type": "string"
-                },
-                "to": {
-                    "type": "string"
-                },
-                "type": {
-                    "description": "contains notContains equals notEqual startsWith lessThan lessThanOrEqual greaterThan greaterThanOrEqual inRange endsWith",
-                    "type": "string"
-                }
-            }
-        },
         "github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse": {
             "type": "object",
             "properties": {
@@ -5645,471 +5626,6 @@ const docTemplate = `{
                 "username": {
                     "type": "string",
                     "minLength": 5
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse": {
-            "type": "object",
-            "properties": {
-                "hasNextPage": {
-                    "type": "boolean"
-                },
-                "hasPreviousPage": {
-                    "type": "boolean"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "totalRows": {
-                    "type": "integer"
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.PaginationInputWithFilter": {
-            "type": "object",
-            "properties": {
-                "filter": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Filter"
-                    }
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "sort": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.Sort"
-                    }
                 }
             }
         },
@@ -6240,17 +5756,6 @@ const docTemplate = `{
                 "username": {
                     "type": "string",
                     "minLength": 5
-                }
-            }
-        },
-        "github_com_naeemaei_golang-clean-web-api_api_dto.Sort": {
-            "type": "object",
-            "properties": {
-                "colId": {
-                    "type": "string"
-                },
-                "sort": {
-                    "type": "string"
                 }
             }
         },
@@ -6502,7 +6007,7 @@ const docTemplate = `{
                 "validationErrors": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_validations.ValidationError"
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_validation.ValidationError"
                     }
                 }
             }
@@ -6532,7 +6037,7 @@ const docTemplate = `{
                 "InternalError"
             ]
         },
-        "github_com_naeemaei_golang-clean-web-api_api_validations.ValidationError": {
+        "github_com_naeemaei_golang-clean-web-api_api_validation.ValidationError": {
             "type": "object",
             "properties": {
                 "message": {
@@ -6549,25 +6054,548 @@ const docTemplate = `{
                 }
             }
         },
-        "multipart.FileHeader": {
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.Filter": {
             "type": "object",
             "properties": {
-                "filename": {
+                "filterType": {
+                    "description": "text number",
                     "type": "string"
                 },
-                "header": {
-                    "$ref": "#/definitions/textproto.MIMEHeader"
+                "from": {
+                    "type": "string"
                 },
-                "size": {
+                "to": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "contains notContains equals notEqual startsWith lessThan lessThanOrEqual greaterThan greaterThanOrEqual inRange endsWith",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
                     "type": "integer"
                 }
             }
         },
-        "textproto.MIMEHeader": {
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelCommentResponse": {
             "type": "object",
-            "additionalProperties": {
-                "type": "array",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
                 "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelCommentResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelImageResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPriceHistoryResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPriceHistoryResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelPropertyResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelPropertyResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarModelYearResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarModelYearResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CarTypeResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CarTypeResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CityResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CityResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.ColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CompanyResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CompanyResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_CountryResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.CountryResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_FileResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.FileResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_GearboxResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.GearboxResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PersianYearResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PersianYearResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyCategoryResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyCategoryResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PagedList-github_com_naeemaei_golang-clean-web-api_api_dto_PropertyResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_dto.PropertyResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.PaginationInputWithFilter": {
+            "type": "object",
+            "properties": {
+                "filter": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.Filter"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "sort": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_domain_filter.Sort"
+                    }
+                }
+            }
+        },
+        "github_com_naeemaei_golang-clean-web-api_domain_filter.Sort": {
+            "type": "object",
+            "properties": {
+                "colId": {
+                    "type": "string"
+                },
+                "sort": {
                     "type": "string"
                 }
             }
