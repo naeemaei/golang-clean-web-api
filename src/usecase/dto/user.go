@@ -17,16 +17,12 @@ type RegisterUserByUsername struct {
 	Password  string
 }
 
-func (from RegisterUserByUsername) ToUserModel() model.User {
+func ToUserModel(from RegisterUserByUsername) model.User {
 	return model.User{Username: from.Username,
 		FirstName: from.FirstName,
 		LastName:  from.LastName,
 		Email:     from.Email,
 	}
-}
-
-type GetOtp struct {
-	MobileNumber string `json:"mobileNumber" binding:"required,mobile,min=11,max=11"`
 }
 
 type RegisterLoginByMobile struct {

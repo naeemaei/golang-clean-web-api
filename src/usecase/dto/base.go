@@ -8,10 +8,12 @@ type IdName struct {
 	Id   int
 	Name string
 }
+type Name struct {
+	Name string
+}
 
 type Country struct {
-	Id        int
-	Name      string
+	IdName
 	Cities    []City
 	Companies []Company
 }
@@ -26,8 +28,7 @@ type UpdateCity struct {
 	CountryId int
 }
 type City struct {
-	Id      int
-	Name    string
+	IdName
 	Country Country
 }
 
@@ -43,8 +44,7 @@ type UpdateFile struct {
 }
 
 type File struct {
-	Id          int
-	Name        string
+	IdName
 	Directory   string
 	Description string
 	MimeType    string
@@ -60,25 +60,23 @@ type UpdateCompany struct {
 	CountryId int
 }
 type Company struct {
-	Id      int
-	Name    string
+	IdName
 	Country Country
 }
 
 type CreateColor struct {
-	Name    string `json:"name" binding:"alpha,min=3,max=15"`
-	HexCode string `json:"hexCode" binding:"min=7,max=7"`
+	Name    string 
+	HexCode string 
 }
 
 type UpdateColor struct {
-	Name    string `json:"name,omitempty" binding:"alpha,min=3,max=15"`
-	HexCode string `json:"hexCode,omitempty" binding:"min=7,max=7"`
+	Name    string  
+	HexCode string  
 }
 
 type Color struct {
-	Id      int    `json:"id"`
-	Name    string `json:"name,omitempty"`
-	HexCode string `json:"hexCode,omitempty"`
+	IdName
+	HexCode string 
 }
 
 type CreatePersianYear struct {

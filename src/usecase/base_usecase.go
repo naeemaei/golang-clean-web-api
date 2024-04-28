@@ -70,5 +70,5 @@ func (u *BaseUsecase[TEntity, TCreate, TUpdate, TResponse]) GetByFilter(ctx cont
 		return response, err
 	}
 
-	return filter.Paginate[TEntity, TResponse](count, &entities, req.PageNumber, int64(req.PageSize))
+	return filter.Paginate[TEntity, TResponse](count, entities, req.PageNumber, int64(req.PageSize))
 }

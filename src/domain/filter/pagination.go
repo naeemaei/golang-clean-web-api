@@ -9,6 +9,7 @@ import (
 func NewPagedList[T any](items *[]T, count int64, pageNumber int, pageSize int64) *PagedList[T] {
 	pl := &PagedList[T]{
 		PageNumber: pageNumber,
+		PageSize:   pageSize,
 		TotalRows:  count,
 		Items:      items,
 	}
@@ -20,10 +21,10 @@ func NewPagedList[T any](items *[]T, count int64, pageNumber int, pageSize int64
 }
 
 // Paginate
-func Paginate[T any, Tr any](totalRows int64, items *[]T, pageNumber int, pageSize int64) (*PagedList[Tr], error) {
-	var rItems []Tr
+func Paginate[TInput any, TOutput any](totalRows int64, items *[]TInput, pageNumber int, pageSize int64) (*PagedList[TOutput], error) {
+	var rItems []TOutput
 
-	rItems, err := common.TypeConverter[[]Tr](items)
+	rItems, err := common.TypeConverter[[]TOutput](items)
 	if err != nil {
 		return nil, err
 	}
@@ -33,6 +34,7 @@ func Paginate[T any, Tr any](totalRows int64, items *[]T, pageNumber int, pageSi
 
 type PagedList[T any] struct {
 	PageNumber      int   `json:"pageNumber"`
+	PageSize        int64 `json:"pageSize"`
 	TotalRows       int64 `json:"totalRows"`
 	TotalPages      int   `json:"totalPages"`
 	HasPreviousPage bool  `json:"hasPreviousPage"`

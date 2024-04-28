@@ -1,4 +1,4 @@
-package api
+package dto
 
 import usecase "github.com/naeemaei/golang-clean-web-api/usecase/dto"
 

@@ -8,7 +8,7 @@ import (
 
 	"github.com/naeemaei/golang-clean-web-api/common"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/constants"
+	constants "github.com/naeemaei/golang-clean-web-api/constant"
 	filter "github.com/naeemaei/golang-clean-web-api/domain/filter"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -25,10 +25,11 @@ type BaseRepository[TEntity any] struct {
 	preloads []database.PreloadEntity
 }
 
-func NewBaseRepository[TEntity any](cfg *config.Config) *BaseRepository[TEntity] {
+func NewBaseRepository[TEntity any](cfg *config.Config, preloads []database.PreloadEntity) *BaseRepository[TEntity] {
 	return &BaseRepository[TEntity]{
 		database: database.GetDb(),
 		logger:   logging.NewLogger(cfg),
+		preloads: preloads,
 	}
 }
 

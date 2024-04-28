@@ -2,32 +2,6 @@ package dto
 
 import "time"
 
-type CreateCarType struct {
-	Name string
-}
-
-type UpdateCarType struct {
-	Name string
-}
-
-type CarType struct {
-	Id   int
-	Name string
-}
-
-type CreateGearbox struct {
-	Name string
-}
-
-type UpdateGearbox struct {
-	Name string
-}
-
-type Gearbox struct {
-	Id   int
-	Name string
-}
-
 type CreateCarModel struct {
 	Name      string
 	CompanyId int
@@ -43,11 +17,10 @@ type UpdateCarModel struct {
 }
 
 type CarModel struct {
-	Id                 int
-	Name               string
-	CarType            CarType
+	IdName
+	CarType            IdName
 	Company            Company
-	Gearbox            Gearbox
+	Gearbox            IdName
 	CarModelColors     []CarModelColor
 	CarModelYears      []CarModelYear
 	CarModelImages     []CarModelImage
