@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
+	"github.com/naeemaei/golang-clean-web-api/constant"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
 	dto "github.com/naeemaei/golang-clean-web-api/usecase/dto"
@@ -41,14 +41,14 @@ func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 
 	atc := jwt.MapClaims{}
 
-	atc[constants.UserIdKey] = token.UserId
-	atc[constants.FirstNameKey] = token.FirstName
-	atc[constants.LastNameKey] = token.LastName
-	atc[constants.UsernameKey] = token.Username
-	atc[constants.EmailKey] = token.Email
-	atc[constants.MobileNumberKey] = token.MobileNumber
-	atc[constants.RolesKey] = token.Roles
-	atc[constants.ExpireTimeKey] = td.AccessTokenExpireTime
+	atc[constant.UserIdKey] = token.UserId
+	atc[constant.FirstNameKey] = token.FirstName
+	atc[constant.LastNameKey] = token.LastName
+	atc[constant.UsernameKey] = token.Username
+	atc[constant.EmailKey] = token.Email
+	atc[constant.MobileNumberKey] = token.MobileNumber
+	atc[constant.RolesKey] = token.Roles
+	atc[constant.ExpireTimeKey] = td.AccessTokenExpireTime
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atc)
 
@@ -61,8 +61,8 @@ func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 
 	rtc := jwt.MapClaims{}
 
-	rtc[constants.UserIdKey] = token.UserId
-	rtc[constants.ExpireTimeKey] = td.RefreshTokenExpireTime
+	rtc[constant.UserIdKey] = token.UserId
+	rtc[constant.ExpireTimeKey] = td.RefreshTokenExpireTime
 
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtc)
 

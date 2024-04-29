@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
+	"github.com/naeemaei/golang-clean-web-api/constant"
 	models "github.com/naeemaei/golang-clean-web-api/domain/model"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -77,13 +77,13 @@ func addNewTable(database *gorm.DB, model interface{}, tables []interface{}) []i
 
 func createDefaultUserInformation(database *gorm.DB) {
 
-	adminRole := models.Role{Name: constants.AdminRoleName}
+	adminRole := models.Role{Name: constant.AdminRoleName}
 	createRoleIfNotExists(database, &adminRole)
 
-	defaultRole := models.Role{Name: constants.DefaultRoleName}
+	defaultRole := models.Role{Name: constant.DefaultRoleName}
 	createRoleIfNotExists(database, &defaultRole)
 
-	u := models.User{Username: constants.DefaultUserName, FirstName: "Test", LastName: "Test",
+	u := models.User{Username: constant.DefaultUserName, FirstName: "Test", LastName: "Test",
 		MobileNumber: "09111112222", Email: "admin@admin.com"}
 	pass := "12345678"
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.DefaultCost)

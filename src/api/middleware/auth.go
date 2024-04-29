@@ -9,7 +9,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
+	constant "github.com/naeemaei/golang-clean-web-api/constant"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
 	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
@@ -20,7 +20,7 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var err error
 		claimMap := map[string]interface{}{}
-		auth := c.GetHeader(constants.AuthorizationHeaderKey)
+		auth := c.GetHeader(constant.AuthorizationHeaderKey)
 		token := strings.Split(auth, " ")
 		if auth == "" || len(token) < 2 {
 			err = &service_errors.ServiceError{EndUserMessage: service_errors.TokenRequired}
@@ -42,14 +42,14 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 			return
 		}
 
-		c.Set(constants.UserIdKey, claimMap[constants.UserIdKey])
-		c.Set(constants.FirstNameKey, claimMap[constants.FirstNameKey])
-		c.Set(constants.LastNameKey, claimMap[constants.LastNameKey])
-		c.Set(constants.UsernameKey, claimMap[constants.UsernameKey])
-		c.Set(constants.EmailKey, claimMap[constants.EmailKey])
-		c.Set(constants.MobileNumberKey, claimMap[constants.MobileNumberKey])
-		c.Set(constants.RolesKey, claimMap[constants.RolesKey])
-		c.Set(constants.ExpireTimeKey, claimMap[constants.ExpireTimeKey])
+		c.Set(constant.UserIdKey, claimMap[constant.UserIdKey])
+		c.Set(constant.FirstNameKey, claimMap[constant.FirstNameKey])
+		c.Set(constant.LastNameKey, claimMap[constant.LastNameKey])
+		c.Set(constant.UsernameKey, claimMap[constant.UsernameKey])
+		c.Set(constant.EmailKey, claimMap[constant.EmailKey])
+		c.Set(constant.MobileNumberKey, claimMap[constant.MobileNumberKey])
+		c.Set(constant.RolesKey, claimMap[constant.RolesKey])
+		c.Set(constant.ExpireTimeKey, claimMap[constant.ExpireTimeKey])
 
 		c.Next()
 	}
@@ -61,7 +61,7 @@ func Authorization(validRoles []string) gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusForbidden, helper.GenerateBaseResponse(nil, false, helper.ForbiddenError))
 			return
 		}
-		rolesVal := c.Keys[constants.RolesKey]
+		rolesVal := c.Keys[constant.RolesKey]
 		fmt.Println(rolesVal)
 		if rolesVal == nil {
 			c.AbortWithStatusJSON(http.StatusForbidden, helper.GenerateBaseResponse(nil, false, helper.ForbiddenError))

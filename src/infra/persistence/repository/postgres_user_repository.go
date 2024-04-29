@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
+	"github.com/naeemaei/golang-clean-web-api/constant"
 	model "github.com/naeemaei/golang-clean-web-api/domain/model"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -113,7 +113,7 @@ func (r *PostgresUserRepository) GetDefaultRole(ctx context.Context) (roleId int
 
 	if err = r.database.WithContext(ctx).Model(&model.Role{}).
 		Select("id").
-		Where("name = ?", constants.DefaultRoleName).
+		Where("name = ?", constant.DefaultRoleName).
 		First(&roleId).Error; err != nil {
 		return 0, err
 	}

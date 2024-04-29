@@ -8,7 +8,7 @@ import (
 
 	"github.com/naeemaei/golang-clean-web-api/common"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
+	"github.com/naeemaei/golang-clean-web-api/constant"
 	filter "github.com/naeemaei/golang-clean-web-api/domain/filter"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -55,7 +55,7 @@ func (r BaseRepository[TEntity]) Update(ctx context.Context, id int, entity map[
 	for k, v := range entity {
 		snakeMap[common.ToSnakeCase(k)] = v
 	}
-	snakeMap["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true}
+	snakeMap["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constant.UserIdKey).(float64)), Valid: true}
 	snakeMap["modified_at"] = sql.NullTime{Valid: true, Time: time.Now().UTC()}
 	model := new(TEntity)
 	tx := r.database.WithContext(ctx).Begin()
@@ -79,11 +79,11 @@ func (r BaseRepository[TEntity]) Delete(ctx context.Context, id int) error {
 	model := new(TEntity)
 
 	deleteMap := map[string]interface{}{
-		"deleted_by": &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true},
+		"deleted_by": &sql.NullInt64{Int64: int64(ctx.Value(constant.UserIdKey).(float64)), Valid: true},
 		"deleted_at": sql.NullTime{Valid: true, Time: time.Now().UTC()},
 	}
 
-	if ctx.Value(constants.UserIdKey) == nil {
+	if ctx.Value(constant.UserIdKey) == nil {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.PermissionDenied}
 	}
 	if cnt := tx.

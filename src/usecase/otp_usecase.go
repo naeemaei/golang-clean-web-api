@@ -7,8 +7,8 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/naeemaei/golang-clean-web-api/common"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	constants "github.com/naeemaei/golang-clean-web-api/constant"
-	"github.com/naeemaei/golang-clean-web-api/data/cache"
+	constant "github.com/naeemaei/golang-clean-web-api/constant"
+	"github.com/naeemaei/golang-clean-web-api/infra/cache"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
 	"github.com/naeemaei/golang-clean-web-api/pkg/service_errors"
 )
@@ -40,7 +40,7 @@ func (u *OtpUsecase) SendOtp(mobileNumber string) error {
 }
 
 func (s *OtpUsecase) SetOtp(mobileNumber string, otp string) error {
-	key := fmt.Sprintf("%s:%s", constants.RedisOtpDefaultKey, mobileNumber)
+	key := fmt.Sprintf("%s:%s", constant.RedisOtpDefaultKey, mobileNumber)
 	val := &otpDto{
 		Value: otp,
 		Used:  false,
@@ -60,7 +60,7 @@ func (s *OtpUsecase) SetOtp(mobileNumber string, otp string) error {
 }
 
 func (s *OtpUsecase) ValidateOtp(mobileNumber string, otp string) error {
-	key := fmt.Sprintf("%s:%s", constants.RedisOtpDefaultKey, mobileNumber)
+	key := fmt.Sprintf("%s:%s", constant.RedisOtpDefaultKey, mobileNumber)
 	res, err := cache.Get[otpDto](s.redisClient, key)
 	if err != nil {
 		return err

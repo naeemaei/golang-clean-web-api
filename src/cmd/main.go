@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/naeemaei/golang-clean-web-api/api"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/data/cache"
+	"github.com/naeemaei/golang-clean-web-api/infra/cache"
 	database "github.com/naeemaei/golang-clean-web-api/infra/persistence/database"
 	"github.com/naeemaei/golang-clean-web-api/infra/persistence/migration"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
