@@ -1,6 +1,6 @@
-package migrations
+package migration
 
-import "github.com/naeemaei/golang-clean-web-api/data/models"
+import models "github.com/naeemaei/golang-clean-web-api/domain/model"
 
 func getBodyProperties(cat int) *[]models.Property {
 	var props []models.Property = []models.Property{
