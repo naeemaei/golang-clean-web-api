@@ -1,14 +1,15 @@
-package routers
+package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/naeemaei/golang-clean-web-api/api/handlers"
+	"github.com/naeemaei/golang-clean-web-api/api/handler"
 	"github.com/naeemaei/golang-clean-web-api/config"
 )
 
 const GetByFilterExp string = "/get-by-filter"
+
 func Country(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCountryHandler(cfg)
+	h := handler.NewCountryHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -18,7 +19,7 @@ func Country(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func City(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCityHandler(cfg)
+	h := handler.NewCityHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -28,7 +29,7 @@ func City(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func File(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewFileHandler(cfg)
+	h := handler.NewFileHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -38,7 +39,7 @@ func File(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func Company(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCompanyHandler(cfg)
+	h := handler.NewCompanyHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -48,7 +49,7 @@ func Company(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func Color(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewColorHandler(cfg)
+	h := handler.NewColorHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -58,7 +59,7 @@ func Color(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func Year(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewPersianYearHandler(cfg)
+	h := handler.NewPersianYearHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)

@@ -1,13 +1,13 @@
-package routers
+package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/naeemaei/golang-clean-web-api/api/handlers"
+	"github.com/naeemaei/golang-clean-web-api/api/handler"
 	"github.com/naeemaei/golang-clean-web-api/config"
 )
 
 func PropertyCategory(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewPropertyCategoryHandler(cfg)
+	h := handler.NewPropertyCategoryHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -17,7 +17,7 @@ func PropertyCategory(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func Property(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewPropertyHandler(cfg)
+	h := handler.NewPropertyHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)

@@ -1,13 +1,13 @@
-package routers
+package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/naeemaei/golang-clean-web-api/api/handlers"
+	"github.com/naeemaei/golang-clean-web-api/api/handler"
 	"github.com/naeemaei/golang-clean-web-api/config"
 )
 
 func CarType(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarTypeHandler(cfg)
+	h := handler.NewCarTypeHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -17,7 +17,7 @@ func CarType(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func Gearbox(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewGearboxHandler(cfg)
+	h := handler.NewGearboxHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -27,7 +27,7 @@ func Gearbox(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModel(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelHandler(cfg)
+	h := handler.NewCarModelHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -37,7 +37,7 @@ func CarModel(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelColor(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelColorHandler(cfg)
+	h := handler.NewCarModelColorHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -47,7 +47,7 @@ func CarModelColor(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelYear(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelYearHandler(cfg)
+	h := handler.NewCarModelYearHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -57,7 +57,7 @@ func CarModelYear(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelPriceHistory(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelPriceHistoryHandler(cfg)
+	h := handler.NewCarModelPriceHistoryHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -67,7 +67,7 @@ func CarModelPriceHistory(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelImage(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelImageHandler(cfg)
+	h := handler.NewCarModelImageHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -77,7 +77,7 @@ func CarModelImage(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelPropertyHandler(cfg)
+	h := handler.NewCarModelPropertyHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
@@ -87,7 +87,7 @@ func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
 }
 
 func CarModelComment(r *gin.RouterGroup, cfg *config.Config) {
-	h := handlers.NewCarModelCommentHandler(cfg)
+	h := handler.NewCarModelCommentHandler(cfg)
 
 	r.POST("/", h.Create)
 	r.PUT("/:id", h.Update)
