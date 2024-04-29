@@ -1,11 +1,11 @@
 package helper
 
-import validation "github.com/naeemaei/golang-clean-web-api/api/validations"
+import validation "github.com/naeemaei/golang-clean-web-api/api/validation"
 
 type BaseHttpResponse struct {
 	Result           any                           `json:"result"`
 	Success          bool                          `json:"success"`
-	ResultCode       ResultCode                           `json:"resultCode"`
+	ResultCode       ResultCode                    `json:"resultCode"`
 	ValidationErrors *[]validation.ValidationError `json:"validationErrors"`
 	Error            any                           `json:"error"`
 }
