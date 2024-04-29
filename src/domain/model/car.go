@@ -1,4 +1,4 @@
-package models
+package model
 
 import "time"
 
@@ -89,3 +89,4 @@ type CarModelComment struct {
 	UserId     int
 	Message    string `gorm:"size:500,type:string;not null"`
 }
+
