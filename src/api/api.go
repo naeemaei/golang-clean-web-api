@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
-	"github.com/naeemaei/golang-clean-web-api/api/middlewares"
-	"github.com/naeemaei/golang-clean-web-api/api/routers"
-	validation "github.com/naeemaei/golang-clean-web-api/api/validations"
+	"github.com/naeemaei/golang-clean-web-api/api/middleware"
+	"github.com/naeemaei/golang-clean-web-api/api/router"
+	validation "github.com/naeemaei/golang-clean-web-api/api/validation"
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/docs"
 	"github.com/naeemaei/golang-clean-web-api/pkg/logging"
@@ -27,10 +27,10 @@ func InitServer(cfg *config.Config) {
 	RegisterValidators()
 	RegisterPrometheus()
 
-	r.Use(middlewares.DefaultStructuredLogger(cfg))
-	r.Use(middlewares.Cors(cfg))
-	r.Use(middlewares.Prometheus())
-	r.Use(gin.Logger(), gin.CustomRecovery(middlewares.ErrorHandler) /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
+	r.Use(middleware.DefaultStructuredLogger(cfg))
+	r.Use(middleware.Cors(cfg))
+	r.Use(middleware.Prometheus())
+	r.Use(gin.Logger(), gin.CustomRecovery(middleware.ErrorHandler) /*middleware.TestMiddleware()*/, middleware.LimitByRequest())
 
 	RegisterRoutes(r, cfg)
 	RegisterSwagger(r, cfg)
@@ -49,63 +49,63 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	{
 		// Test
 		health := v1.Group("/health")
-		testRouter := v1.Group("/test" /*middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"})*/)
+		testRouter := v1.Group("/test" /*middleware.Authentication(cfg), middleware.Authorization([]string{"admin"})*/)
 
 		// User
 		users := v1.Group("/users")
 
 		// Base
-		countries := v1.Group("/countries", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		cities := v1.Group("/cities", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		files := v1.Group("/files", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		companies := v1.Group("/companies", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		colors := v1.Group("/colors", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		years := v1.Group("/years", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		countries := v1.Group("/countries", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		cities := v1.Group("/cities", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		files := v1.Group("/files", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		companies := v1.Group("/companies", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		colors := v1.Group("/colors", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		years := v1.Group("/years", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 
 		// Property
-		properties := v1.Group("/properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		propertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		properties := v1.Group("/properties", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		propertyCategories := v1.Group("/property-categories", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 
 		// Car
-		carTypes := v1.Group("/car-types", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		gearboxes := v1.Group("/gearboxes", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModels := v1.Group("/car-models", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelColors := v1.Group("/car-model-colors", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelYears := v1.Group("/car-model-years", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelPriceHistories := v1.Group("/car-model-price-histories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelImages := v1.Group("/car-model-images", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelProperties := v1.Group("/car-model-properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-		carModelComments := v1.Group("/car-model-comments", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin", "default"}))
+		carTypes := v1.Group("/car-types", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		gearboxes := v1.Group("/gearboxes", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModels := v1.Group("/car-models", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelColors := v1.Group("/car-model-colors", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelYears := v1.Group("/car-model-years", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelPriceHistories := v1.Group("/car-model-price-histories", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelImages := v1.Group("/car-model-images", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelProperties := v1.Group("/car-model-properties", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelComments := v1.Group("/car-model-comments", middleware.Authentication(cfg), middleware.Authorization([]string{"admin", "default"}))
 
 		// Test
-		routers.Health(health)
-		routers.TestRouter(testRouter)
+		router.Health(health)
+		router.TestRouter(testRouter)
 
 		// User
-		routers.User(users, cfg)
+		router.User(users, cfg)
 
 		// Base
-		routers.Country(countries, cfg)
-		routers.City(cities, cfg)
-		routers.File(files, cfg)
-		routers.Company(companies, cfg)
-		routers.Color(colors, cfg)
-		routers.Year(years, cfg)
+		router.Country(countries, cfg)
+		router.City(cities, cfg)
+		router.File(files, cfg)
+		router.Company(companies, cfg)
+		router.Color(colors, cfg)
+		router.Year(years, cfg)
 
 		// Property
-		routers.Property(properties, cfg)
-		routers.PropertyCategory(propertyCategories, cfg)
+		router.Property(properties, cfg)
+		router.PropertyCategory(propertyCategories, cfg)
 
 		// Car
-		routers.CarType(carTypes, cfg)
-		routers.Gearbox(gearboxes, cfg)
-		routers.CarModel(carModels, cfg)
-		routers.CarModelColor(carModelColors, cfg)
-		routers.CarModelYear(carModelYears, cfg)
-		routers.CarModelPriceHistory(carModelPriceHistories, cfg)
-		routers.CarModelImage(carModelImages, cfg)
-		routers.CarModelProperty(carModelProperties, cfg)
-		routers.CarModelComment(carModelComments, cfg)
+		router.CarType(carTypes, cfg)
+		router.Gearbox(gearboxes, cfg)
+		router.CarModel(carModels, cfg)
+		router.CarModelColor(carModelColors, cfg)
+		router.CarModelYear(carModelYears, cfg)
+		router.CarModelPriceHistory(carModelPriceHistories, cfg)
+		router.CarModelImage(carModelImages, cfg)
+		router.CarModelProperty(carModelProperties, cfg)
+		router.CarModelComment(carModelComments, cfg)
 
 		r.Static("/static", "./uploads")
 
@@ -115,7 +115,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	v2 := api.Group("/v2")
 	{
 		health := v2.Group("/health")
-		routers.Health(health)
+		router.Health(health)
 	}
 }
 
@@ -144,12 +144,12 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
 
-func RegisterPrometheus(){
+func RegisterPrometheus() {
 	err := prometheus.Register(metrics.DbCall)
 	if err != nil {
 		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
 	}
-	
+
 	err = prometheus.Register(metrics.HttpDuration)
 	if err != nil {
 		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)

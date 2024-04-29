@@ -21,7 +21,7 @@ services:
       - webapi_network
     depends_on:
       - elasticsearch
-  
+
   ####################### ELK #######################
   elasticsearch:
     build:
@@ -77,7 +77,7 @@ services:
       #- ../prod/logs:/var/log/filebeat/service:ro
       - logs:/var/log/filebeat
       - logs:/app:ro
- 
+
     environment:
       FILEBEAT_INTERNAL_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
       BEATS_SYSTEM_PASSWORD: ${FILEBEAT_INTERNAL_PASSWORD:-}
@@ -118,15 +118,15 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-  
+
   ####################### REDIS #######################
   redis:
     image: redis:latest
     container_name: redis_container
-    command: ["redis-server", "/etc/redis/redis.conf"]
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
     volumes:
       - ./redis/redis.conf:/etc/redis/redis.conf
-      - redis:/etc/redis 
+      - redis:/etc/redis
     ports:
       - "6379:6379"
     networks:
@@ -182,7 +182,7 @@ services:
     command:
       - "--config.file=/etc/alertmanager/config.yml"
       - "--storage.path=/alertmanager"
-   
+
   grafana:
     image: grafana/grafana
     user: "472"
@@ -196,7 +196,7 @@ services:
     env_file:
       - ./grafana/config.monitoring
     networks:
-      - webapi_network 
+      - webapi_network
     restart: always
   car-api1:
     build: ../src/
@@ -240,6 +240,7 @@ volumes:
   elasticsearch:
   prometheus_data:
   grafana_data:
+
 
 networks:
   webapi_network:

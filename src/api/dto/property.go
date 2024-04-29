@@ -1,5 +1,7 @@
 package dto
 
+import "github.com/naeemaei/golang-clean-web-api/usecase/dto"
+
 type CreatePropertyCategoryRequest struct {
 	Name string `json:"name" binding:"required,alpha,min=3,max=50"`
 	Icon string `json:"icon" binding:"max=1000"`
@@ -43,4 +45,65 @@ type PropertyResponse struct {
 	DataType    string                   `json:"dataType"`
 	Unit        string                   `json:"unit"`
 	Category    PropertyCategoryResponse `json:"category,omitempty"`
+}
+
+func ToPropertyResponse(from dto.Property) PropertyResponse {
+	return PropertyResponse{
+		Id:          from.Id,
+		Name:        from.Name,
+		Icon:        from.Icon,
+		DataType:    from.DataType,
+		Unit:        from.Unit,
+		Category:    ToPropertyCategoryResponse(from.Category),
+		Description: from.Description,
+	}
+}
+
+func ToCreateProperty(from CreatePropertyRequest) dto.CreateProperty {
+	return dto.CreateProperty{
+		Name:        from.Name,
+		Icon:        from.Icon,
+		DataType:    from.DataType,
+		Unit:        from.Unit,
+		CategoryId:  from.CategoryId,
+		Description: from.Description,
+	}
+}
+
+func ToUpdateProperty(from UpdatePropertyRequest) dto.UpdateProperty {
+	return dto.UpdateProperty{
+		Name:        from.Name,
+		Icon:        from.Icon,
+		DataType:    from.DataType,
+		Unit:        from.Unit,
+		CategoryId:  from.CategoryId,
+		Description: from.Description,
+	}
+}
+
+func ToPropertyCategoryResponse(from dto.PropertyCategory) PropertyCategoryResponse {
+	properties := []PropertyResponse{}
+	for _, item := range from.Properties {
+		properties = append(properties, ToPropertyResponse(item))
+	}
+	return PropertyCategoryResponse{
+		Id:         from.Id,
+		Name:       from.Name,
+		Icon:       from.Icon,
+		Properties: properties,
+	}
+}
+
+func ToCreatePropertyCategory(from CreatePropertyCategoryRequest) dto.CreatePropertyCategory {
+	return dto.CreatePropertyCategory{
+		Name: from.Name,
+		Icon: from.Icon,
+	}
+}
+
+func ToUpdatePropertyCategory(from UpdatePropertyCategoryRequest) dto.UpdatePropertyCategory {
+	return dto.UpdatePropertyCategory{
+		Name: from.Name,
+		Icon: from.Icon,
+	}
 }

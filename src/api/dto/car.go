@@ -1,6 +1,11 @@
 package dto
 
-import "time"
+import (
+	"sync"
+	"time"
+
+	"github.com/naeemaei/golang-clean-web-api/usecase/dto"
+)
 
 type CreateCarTypeRequest struct {
 	Name string `json:"name" binding:"required,alpha,min=3,max=15"`
@@ -162,4 +167,273 @@ type UserResponse struct {
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 	Email     string `json:"email"`
+}
+
+func ToCarTypeResponse(from dto.IdName) CarTypeResponse {
+	return CarTypeResponse{
+		Id:   from.Id,
+		Name: from.Name,
+	}
+}
+
+func ToCreateCarType(from CreateCarTypeRequest) dto.Name {
+	return dto.Name{
+		Name: from.Name,
+	}
+}
+
+func ToUpdateCarType(from UpdateCarTypeRequest) dto.Name {
+	return dto.Name{
+		Name: from.Name,
+	}
+}
+
+func ToGearboxResponse(from dto.IdName) GearboxResponse {
+	return GearboxResponse{
+		Id:   from.Id,
+		Name: from.Name,
+	}
+}
+
+func ToCreateGearbox(from CreateGearboxRequest) dto.Name {
+	return dto.Name{
+		Name: from.Name,
+	}
+}
+
+func ToUpdateGearbox(from UpdateGearboxRequest) dto.Name {
+	return dto.Name{
+		Name: from.Name,
+	}
+}
+
+func ToCarModelResponse(from dto.CarModel) CarModelResponse {
+	colors := []CarModelColorResponse{}
+	years := []CarModelYearResponse{}
+	images := []CarModelImageResponse{}
+	properties := []CarModelPropertyResponse{}
+	comments := []CarModelCommentResponse{}
+
+	var wg sync.WaitGroup
+	wg.Add(5)
+
+	go func() {
+		for _, item := range from.CarModelColors {
+			colors = append(colors, ToCarModelColorResponse(item))
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		for _, item := range from.CarModelYears {
+			years = append(years, ToCarModelYearResponse(item))
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		for _, item := range from.CarModelComments {
+			comments = append(comments, ToCarModelCommentResponse(item))
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		for _, item := range from.CarModelImages {
+			images = append(images, ToCarModelImageResponse(item))
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		for _, item := range from.CarModelProperties {
+			properties = append(properties, ToCarModelPropertyResponse(item))
+		}
+		wg.Done()
+	}()
+
+	wg.Wait()
+
+	return CarModelResponse{
+		Id:                 from.Id,
+		Name:               from.Name,
+		CarType:            ToCarTypeResponse(from.CarType),
+		Company:            ToCompanyResponse(from.Company),
+		Gearbox:            ToGearboxResponse(from.Gearbox),
+		CarModelColors:     colors,
+		CarModelYears:      years,
+		CarModelImages:     images,
+		CarModelProperties: properties,
+		CarModelComments:   comments,
+	}
+}
+
+func ToCreateCarModel(from CreateCarModelRequest) dto.CreateCarModel {
+	return dto.CreateCarModel{
+		Name:      from.Name,
+		CompanyId: from.CompanyId,
+		CarTypeId: from.CarTypeId,
+		GearboxId: from.GearboxId,
+	}
+}
+
+func ToUpdateCarModel(from UpdateCarModelRequest) dto.UpdateCarModel {
+	return dto.UpdateCarModel{
+		Name:      from.Name,
+		CompanyId: from.CompanyId,
+		CarTypeId: from.CarTypeId,
+		GearboxId: from.GearboxId,
+	}
+}
+
+func ToCarModelColorResponse(from dto.CarModelColor) CarModelColorResponse {
+	return CarModelColorResponse{
+		Id:    from.Id,
+		Color: ToColorResponse(from.Color),
+	}
+}
+
+func ToCreateCarModelColor(from CreateCarModelColorRequest) dto.CreateCarModelColor {
+	return dto.CreateCarModelColor{
+		CarModelId: from.CarModelId,
+		ColorId:    from.ColorId,
+	}
+}
+
+func ToUpdateCarModelColor(from UpdateCarModelColorRequest) dto.UpdateCarModelColor {
+	return dto.UpdateCarModelColor{
+		CarModelId: from.CarModelId,
+		ColorId:    from.ColorId,
+	}
+}
+
+func ToCarModelYearResponse(from dto.CarModelYear) CarModelYearResponse {
+	var histories []CarModelPriceHistoryResponse = []CarModelPriceHistoryResponse{}
+
+	for _, item := range from.CarModelPriceHistories {
+		histories = append(histories, ToCarModelPriceHistoryResponse(item))
+	}
+	return CarModelYearResponse{
+		Id:                     from.Id,
+		PersianYear:            ToPersianYearWithoutDateResponse(from.PersianYear),
+		CarModelId:             from.CarModelId,
+		CarModelPriceHistories: histories,
+	}
+}
+
+func ToCreateCarModelYear(from CreateCarModelYearRequest) dto.CreateCarModelYear {
+	return dto.CreateCarModelYear{
+		CarModelId:    from.CarModelId,
+		PersianYearId: from.PersianYearId,
+	}
+}
+
+func ToUpdateCarModelYear(from UpdateCarModelYearRequest) dto.UpdateCarModelYear {
+	return dto.UpdateCarModelYear{
+		CarModelId:    from.CarModelId,
+		PersianYearId: from.PersianYearId,
+	}
+}
+
+func ToCarModelPriceHistoryResponse(from dto.CarModelPriceHistory) CarModelPriceHistoryResponse {
+	return CarModelPriceHistoryResponse{
+		Id:             from.Id,
+		CarModelYearId: from.CarModelYearId,
+		PriceAt:        from.PriceAt,
+		Price:          from.Price,
+	}
+}
+
+func ToCreateCarModelPriceHistory(from CreateCarModelPriceHistoryRequest) dto.CreateCarModelPriceHistory {
+	return dto.CreateCarModelPriceHistory{
+		CarModelYearId: from.CarModelYearId,
+		PriceAt:        from.PriceAt,
+		Price:          from.Price,
+	}
+}
+
+func ToUpdateCarModelPriceHistory(from UpdateCarModelPriceHistoryRequest) dto.UpdateCarModelPriceHistory {
+	return dto.UpdateCarModelPriceHistory{
+		PriceAt: from.PriceAt,
+		Price:   from.Price,
+	}
+}
+
+func ToCarModelImageResponse(from dto.CarModelImage) CarModelImageResponse {
+	return CarModelImageResponse{
+		Id:          from.Id,
+		CarModelId:  from.CarModelId,
+		IsMainImage: from.IsMainImage,
+		Image:       ToFileResponse(from.Image),
+	}
+}
+
+func ToCreateCarModelImage(from CreateCarModelImageRequest) dto.CreateCarModelImage {
+	return dto.CreateCarModelImage{
+		CarModelId:  from.CarModelId,
+		ImageId:     from.ImageId,
+		IsMainImage: from.IsMainImage,
+	}
+}
+
+func ToUpdateCarModelImage(from UpdateCarModelImageRequest) dto.UpdateCarModelImage {
+	return dto.UpdateCarModelImage{
+		IsMainImage: from.IsMainImage,
+	}
+}
+
+func ToCarModelPropertyResponse(from dto.CarModelProperty) CarModelPropertyResponse {
+	return CarModelPropertyResponse{
+		Id:         from.Id,
+		CarModelId: from.CarModelId,
+		Property:   ToPropertyResponse(from.Property),
+		Value:      from.Value,
+	}
+}
+
+func ToCreateCarModelProperty(from CreateCarModelPropertyRequest) dto.CreateCarModelProperty {
+	return dto.CreateCarModelProperty{
+		CarModelId: from.CarModelId,
+		PropertyId: from.PropertyId,
+		Value:      from.Value,
+	}
+}
+
+func ToUpdateCarModelProperty(from UpdateCarModelPropertyRequest) dto.UpdateCarModelProperty {
+	return dto.UpdateCarModelProperty{
+		Value: from.Value,
+	}
+}
+
+func ToCarModelCommentResponse(from dto.CarModelComment) CarModelCommentResponse {
+	return CarModelCommentResponse{
+		Id:         from.Id,
+		CarModelId: from.CarModelId,
+		Message:    from.Message,
+		User:       ToUserResponse(from.User),
+	}
+}
+
+func ToCreateCarModelComment(from CreateCarModelCommentRequest) dto.CreateCarModelComment {
+	return dto.CreateCarModelComment{
+		CarModelId: from.CarModelId,
+		UserId:     from.UserId,
+		Message:    from.Message,
+	}
+}
+
+func ToUpdateCarModelComment(from UpdateCarModelCommentRequest) dto.UpdateCarModelComment {
+	return dto.UpdateCarModelComment{
+		Message: from.Message,
+	}
+}
+
+func ToUserResponse(from dto.User) UserResponse {
+	return UserResponse{
+		Id:        from.Id,
+		Username:  from.Username,
+		FirstName: from.FirstName,
+		LastName:  from.LastName,
+		Email:     from.Email,
+	}
 }

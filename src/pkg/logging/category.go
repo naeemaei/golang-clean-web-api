@@ -32,6 +32,7 @@ const (
 	Api                 SubCategory = "Api"
 	HashPassword        SubCategory = "HashPassword"
 	DefaultRoleNotFound SubCategory = "DefaultRoleNotFound"
+	FailedToCreateUser  SubCategory = "FailedToCreateUser"
 
 	// Validation
 	MobileValidation   SubCategory = "MobileValidation"
