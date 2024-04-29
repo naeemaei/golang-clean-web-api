@@ -1,4 +1,4 @@
-package middlewares
+package middleware
 
 import (
 	"errors"
@@ -17,7 +17,7 @@ func OtpLimiter(cfg *config.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		limiter := limiter.GetLimiter(c.Request.RemoteAddr)
 		if !limiter.Allow() {
-			c.AbortWithStatusJSON(http.StatusTooManyRequests, helper.GenerateBaseResponseWithError(nil, false, helper.OtpLimiterError, errors.New("Not allowed")))
+			c.AbortWithStatusJSON(http.StatusTooManyRequests, helper.GenerateBaseResponseWithError(nil, false, helper.OtpLimiterError, errors.New("not allowed")))
 			c.Abort()
 		} else {
 			c.Next()
