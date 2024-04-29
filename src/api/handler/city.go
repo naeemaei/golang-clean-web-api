@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CityHandler struct {
-	service *services.CityService
+	usecase *usecase.CityUsecase
 }
 
 func NewCityHandler(cfg *config.Config) *CityHandler {
 	return &CityHandler{
-		service: services.NewCityService(cfg),
+		usecase: usecase.NewCityUsecase(cfg, dependency.GetCityRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCityHandler(cfg *config.Config) *CityHandler {
 // @Router /v1/cities/ [post]
 // @Security AuthBearer
 func (h *CityHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCity, dto.ToCityResponse, h.usecase.Create)
 }
 
 // UpdateCity godoc
@@ -47,7 +49,7 @@ func (h *CityHandler) Create(c *gin.Context) {
 // @Router /v1/cities/{id} [put]
 // @Security AuthBearer
 func (h *CityHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCity, dto.ToCityResponse, h.usecase.Update)
 }
 
 // DeleteCity godoc
@@ -63,7 +65,7 @@ func (h *CityHandler) Update(c *gin.Context) {
 // @Router /v1/cities/{id} [delete]
 // @Security AuthBearer
 func (h *CityHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCity godoc
@@ -79,7 +81,7 @@ func (h *CityHandler) Delete(c *gin.Context) {
 // @Router /v1/cities/{id} [get]
 // @Security AuthBearer
 func (h *CityHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCityResponse, h.usecase.GetById)
 }
 
 // GetCities godoc
@@ -88,11 +90,11 @@ func (h *CityHandler) GetById(c *gin.Context) {
 // @Tags Cities
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CityResponse]} "City response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CityResponse]} "City response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/cities/get-by-filter [post]
 // @Security AuthBearer
 func (h *CityHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCityResponse, h.usecase.GetByFilter)
 }

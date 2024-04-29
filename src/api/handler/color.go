@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type ColorHandler struct {
-	service *services.ColorService
+	usecase *usecase.ColorUsecase
 }
 
 func NewColorHandler(cfg *config.Config) *ColorHandler {
 	return &ColorHandler{
-		service: services.NewColorService(cfg),
+		usecase: usecase.NewColorUsecase(cfg, dependency.GetColorRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewColorHandler(cfg *config.Config) *ColorHandler {
 // @Router /v1/colors/ [post]
 // @Security AuthBearer
 func (h *ColorHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateColor, dto.ToColorResponse, h.usecase.Create)
 }
 
 // UpdateColor godoc
@@ -47,7 +49,7 @@ func (h *ColorHandler) Create(c *gin.Context) {
 // @Router /v1/colors/{id} [put]
 // @Security AuthBearer
 func (h *ColorHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateColor, dto.ToColorResponse, h.usecase.Update)
 }
 
 // DeleteColor godoc
@@ -63,7 +65,7 @@ func (h *ColorHandler) Update(c *gin.Context) {
 // @Router /v1/colors/{id} [delete]
 // @Security AuthBearer
 func (h *ColorHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetColor godoc
@@ -79,7 +81,7 @@ func (h *ColorHandler) Delete(c *gin.Context) {
 // @Router /v1/colors/{id} [get]
 // @Security AuthBearer
 func (h *ColorHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToColorResponse, h.usecase.GetById)
 }
 
 // GetColors godoc
@@ -88,11 +90,11 @@ func (h *ColorHandler) GetById(c *gin.Context) {
 // @Tags Colors
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.ColorResponse]} "Color response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.ColorResponse]} "Color response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/colors/get-by-filter [post]
 // @Security AuthBearer
 func (h *ColorHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToColorResponse, h.usecase.GetByFilter)
 }

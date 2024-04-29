@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelPropertyHandler struct {
-	service *services.CarModelPropertyService
+	usecase *usecase.CarModelPropertyUsecase
 }
 
 func NewCarModelPropertyHandler(cfg *config.Config) *CarModelPropertyHandler {
 	return &CarModelPropertyHandler{
-		service: services.NewCarModelPropertyService(cfg),
+		usecase: usecase.NewCarModelPropertyUsecase(cfg, dependency.GetCarModelPropertyRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelPropertyHandler(cfg *config.Config) *CarModelPropertyHandler {
 // @Router /v1/car-model-properties/ [post]
 // @Security AuthBearer
 func (h *CarModelPropertyHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCarModelProperty, dto.ToCarModelPropertyResponse, h.usecase.Create)
 }
 
 // UpdateCarModelProperty godoc
@@ -47,7 +49,7 @@ func (h *CarModelPropertyHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-properties/{id} [put]
 // @Security AuthBearer
 func (h *CarModelPropertyHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCarModelProperty, dto.ToCarModelPropertyResponse, h.usecase.Update)
 }
 
 // DeleteCarModelProperty godoc
@@ -63,7 +65,7 @@ func (h *CarModelPropertyHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-properties/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelPropertyHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelProperty godoc
@@ -79,7 +81,7 @@ func (h *CarModelPropertyHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-properties/{id} [get]
 // @Security AuthBearer
 func (h *CarModelPropertyHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelPropertyResponse, h.usecase.GetById)
 }
 
 // GetCarModelProperties godoc
@@ -88,11 +90,11 @@ func (h *CarModelPropertyHandler) GetById(c *gin.Context) {
 // @Tags CarModelProperties
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelPropertyResponse]} "CarModelProperty response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelPropertyResponse]} "CarModelProperty response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-properties/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelPropertyHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelPropertyResponse, h.usecase.GetByFilter)
 }

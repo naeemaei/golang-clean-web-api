@@ -1,19 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CountryHandler struct {
-	service *services.CountryService
+	usecase *usecase.CountryUsecase
 }
 
 func NewCountryHandler(cfg *config.Config) *CountryHandler {
-	return &CountryHandler{service: services.NewCountryService(cfg)}
+	return &CountryHandler{
+		usecase: usecase.NewCountryUsecase(cfg, dependency.GetCountryRepository(cfg))}
 }
 
 // CreateCountry godoc
@@ -28,7 +31,7 @@ func NewCountryHandler(cfg *config.Config) *CountryHandler {
 // @Router /v1/countries/ [post]
 // @Security AuthBearer
 func (h *CountryHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateUpdateCountry, dto.ToCountryResponse, h.usecase.Create)
 }
 
 // UpdateCountry godoc
@@ -44,7 +47,7 @@ func (h *CountryHandler) Create(c *gin.Context) {
 // @Router /v1/countries/{id} [put]
 // @Security AuthBearer
 func (h *CountryHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToCreateUpdateCountry, dto.ToCountryResponse, h.usecase.Update)
 }
 
 // DeleteCountry godoc
@@ -59,7 +62,7 @@ func (h *CountryHandler) Update(c *gin.Context) {
 // @Router /v1/countries/{id} [delete]
 // @Security AuthBearer
 func (h *CountryHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCountry godoc
@@ -74,7 +77,7 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Router /v1/countries/{id} [get]
 // @Security AuthBearer
 func (h *CountryHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCountryResponse, h.usecase.GetById)
 }
 
 // GetCountries godoc
@@ -83,11 +86,11 @@ func (h *CountryHandler) GetById(c *gin.Context) {
 // @Tags Countries
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CountryResponse]} "Country response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CountryResponse]} "Country response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/countries/get-by-filter [post]
 // @Security AuthBearer
 func (h *CountryHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCountryResponse, h.usecase.GetByFilter)
 }

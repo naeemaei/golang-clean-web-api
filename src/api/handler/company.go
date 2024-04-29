@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CompanyHandler struct {
-	service *services.CompanyService
+	usecase *usecase.CompanyUsecase
 }
 
 func NewCompanyHandler(cfg *config.Config) *CompanyHandler {
 	return &CompanyHandler{
-		service: services.NewCompanyService(cfg),
+		usecase: usecase.NewCompanyUsecase(cfg, dependency.GetCompanyRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCompanyHandler(cfg *config.Config) *CompanyHandler {
 // @Router /v1/companies/ [post]
 // @Security AuthBearer
 func (h *CompanyHandler) Create(c *gin.Context) {
-	Create(c, h.service.Create)
+	Create(c, dto.ToCreateCompany, dto.ToCompanyResponse, h.usecase.Create)
 }
 
 // UpdateCompany godoc
@@ -47,7 +49,7 @@ func (h *CompanyHandler) Create(c *gin.Context) {
 // @Router /v1/companies/{id} [put]
 // @Security AuthBearer
 func (h *CompanyHandler) Update(c *gin.Context) {
-	Update(c, h.service.Update)
+	Update(c, dto.ToUpdateCompany, dto.ToCompanyResponse, h.usecase.Update)
 }
 
 // DeleteCompany godoc
@@ -63,7 +65,7 @@ func (h *CompanyHandler) Update(c *gin.Context) {
 // @Router /v1/companies/{id} [delete]
 // @Security AuthBearer
 func (h *CompanyHandler) Delete(c *gin.Context) {
-	Delete(c, h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCompany godoc
@@ -79,7 +81,7 @@ func (h *CompanyHandler) Delete(c *gin.Context) {
 // @Router /v1/companies/{id} [get]
 // @Security AuthBearer
 func (h *CompanyHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCompanyResponse, h.usecase.GetById)
 }
 
 // GetCompanies godoc
@@ -88,11 +90,11 @@ func (h *CompanyHandler) GetById(c *gin.Context) {
 // @Tags Companies
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CompanyResponse]} "Company response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CompanyResponse]} "Company response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/companies/get-by-filter [post]
 // @Security AuthBearer
 func (h *CompanyHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCompanyResponse, h.usecase.GetByFilter)
 }

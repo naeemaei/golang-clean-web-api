@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelHandler struct {
-	service *services.CarModelService
+	usecase *usecase.CarModelUsecase
 }
 
 func NewCarModelHandler(cfg *config.Config) *CarModelHandler {
 	return &CarModelHandler{
-		service: services.NewCarModelService(cfg),
+		usecase: usecase.NewCarModelUsecase(cfg, dependency.GetCarModelRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelHandler(cfg *config.Config) *CarModelHandler {
 // @Router /v1/car-models/ [post]
 // @Security AuthBearer
 func (h *CarModelHandler) Create(c *gin.Context) {
-	Create(c, h.service.Create)
+	Create(c, dto.ToCreateCarModel, dto.ToCarModelResponse, h.usecase.Create)
 }
 
 // UpdateCarModel godoc
@@ -47,7 +49,7 @@ func (h *CarModelHandler) Create(c *gin.Context) {
 // @Router /v1/car-models/{id} [put]
 // @Security AuthBearer
 func (h *CarModelHandler) Update(c *gin.Context) {
-	Update(c, h.service.Update)
+	Update(c, dto.ToUpdateCarModel, dto.ToCarModelResponse, h.usecase.Update)
 }
 
 // DeleteCarModel godoc
@@ -63,7 +65,7 @@ func (h *CarModelHandler) Update(c *gin.Context) {
 // @Router /v1/car-models/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelHandler) Delete(c *gin.Context) {
-	Delete(c, h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModel godoc
@@ -79,7 +81,7 @@ func (h *CarModelHandler) Delete(c *gin.Context) {
 // @Router /v1/car-models/{id} [get]
 // @Security AuthBearer
 func (h *CarModelHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelResponse, h.usecase.GetById)
 }
 
 // GetCarModels godoc
@@ -88,11 +90,11 @@ func (h *CarModelHandler) GetById(c *gin.Context) {
 // @Tags CarModels
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelResponse]} "CarModel response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelResponse]} "CarModel response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-models/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelResponse, h.usecase.GetByFilter)
 }

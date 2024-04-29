@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type GearboxHandler struct {
-	service *services.GearboxService
+	usecase *usecase.GearboxUsecase
 }
 
 func NewGearboxHandler(cfg *config.Config) *GearboxHandler {
 	return &GearboxHandler{
-		service: services.NewGearboxService(cfg),
+		usecase: usecase.NewGearboxUsecase(cfg, dependency.GetGearboxRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewGearboxHandler(cfg *config.Config) *GearboxHandler {
 // @Router /v1/gearboxes/ [post]
 // @Security AuthBearer
 func (h *GearboxHandler) Create(c *gin.Context) {
-	Create(c, h.service.Create)
+	Create(c, dto.ToCreateGearbox, dto.ToGearboxResponse, h.usecase.Create)
 }
 
 // UpdateGearbox godoc
@@ -47,7 +49,7 @@ func (h *GearboxHandler) Create(c *gin.Context) {
 // @Router /v1/gearboxes/{id} [put]
 // @Security AuthBearer
 func (h *GearboxHandler) Update(c *gin.Context) {
-	Update(c, h.service.Update)
+	Update(c, dto.ToUpdateGearbox, dto.ToGearboxResponse, h.usecase.Update)
 }
 
 // DeleteGearbox godoc
@@ -63,7 +65,7 @@ func (h *GearboxHandler) Update(c *gin.Context) {
 // @Router /v1/gearboxes/{id} [delete]
 // @Security AuthBearer
 func (h *GearboxHandler) Delete(c *gin.Context) {
-	Delete(c, h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetGearbox godoc
@@ -79,7 +81,7 @@ func (h *GearboxHandler) Delete(c *gin.Context) {
 // @Router /v1/gearboxes/{id} [get]
 // @Security AuthBearer
 func (h *GearboxHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToGearboxResponse, h.usecase.GetById)
 }
 
 // GetGearboxes godoc
@@ -88,11 +90,11 @@ func (h *GearboxHandler) GetById(c *gin.Context) {
 // @Tags Gearboxes
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.GearboxResponse]} "Gearbox response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.GearboxResponse]} "Gearbox response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/gearboxes/get-by-filter [post]
 // @Security AuthBearer
 func (h *GearboxHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToGearboxResponse, h.usecase.GetByFilter)
 }

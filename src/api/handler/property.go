@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type PropertyHandler struct {
-	service *services.PropertyService
+	usecase *usecase.PropertyUsecase
 }
 
 func NewPropertyHandler(cfg *config.Config) *PropertyHandler {
 	return &PropertyHandler{
-		service: services.NewPropertyService(cfg),
+		usecase: usecase.NewPropertyUsecase(cfg, dependency.GetPropertyRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewPropertyHandler(cfg *config.Config) *PropertyHandler {
 // @Router /v1/properties/ [post]
 // @Security AuthBearer
 func (h *PropertyHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateProperty, dto.ToPropertyResponse, h.usecase.Create)
 }
 
 // UpdateProperty godoc
@@ -47,7 +49,7 @@ func (h *PropertyHandler) Create(c *gin.Context) {
 // @Router /v1/properties/{id} [put]
 // @Security AuthBearer
 func (h *PropertyHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateProperty, dto.ToPropertyResponse, h.usecase.Update)
 }
 
 // DeleteProperty godoc
@@ -63,7 +65,7 @@ func (h *PropertyHandler) Update(c *gin.Context) {
 // @Router /v1/properties/{id} [delete]
 // @Security AuthBearer
 func (h *PropertyHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetProperty godoc
@@ -79,7 +81,7 @@ func (h *PropertyHandler) Delete(c *gin.Context) {
 // @Router /v1/properties/{id} [get]
 // @Security AuthBearer
 func (h *PropertyHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToPropertyResponse, h.usecase.GetById)
 }
 
 // GetProperties godoc
@@ -88,11 +90,11 @@ func (h *PropertyHandler) GetById(c *gin.Context) {
 // @Tags Properties
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.PropertyResponse]} "Property response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.PropertyResponse]} "Property response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/properties/get-by-filter [post]
 // @Security AuthBearer
 func (h *PropertyHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToPropertyResponse, h.usecase.GetByFilter)
 }

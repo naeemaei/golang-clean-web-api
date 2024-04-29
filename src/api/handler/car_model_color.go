@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelColorHandler struct {
-	service *services.CarModelColorService
+	usecase *usecase.CarModelColorUsecase
 }
 
 func NewCarModelColorHandler(cfg *config.Config) *CarModelColorHandler {
 	return &CarModelColorHandler{
-		service: services.NewCarModelColorService(cfg),
+		usecase: usecase.NewCarModelColorUsecase(cfg, dependency.GetCarModelColorRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelColorHandler(cfg *config.Config) *CarModelColorHandler {
 // @Router /v1/car-model-colors/ [post]
 // @Security AuthBearer
 func (h *CarModelColorHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCarModelColor, dto.ToCarModelColorResponse, h.usecase.Create)
 }
 
 // UpdateCarModelColor godoc
@@ -47,7 +49,7 @@ func (h *CarModelColorHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-colors/{id} [put]
 // @Security AuthBearer
 func (h *CarModelColorHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCarModelColor, dto.ToCarModelColorResponse, h.usecase.Update)
 }
 
 // DeleteCarModelColor godoc
@@ -63,7 +65,7 @@ func (h *CarModelColorHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-colors/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelColorHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelColor godoc
@@ -79,7 +81,7 @@ func (h *CarModelColorHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-colors/{id} [get]
 // @Security AuthBearer
 func (h *CarModelColorHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelColorResponse, h.usecase.GetById)
 }
 
 // GetCarModelColors godoc
@@ -88,11 +90,11 @@ func (h *CarModelColorHandler) GetById(c *gin.Context) {
 // @Tags CarModelColors
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelColorResponse]} "CarModelColor response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelColorResponse]} "CarModelColor response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-colors/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelColorHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelColorResponse, h.usecase.GetByFilter)
 }

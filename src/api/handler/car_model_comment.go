@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelCommentHandler struct {
-	service *services.CarModelCommentService
+	usecase *usecase.CarModelCommentUsecase
 }
 
 func NewCarModelCommentHandler(cfg *config.Config) *CarModelCommentHandler {
 	return &CarModelCommentHandler{
-		service: services.NewCarModelCommentService(cfg),
+		usecase: usecase.NewCarModelCommentUsecase(cfg, dependency.GetCarModelCommentRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelCommentHandler(cfg *config.Config) *CarModelCommentHandler {
 // @Router /v1/car-model-comments/ [post]
 // @Security AuthBearer
 func (h *CarModelCommentHandler) Create(c *gin.Context) {
-	Create(c, h.service.Create)
+	Create(c, dto.ToCreateCarModelComment, dto.ToCarModelCommentResponse, h.usecase.Create)
 }
 
 // UpdateCarModelComment godoc
@@ -47,7 +49,7 @@ func (h *CarModelCommentHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-comments/{id} [put]
 // @Security AuthBearer
 func (h *CarModelCommentHandler) Update(c *gin.Context) {
-	Update(c, h.service.Update)
+	Update(c, dto.ToUpdateCarModelComment, dto.ToCarModelCommentResponse, h.usecase.Update)
 }
 
 // DeleteCarModelComment godoc
@@ -63,7 +65,7 @@ func (h *CarModelCommentHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-comments/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelCommentHandler) Delete(c *gin.Context) {
-	Delete(c, h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelComment godoc
@@ -79,7 +81,7 @@ func (h *CarModelCommentHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-comments/{id} [get]
 // @Security AuthBearer
 func (h *CarModelCommentHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelCommentResponse, h.usecase.GetById)
 }
 
 // GetCarModelComments godoc
@@ -88,11 +90,11 @@ func (h *CarModelCommentHandler) GetById(c *gin.Context) {
 // @Tags CarModelComments
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelCommentResponse]} "CarModelComment response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelCommentResponse]} "CarModelComment response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-comments/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelCommentHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelCommentResponse, h.usecase.GetByFilter)
 }

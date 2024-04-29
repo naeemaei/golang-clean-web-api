@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelPriceHistoryHandler struct {
-	service *services.CarModelPriceHistoryService
+	usecase *usecase.CarModelPriceHistoryUsecase
 }
 
 func NewCarModelPriceHistoryHandler(cfg *config.Config) *CarModelPriceHistoryHandler {
 	return &CarModelPriceHistoryHandler{
-		service: services.NewCarModelPriceHistoryService(cfg),
+		usecase: usecase.NewCarModelPriceHistoryUsecase(cfg, dependency.GetCarModelPriceHistoryRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelPriceHistoryHandler(cfg *config.Config) *CarModelPriceHistoryHan
 // @Router /v1/car-model-price-histories/ [post]
 // @Security AuthBearer
 func (h *CarModelPriceHistoryHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCarModelPriceHistory, dto.ToCarModelPriceHistoryResponse, h.usecase.Create)
 }
 
 // UpdateCarModelPriceHistory godoc
@@ -47,7 +49,7 @@ func (h *CarModelPriceHistoryHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-price-histories/{id} [put]
 // @Security AuthBearer
 func (h *CarModelPriceHistoryHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCarModelPriceHistory, dto.ToCarModelPriceHistoryResponse, h.usecase.Update)
 }
 
 // DeleteCarModelPriceHistory godoc
@@ -63,7 +65,7 @@ func (h *CarModelPriceHistoryHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-price-histories/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelPriceHistoryHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelPriceHistory godoc
@@ -79,7 +81,7 @@ func (h *CarModelPriceHistoryHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-price-histories/{id} [get]
 // @Security AuthBearer
 func (h *CarModelPriceHistoryHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelPriceHistoryResponse, h.usecase.GetById)
 }
 
 // GetCarModelPriceHistories godoc
@@ -88,11 +90,11 @@ func (h *CarModelPriceHistoryHandler) GetById(c *gin.Context) {
 // @Tags CarModelPriceHistories
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelPriceHistoryResponse]} "CarModelPriceHistory response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelPriceHistoryResponse]} "CarModelPriceHistory response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-price-histories/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelPriceHistoryHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelPriceHistoryResponse, h.usecase.GetByFilter)
 }

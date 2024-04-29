@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelImageHandler struct {
-	service *services.CarModelImageService
+	usecase *usecase.CarModelImageUsecase
 }
 
 func NewCarModelImageHandler(cfg *config.Config) *CarModelImageHandler {
 	return &CarModelImageHandler{
-		service: services.NewCarModelImageService(cfg),
+		usecase: usecase.NewCarModelImageUsecase(cfg, dependency.GetCarModelImageRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelImageHandler(cfg *config.Config) *CarModelImageHandler {
 // @Router /v1/car-model-images/ [post]
 // @Security AuthBearer
 func (h *CarModelImageHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCarModelImage, dto.ToCarModelImageResponse, h.usecase.Create)
 }
 
 // UpdateCarModelImage godoc
@@ -47,7 +49,7 @@ func (h *CarModelImageHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-images/{id} [put]
 // @Security AuthBearer
 func (h *CarModelImageHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCarModelImage, dto.ToCarModelImageResponse, h.usecase.Update)
 }
 
 // DeleteCarModelImage godoc
@@ -63,7 +65,7 @@ func (h *CarModelImageHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-images/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelImageHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelImage godoc
@@ -79,7 +81,7 @@ func (h *CarModelImageHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-images/{id} [get]
 // @Security AuthBearer
 func (h *CarModelImageHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelImageResponse, h.usecase.GetById)
 }
 
 // GetCarModelImages godoc
@@ -88,11 +90,11 @@ func (h *CarModelImageHandler) GetById(c *gin.Context) {
 // @Tags CarModelImages
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelImageResponse]} "CarModelImage response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelImageResponse]} "CarModelImage response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-images/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelImageHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelImageResponse, h.usecase.GetByFilter)
 }

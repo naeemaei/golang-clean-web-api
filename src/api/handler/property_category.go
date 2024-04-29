@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type PropertyCategoryHandler struct {
-	service *services.PropertyCategoryService
+	usecase *usecase.PropertyCategoryUsecase
 }
 
 func NewPropertyCategoryHandler(cfg *config.Config) *PropertyCategoryHandler {
 	return &PropertyCategoryHandler{
-		service: services.NewPropertyCategoryService(cfg),
+		usecase: usecase.NewPropertyCategoryUsecase(cfg, dependency.GetPropertyCategoryRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewPropertyCategoryHandler(cfg *config.Config) *PropertyCategoryHandler {
 // @Router /v1/property-categories/ [post]
 // @Security AuthBearer
 func (h *PropertyCategoryHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreatePropertyCategory, dto.ToPropertyCategoryResponse, h.usecase.Create)
 }
 
 // UpdatePropertyCategory godoc
@@ -47,7 +49,7 @@ func (h *PropertyCategoryHandler) Create(c *gin.Context) {
 // @Router /v1/property-categories/{id} [put]
 // @Security AuthBearer
 func (h *PropertyCategoryHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdatePropertyCategory, dto.ToPropertyCategoryResponse, h.usecase.Update)
 }
 
 // DeletePropertyCategory godoc
@@ -63,7 +65,7 @@ func (h *PropertyCategoryHandler) Update(c *gin.Context) {
 // @Router /v1/property-categories/{id} [delete]
 // @Security AuthBearer
 func (h *PropertyCategoryHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetPropertyCategory godoc
@@ -79,7 +81,7 @@ func (h *PropertyCategoryHandler) Delete(c *gin.Context) {
 // @Router /v1/property-categories/{id} [get]
 // @Security AuthBearer
 func (h *PropertyCategoryHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToPropertyCategoryResponse, h.usecase.GetById)
 }
 
 // GetPropertyCategories godoc
@@ -88,11 +90,11 @@ func (h *PropertyCategoryHandler) GetById(c *gin.Context) {
 // @Tags PropertyCategories
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.PropertyCategoryResponse]} "PropertyCategory response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.PropertyCategoryResponse]} "PropertyCategory response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/property-categories/get-by-filter [post]
 // @Security AuthBearer
 func (h *PropertyCategoryHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToPropertyCategoryResponse, h.usecase.GetByFilter)
 }

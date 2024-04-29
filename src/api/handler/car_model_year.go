@@ -1,20 +1,22 @@
-package handlers
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/naeemaei/golang-clean-web-api/api/dto"
+	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	_ "github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
-	"github.com/naeemaei/golang-clean-web-api/services"
+	"github.com/naeemaei/golang-clean-web-api/dependency"
+	_ "github.com/naeemaei/golang-clean-web-api/domain/filter"
+	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type CarModelYearHandler struct {
-	service *services.CarModelYearService
+	usecase *usecase.CarModelYearUsecase
 }
 
 func NewCarModelYearHandler(cfg *config.Config) *CarModelYearHandler {
 	return &CarModelYearHandler{
-		service: services.NewCarModelYearService(cfg),
+		usecase: usecase.NewCarModelYearUsecase(cfg, dependency.GetCarModelYearRepository(cfg)),
 	}
 }
 
@@ -30,7 +32,7 @@ func NewCarModelYearHandler(cfg *config.Config) *CarModelYearHandler {
 // @Router /v1/car-model-years/ [post]
 // @Security AuthBearer
 func (h *CarModelYearHandler) Create(c *gin.Context) {
-	Create(c,h.service.Create)
+	Create(c, dto.ToCreateCarModelYear, dto.ToCarModelYearResponse, h.usecase.Create)
 }
 
 // UpdateCarModelYear godoc
@@ -47,7 +49,7 @@ func (h *CarModelYearHandler) Create(c *gin.Context) {
 // @Router /v1/car-model-years/{id} [put]
 // @Security AuthBearer
 func (h *CarModelYearHandler) Update(c *gin.Context) {
-	Update(c,h.service.Update)
+	Update(c, dto.ToUpdateCarModelYear, dto.ToCarModelYearResponse, h.usecase.Update)
 }
 
 // DeleteCarModelYear godoc
@@ -63,7 +65,7 @@ func (h *CarModelYearHandler) Update(c *gin.Context) {
 // @Router /v1/car-model-years/{id} [delete]
 // @Security AuthBearer
 func (h *CarModelYearHandler) Delete(c *gin.Context) {
-	Delete(c,h.service.Delete)
+	Delete(c, h.usecase.Delete)
 }
 
 // GetCarModelYear godoc
@@ -79,7 +81,7 @@ func (h *CarModelYearHandler) Delete(c *gin.Context) {
 // @Router /v1/car-model-years/{id} [get]
 // @Security AuthBearer
 func (h *CarModelYearHandler) GetById(c *gin.Context) {
-	GetById(c, h.service.GetById)
+	GetById(c, dto.ToCarModelYearResponse, h.usecase.GetById)
 }
 
 // GetCarModelYears godoc
@@ -88,11 +90,11 @@ func (h *CarModelYearHandler) GetById(c *gin.Context) {
 // @Tags CarModelYears
 // @Accept json
 // @produces json
-// @Param Request body dto.PaginationInputWithFilter true "Request"
-// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CarModelYearResponse]} "CarModelYear response"
+// @Param Request body filter.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=filter.PagedList[dto.CarModelYearResponse]} "CarModelYear response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad request"
 // @Router /v1/car-model-years/get-by-filter [post]
 // @Security AuthBearer
 func (h *CarModelYearHandler) GetByFilter(c *gin.Context) {
-	GetByFilter(c, h.service.GetByFilter)
+	GetByFilter(c, dto.ToCarModelYearResponse, h.usecase.GetByFilter)
 }
