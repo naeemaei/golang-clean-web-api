@@ -7,18 +7,27 @@ import (
 	"github.com/naeemaei/golang-clean-web-api/api/dto"
 	"github.com/naeemaei/golang-clean-web-api/api/helper"
 	"github.com/naeemaei/golang-clean-web-api/config"
+	"github.com/naeemaei/golang-clean-web-api/constant"
 	"github.com/naeemaei/golang-clean-web-api/dependency"
 	"github.com/naeemaei/golang-clean-web-api/usecase"
 )
 
 type UsersHandler struct {
-	usecase    *usecase.UserUsecase
-	otpUsecase *usecase.OtpUsecase
+	usecase      *usecase.UserUsecase
+	otpUsecase   *usecase.OtpUsecase
+	tokenUsecase *usecase.TokenUsecase
+	config       *config.Config
 }
 
 func NewUserHandler(cfg *config.Config) *UsersHandler {
+	tokenUsecase := usecase.NewTokenUsecase(cfg)
 	usecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
-	return &UsersHandler{usecase: usecase}
+
+	return &UsersHandler{
+		usecase:      usecase,
+		tokenUsecase: tokenUsecase,
+		config:       cfg,
+	}
 }
 
 // LoginByUsername godoc
@@ -46,6 +55,9 @@ func (h *UsersHandler) LoginByUsername(c *gin.Context) {
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
 		return
 	}
+
+	// Set the refresh token in a cookie
+	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
 
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
@@ -105,6 +117,9 @@ func (h *UsersHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 		return
 	}
 
+	// Set the refresh token in a cookie
+	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
+
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
 
@@ -135,4 +150,26 @@ func (h *UsersHandler) SendOtp(c *gin.Context) {
 	}
 	// TODO: Call internal SMS service
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, helper.Success))
+}
+
+// RefreshToken godoc
+// @Summary RefreshToken
+// @Description RefreshToken
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} helper.BaseHttpResponse "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 401 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/users/refresh-token [get]
+func (h *UsersHandler) RefreshToken(c *gin.Context) {
+	token, err := h.tokenUsecase.RefreshToken(c)
+	if err != nil {
+		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
+		return
+	}
+	// Set the refresh token in a cookie
+	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(token, true, helper.Success))
 }

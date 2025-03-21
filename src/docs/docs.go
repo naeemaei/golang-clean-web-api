@@ -4661,6 +4661,41 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/users/refresh-token": {
+            "get": {
+                "description": "RefreshToken",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "RefreshToken",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Failed",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users/register-by-username": {
             "post": {
                 "description": "RegisterByUsername",

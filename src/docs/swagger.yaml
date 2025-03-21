@@ -3821,6 +3821,29 @@ paths:
       summary: LoginByUsername
       tags:
       - Users
+  /v1/users/refresh-token:
+    get:
+      consumes:
+      - application/json
+      description: RefreshToken
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "400":
+          description: Failed
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+        "401":
+          description: Failed
+          schema:
+            $ref: '#/definitions/github_com_naeemaei_golang-clean-web-api_api_helper.BaseHttpResponse'
+      summary: RefreshToken
+      tags:
+      - Users
   /v1/users/register-by-username:
     post:
       consumes:
