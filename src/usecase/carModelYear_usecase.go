@@ -26,21 +26,21 @@ func (u *CarModelYearUsecase) Create(ctx context.Context, req dto.CreateCarModel
 }
 
 // Update
-func (s *CarModelYearUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelYear) (dto.CarModelYear, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CarModelYearUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelYear) (dto.CarModelYear, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CarModelYearUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CarModelYearUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CarModelYearUsecase) GetById(ctx context.Context, id int) (dto.CarModelYear, error) {
-	return s.base.GetById(ctx, id)
+func (u *CarModelYearUsecase) GetById(ctx context.Context, id int) (dto.CarModelYear, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CarModelYearUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelYear], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CarModelYearUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelYear], error) {
+	return u.base.GetByFilter(ctx, req)
 }

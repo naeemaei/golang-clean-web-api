@@ -26,21 +26,21 @@ func (u *FileUsecase) Create(ctx context.Context, req dto.CreateFile) (dto.File,
 }
 
 // Update
-func (s *FileUsecase) Update(ctx context.Context, id int, req dto.UpdateFile) (dto.File, error) {
-	return s.base.Update(ctx, id, req)
+func (u *FileUsecase) Update(ctx context.Context, id int, req dto.UpdateFile) (dto.File, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *FileUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *FileUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *FileUsecase) GetById(ctx context.Context, id int) (dto.File, error) {
-	return s.base.GetById(ctx, id)
+func (u *FileUsecase) GetById(ctx context.Context, id int) (dto.File, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *FileUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.File], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *FileUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.File], error) {
+	return u.base.GetByFilter(ctx, req)
 }

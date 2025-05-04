@@ -26,21 +26,21 @@ func (u *CountryUsecase) Create(ctx context.Context, req dto.Name) (dto.Country,
 }
 
 // Update
-func (s *CountryUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.Country, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CountryUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.Country, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CountryUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CountryUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CountryUsecase) GetById(ctx context.Context, id int) (dto.Country, error) {
-	return s.base.GetById(ctx, id)
+func (u *CountryUsecase) GetById(ctx context.Context, id int) (dto.Country, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CountryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.Country], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CountryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.Country], error) {
+	return u.base.GetByFilter(ctx, req)
 }

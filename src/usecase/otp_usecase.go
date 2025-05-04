@@ -39,29 +39,29 @@ func (u *OtpUsecase) SendOtp(mobileNumber string) error {
 	return nil
 }
 
-func (s *OtpUsecase) SetOtp(mobileNumber string, otp string) error {
+func (u *OtpUsecase) SetOtp(mobileNumber string, otp string) error {
 	key := fmt.Sprintf("%s:%s", constant.RedisOtpDefaultKey, mobileNumber)
 	val := &otpDto{
 		Value: otp,
 		Used:  false,
 	}
 
-	res, err := cache.Get[otpDto](s.redisClient, key)
+	res, err := cache.Get[otpDto](u.redisClient, key)
 	if err == nil && !res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OptExists}
 	} else if err == nil && res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpUsed}
 	}
-	err = cache.Set(s.redisClient, key, val, s.cfg.Otp.ExpireTime*time.Second)
+	err = cache.Set(u.redisClient, key, val, u.cfg.Otp.ExpireTime*time.Second)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *OtpUsecase) ValidateOtp(mobileNumber string, otp string) error {
+func (u *OtpUsecase) ValidateOtp(mobileNumber string, otp string) error {
 	key := fmt.Sprintf("%s:%s", constant.RedisOtpDefaultKey, mobileNumber)
-	res, err := cache.Get[otpDto](s.redisClient, key)
+	res, err := cache.Get[otpDto](u.redisClient, key)
 	if err != nil {
 		return err
 	} else if res.Used {
@@ -70,7 +70,7 @@ func (s *OtpUsecase) ValidateOtp(mobileNumber string, otp string) error {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpNotValid}
 	} else if !res.Used && res.Value == otp {
 		res.Used = true
-		err = cache.Set(s.redisClient, key, res, s.cfg.Otp.ExpireTime*time.Second)
+		err = cache.Set(u.redisClient, key, res, u.cfg.Otp.ExpireTime*time.Second)
 		if err != nil {
 			return err
 		}

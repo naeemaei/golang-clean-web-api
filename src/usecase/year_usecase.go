@@ -26,21 +26,21 @@ func (u *PersianYearUsecase) Create(ctx context.Context, req dto.CreatePersianYe
 }
 
 // Update
-func (s *PersianYearUsecase) Update(ctx context.Context, id int, req dto.UpdatePersianYear) (dto.PersianYear, error) {
-	return s.base.Update(ctx, id, req)
+func (u *PersianYearUsecase) Update(ctx context.Context, id int, req dto.UpdatePersianYear) (dto.PersianYear, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *PersianYearUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *PersianYearUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *PersianYearUsecase) GetById(ctx context.Context, id int) (dto.PersianYear, error) {
-	return s.base.GetById(ctx, id)
+func (u *PersianYearUsecase) GetById(ctx context.Context, id int) (dto.PersianYear, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *PersianYearUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.PersianYear], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *PersianYearUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.PersianYear], error) {
+	return u.base.GetByFilter(ctx, req)
 }
