@@ -26,21 +26,21 @@ func (u *CarTypeUsecase) Create(ctx context.Context, req dto.Name) (dto.IdName, 
 }
 
 // Update
-func (s *CarTypeUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.IdName, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CarTypeUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.IdName, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CarTypeUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CarTypeUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CarTypeUsecase) GetById(ctx context.Context, id int) (dto.IdName, error) {
-	return s.base.GetById(ctx, id)
+func (u *CarTypeUsecase) GetById(ctx context.Context, id int) (dto.IdName, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CarTypeUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.IdName], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CarTypeUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.IdName], error) {
+	return u.base.GetByFilter(ctx, req)
 }

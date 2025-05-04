@@ -34,10 +34,10 @@ func NewTokenUsecase(cfg *config.Config) *TokenUsecase {
 	}
 }
 
-func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
+func (u *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 	td := &dto.TokenDetail{}
-	td.AccessTokenExpireTime = time.Now().Add(s.cfg.JWT.AccessTokenExpireDuration * time.Minute).Unix()
-	td.RefreshTokenExpireTime = time.Now().Add(s.cfg.JWT.RefreshTokenExpireDuration * time.Minute).Unix()
+	td.AccessTokenExpireTime = time.Now().Add(u.cfg.JWT.AccessTokenExpireDuration * time.Minute).Unix()
+	td.RefreshTokenExpireTime = time.Now().Add(u.cfg.JWT.RefreshTokenExpireDuration * time.Minute).Unix()
 
 	atc := jwt.MapClaims{}
 
@@ -53,7 +53,7 @@ func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atc)
 
 	var err error
-	td.AccessToken, err = at.SignedString([]byte(s.cfg.JWT.Secret))
+	td.AccessToken, err = at.SignedString([]byte(u.cfg.JWT.Secret))
 
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtc)
 
-	td.RefreshToken, err = rt.SignedString([]byte(s.cfg.JWT.RefreshSecret))
+	td.RefreshToken, err = rt.SignedString([]byte(u.cfg.JWT.RefreshSecret))
 
 	if err != nil {
 		return nil, err
@@ -75,13 +75,13 @@ func (s *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 	return td, nil
 }
 
-func (s *TokenUsecase) VerifyToken(token string) (*jwt.Token, error) {
+func (u *TokenUsecase) VerifyToken(token string) (*jwt.Token, error) {
 	at, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
 			return nil, &service_errors.ServiceError{EndUserMessage: service_errors.UnExpectedError}
 		}
-		return []byte(s.cfg.JWT.Secret), nil
+		return []byte(u.cfg.JWT.Secret), nil
 	})
 	if err != nil {
 		return nil, err
@@ -89,10 +89,10 @@ func (s *TokenUsecase) VerifyToken(token string) (*jwt.Token, error) {
 	return at, nil
 }
 
-func (s *TokenUsecase) GetClaims(token string) (claimMap map[string]interface{}, err error) {
+func (u *TokenUsecase) GetClaims(token string) (claimMap map[string]interface{}, err error) {
 	claimMap = map[string]interface{}{}
 
-	verifyToken, err := s.VerifyToken(token)
+	verifyToken, err := u.VerifyToken(token)
 	if err != nil {
 		return nil, err
 	}

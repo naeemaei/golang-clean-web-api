@@ -26,21 +26,21 @@ func (u *CityUsecase) Create(ctx context.Context, req dto.CreateCity) (dto.City,
 }
 
 // Update
-func (s *CityUsecase) Update(ctx context.Context, id int, req dto.UpdateCity) (dto.City, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CityUsecase) Update(ctx context.Context, id int, req dto.UpdateCity) (dto.City, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CityUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CityUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CityUsecase) GetById(ctx context.Context, id int) (dto.City, error) {
-	return s.base.GetById(ctx, id)
+func (u *CityUsecase) GetById(ctx context.Context, id int) (dto.City, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CityUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.City], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CityUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.City], error) {
+	return u.base.GetByFilter(ctx, req)
 }
