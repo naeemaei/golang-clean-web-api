@@ -26,21 +26,21 @@ func (u *CarModelImageUsecase) Create(ctx context.Context, req dto.CreateCarMode
 }
 
 // Update
-func (s *CarModelImageUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelImage) (dto.CarModelImage, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CarModelImageUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelImage) (dto.CarModelImage, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CarModelImageUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CarModelImageUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CarModelImageUsecase) GetById(ctx context.Context, id int) (dto.CarModelImage, error) {
-	return s.base.GetById(ctx, id)
+func (u *CarModelImageUsecase) GetById(ctx context.Context, id int) (dto.CarModelImage, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CarModelImageUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelImage], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CarModelImageUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelImage], error) {
+	return u.base.GetByFilter(ctx, req)
 }

@@ -26,21 +26,21 @@ func (u *CarModelColorUsecase) Create(ctx context.Context, req dto.CreateCarMode
 }
 
 // Update
-func (s *CarModelColorUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelColor) (dto.CarModelColor, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CarModelColorUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelColor) (dto.CarModelColor, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CarModelColorUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CarModelColorUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CarModelColorUsecase) GetById(ctx context.Context, id int) (dto.CarModelColor, error) {
-	return s.base.GetById(ctx, id)
+func (u *CarModelColorUsecase) GetById(ctx context.Context, id int) (dto.CarModelColor, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CarModelColorUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelColor], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CarModelColorUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelColor], error) {
+	return u.base.GetByFilter(ctx, req)
 }

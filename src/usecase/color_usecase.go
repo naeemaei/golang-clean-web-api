@@ -26,21 +26,21 @@ func (u *ColorUsecase) Create(ctx context.Context, req dto.CreateColor) (dto.Col
 }
 
 // Update
-func (s *ColorUsecase) Update(ctx context.Context, id int, req dto.UpdateColor) (dto.Color, error) {
-	return s.base.Update(ctx, id, req)
+func (u *ColorUsecase) Update(ctx context.Context, id int, req dto.UpdateColor) (dto.Color, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *ColorUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *ColorUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *ColorUsecase) GetById(ctx context.Context, id int) (dto.Color, error) {
-	return s.base.GetById(ctx, id)
+func (u *ColorUsecase) GetById(ctx context.Context, id int) (dto.Color, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *ColorUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.Color], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *ColorUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.Color], error) {
+	return u.base.GetByFilter(ctx, req)
 }
