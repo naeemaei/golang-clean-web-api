@@ -2,6 +2,7 @@ server:
   internalPort: 5005
   externalPort: 5005
   runMode: debug
+  domain: localhost
 logger:
   filePath: ../logs/
   encoding: json

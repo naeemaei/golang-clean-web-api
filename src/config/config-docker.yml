@@ -2,6 +2,7 @@ server:
   internalPort: 5000
   externalPort: 0
   runMode: release
+  domain: localhost
 logger:
   filePath: /app/logs/
   encoding: json

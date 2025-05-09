@@ -3,6 +3,7 @@ package usecase
 import (
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/naeemaei/golang-clean-web-api/config"
 	"github.com/naeemaei/golang-clean-web-api/constant"
@@ -62,6 +63,12 @@ func (u *TokenUsecase) GenerateToken(token tokenDto) (*dto.TokenDetail, error) {
 	rtc := jwt.MapClaims{}
 
 	rtc[constant.UserIdKey] = token.UserId
+	rtc[constant.FirstNameKey] = token.FirstName
+	rtc[constant.LastNameKey] = token.LastName
+	rtc[constant.UsernameKey] = token.Username
+	rtc[constant.EmailKey] = token.Email
+	rtc[constant.MobileNumberKey] = token.MobileNumber
+	rtc[constant.RolesKey] = token.Roles
 	rtc[constant.ExpireTimeKey] = td.RefreshTokenExpireTime
 
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtc)
@@ -104,4 +111,46 @@ func (u *TokenUsecase) GetClaims(token string) (claimMap map[string]interface{},
 		return claimMap, nil
 	}
 	return nil, &service_errors.ServiceError{EndUserMessage: service_errors.ClaimsNotFound}
+}
+
+func (s *TokenUsecase) RefreshToken(c *gin.Context) (*dto.TokenDetail, error) {
+	refreshToken, err := c.Cookie(constant.RefreshTokenCookieName)
+	if err != nil {
+		return nil, &service_errors.ServiceError{EndUserMessage: service_errors.InvalidRefreshToken}
+	}
+
+	claims, err := s.GetClaims(refreshToken)
+	if err != nil {
+		return nil, err
+	}
+
+	// Convert roles to []string
+	rolesInterface, ok := claims[constant.RolesKey].([]interface{})
+	if !ok {
+		return nil, &service_errors.ServiceError{EndUserMessage: service_errors.InvalidRolesFormat}
+	}
+
+	roles := make([]string, len(rolesInterface))
+	for i, role := range rolesInterface {
+		roles[i], ok = role.(string)
+		if !ok {
+			return nil, &service_errors.ServiceError{EndUserMessage: service_errors.InvalidRolesFormat}
+		}
+	}
+
+	tokenDto := tokenDto{
+		UserId:       int(claims[constant.UserIdKey].(float64)),
+		FirstName:    claims[constant.FirstNameKey].(string),
+		LastName:     claims[constant.LastNameKey].(string),
+		Username:     claims[constant.UsernameKey].(string),
+		MobileNumber: claims[constant.MobileNumberKey].(string),
+		Email:        claims[constant.EmailKey].(string),
+		Roles:        roles,
+	}
+	newTokenDetail, err := s.GenerateToken(tokenDto)
+	if err != nil {
+		return nil, err
+	}
+
+	return newTokenDetail, nil
 }
