@@ -57,7 +57,16 @@ func (h *UsersHandler) LoginByUsername(c *gin.Context) {
 	}
 
 	// Set the refresh token in a cookie
-	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:     constant.RefreshTokenCookieName,
+		Value:    token.RefreshToken,
+		MaxAge:   int(h.config.JWT.RefreshTokenExpireDuration * 60),
+		Path:     "/",
+		Domain:   h.config.Server.Domain,
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
 
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
@@ -118,7 +127,16 @@ func (h *UsersHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 	}
 
 	// Set the refresh token in a cookie
-	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:     constant.RefreshTokenCookieName,
+		Value:    token.RefreshToken,
+		MaxAge:   int(h.config.JWT.RefreshTokenExpireDuration * 60),
+		Path:     "/",
+		Domain:   h.config.Server.Domain,
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
 
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
@@ -161,7 +179,7 @@ func (h *UsersHandler) SendOtp(c *gin.Context) {
 // @Success 200 {object} helper.BaseHttpResponse "Success"
 // @Failure 400 {object} helper.BaseHttpResponse "Failed"
 // @Failure 401 {object} helper.BaseHttpResponse "Failed"
-// @Router /v1/users/refresh-token [get]
+// @Router /v1/users/refresh-token [post]
 func (h *UsersHandler) RefreshToken(c *gin.Context) {
 	token, err := h.tokenUsecase.RefreshToken(c)
 	if err != nil {
@@ -170,6 +188,15 @@ func (h *UsersHandler) RefreshToken(c *gin.Context) {
 		return
 	}
 	// Set the refresh token in a cookie
-	c.SetCookie(constant.RefreshTokenCookieName, token.RefreshToken, int(h.config.JWT.RefreshTokenExpireDuration*60), "/", h.config.Server.Domin, true, true)
+	http.SetCookie(c.Writer, &http.Cookie{
+		Name:     constant.RefreshTokenCookieName,
+		Value:    token.RefreshToken,
+		MaxAge:   int(h.config.JWT.RefreshTokenExpireDuration * 60),
+		Path:     "/",
+		Domain:   h.config.Server.Domain,
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse(token, true, helper.Success))
 }
