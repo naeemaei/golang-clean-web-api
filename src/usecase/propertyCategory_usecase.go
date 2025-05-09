@@ -26,21 +26,21 @@ func (u *PropertyCategoryUsecase) Create(ctx context.Context, req dto.CreateProp
 }
 
 // Update
-func (s *PropertyCategoryUsecase) Update(ctx context.Context, id int, req dto.UpdatePropertyCategory) (dto.PropertyCategory, error) {
-	return s.base.Update(ctx, id, req)
+func (u *PropertyCategoryUsecase) Update(ctx context.Context, id int, req dto.UpdatePropertyCategory) (dto.PropertyCategory, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *PropertyCategoryUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *PropertyCategoryUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *PropertyCategoryUsecase) GetById(ctx context.Context, id int) (dto.PropertyCategory, error) {
-	return s.base.GetById(ctx, id)
+func (u *PropertyCategoryUsecase) GetById(ctx context.Context, id int) (dto.PropertyCategory, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *PropertyCategoryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.PropertyCategory], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *PropertyCategoryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.PropertyCategory], error) {
+	return u.base.GetByFilter(ctx, req)
 }

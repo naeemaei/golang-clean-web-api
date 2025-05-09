@@ -13,21 +13,14 @@ import (
 )
 
 type UsersHandler struct {
-	usecase      *usecase.UserUsecase
-	otpUsecase   *usecase.OtpUsecase
-	tokenUsecase *usecase.TokenUsecase
-	config       *config.Config
+	userUsecase    *usecase.UserUsecase
+	otpUsecase *usecase.OtpUsecase
 }
 
 func NewUserHandler(cfg *config.Config) *UsersHandler {
-	tokenUsecase := usecase.NewTokenUsecase(cfg)
-	usecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
-
-	return &UsersHandler{
-		usecase:      usecase,
-		tokenUsecase: tokenUsecase,
-		config:       cfg,
-	}
+	userUsecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
+	otpUsecase := usecase.NewOtpUsecase(cfg)
+	return &UsersHandler{userUsecase: userUsecase, otpUsecase: otpUsecase}
 }
 
 // LoginByUsername godoc
@@ -49,7 +42,7 @@ func (h *UsersHandler) LoginByUsername(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	token, err := h.usecase.LoginByUsername(c, req.Username, req.Password)
+	token, err := h.userUsecase.LoginByUsername(c, req.Username, req.Password)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
@@ -90,7 +83,7 @@ func (h *UsersHandler) RegisterByUsername(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	err = h.usecase.RegisterByUsername(c, req.ToRegisterUserByUsername())
+	err = h.userUsecase.RegisterByUsername(c, req.ToRegisterUserByUsername())
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))
@@ -119,7 +112,7 @@ func (h *UsersHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err))
 		return
 	}
-	token, err := h.usecase.RegisterAndLoginByMobileNumber(c, req.MobileNumber, req.Otp)
+	token, err := h.userUsecase.RegisterAndLoginByMobileNumber(c, req.MobileNumber, req.Otp)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err))

@@ -26,21 +26,21 @@ func (u *CarModelPriceHistoryUsecase) Create(ctx context.Context, req dto.Create
 }
 
 // Update
-func (s *CarModelPriceHistoryUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelPriceHistory) (dto.CarModelPriceHistory, error) {
-	return s.base.Update(ctx, id, req)
+func (u *CarModelPriceHistoryUsecase) Update(ctx context.Context, id int, req dto.UpdateCarModelPriceHistory) (dto.CarModelPriceHistory, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *CarModelPriceHistoryUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *CarModelPriceHistoryUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *CarModelPriceHistoryUsecase) GetById(ctx context.Context, id int) (dto.CarModelPriceHistory, error) {
-	return s.base.GetById(ctx, id)
+func (u *CarModelPriceHistoryUsecase) GetById(ctx context.Context, id int) (dto.CarModelPriceHistory, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *CarModelPriceHistoryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelPriceHistory], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *CarModelPriceHistoryUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.CarModelPriceHistory], error) {
+	return u.base.GetByFilter(ctx, req)
 }

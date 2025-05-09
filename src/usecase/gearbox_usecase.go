@@ -26,21 +26,21 @@ func (u *GearboxUsecase) Create(ctx context.Context, req dto.Name) (dto.IdName, 
 }
 
 // Update
-func (s *GearboxUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.IdName, error) {
-	return s.base.Update(ctx, id, req)
+func (u *GearboxUsecase) Update(ctx context.Context, id int, req dto.Name) (dto.IdName, error) {
+	return u.base.Update(ctx, id, req)
 }
 
 // Delete
-func (s *GearboxUsecase) Delete(ctx context.Context, id int) error {
-	return s.base.Delete(ctx, id)
+func (u *GearboxUsecase) Delete(ctx context.Context, id int) error {
+	return u.base.Delete(ctx, id)
 }
 
 // Get By Id
-func (s *GearboxUsecase) GetById(ctx context.Context, id int) (dto.IdName, error) {
-	return s.base.GetById(ctx, id)
+func (u *GearboxUsecase) GetById(ctx context.Context, id int) (dto.IdName, error) {
+	return u.base.GetById(ctx, id)
 }
 
 // Get By Filter
-func (s *GearboxUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.IdName], error) {
-	return s.base.GetByFilter(ctx, req)
+func (u *GearboxUsecase) GetByFilter(ctx context.Context, req filter.PaginationInputWithFilter) (*filter.PagedList[dto.IdName], error) {
+	return u.base.GetByFilter(ctx, req)
 }
