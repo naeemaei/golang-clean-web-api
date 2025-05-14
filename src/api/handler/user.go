@@ -13,14 +13,17 @@ import (
 )
 
 type UsersHandler struct {
-	userUsecase    *usecase.UserUsecase
-	otpUsecase *usecase.OtpUsecase
+	userUsecase  *usecase.UserUsecase
+	otpUsecase   *usecase.OtpUsecase
+	tokenUsecase *usecase.TokenUsecase
+	config       *config.Config
 }
 
 func NewUserHandler(cfg *config.Config) *UsersHandler {
 	userUsecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
 	otpUsecase := usecase.NewOtpUsecase(cfg)
-	return &UsersHandler{userUsecase: userUsecase, otpUsecase: otpUsecase}
+	tokenUsecase := usecase.NewTokenUsecase(cfg)
+	return &UsersHandler{userUsecase: userUsecase, otpUsecase: otpUsecase, tokenUsecase: tokenUsecase, config: cfg}
 }
 
 // LoginByUsername godoc
