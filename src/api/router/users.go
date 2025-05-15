@@ -14,4 +14,5 @@ func User(router *gin.RouterGroup, cfg *config.Config) {
 	router.POST("/login-by-username", h.LoginByUsername)
 	router.POST("/register-by-username", h.RegisterByUsername)
 	router.POST("/login-by-mobile", h.RegisterLoginByMobileNumber)
+	router.POST("/refresh-token", h.RefreshToken)
 }

@@ -21,9 +21,10 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	InternalPort    string
-	ExternalPort    string
-	RunMode string
+	InternalPort string
+	ExternalPort string
+	RunMode      string
+	Domain       string
 }
 
 type LoggerConfig struct {
@@ -93,10 +94,10 @@ func GetConfig() *Config {
 
 	cfg, err := ParseConfig(v)
 	envPort := os.Getenv("PORT")
-	if envPort != ""{
+	if envPort != "" {
 		cfg.Server.ExternalPort = envPort
 		log.Printf("Set external port from environment -> %s", cfg.Server.ExternalPort)
-	}else{
+	} else {
 		cfg.Server.ExternalPort = cfg.Server.InternalPort
 		log.Printf("Set external port from environment -> %s", cfg.Server.ExternalPort)
 	}

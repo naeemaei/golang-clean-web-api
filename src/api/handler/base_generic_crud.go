@@ -29,8 +29,7 @@ var logger = logging.NewLogger(config.GetConfig())
 func Create[TRequest any, TUInput any, TUOutput any, TResponse any](c *gin.Context,
 	requestMapper func(req TRequest) (res TUInput),
 	responseMapper func(req TUOutput) (res TResponse),
-	usecaseCreate func(ctx context.Context,
-		req TUInput) (TUOutput, error)) {
+	usecaseCreate func(ctx context.Context, req TUInput) (TUOutput, error)) {
 
 	// bind http request
 	request := new(TRequest)

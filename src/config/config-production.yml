@@ -2,6 +2,7 @@ server:
   internalPort: 5010
   externalPort: 5010
   runMode: release
+  domain: localhost
 logger:
   filePath: logs/
   encoding: json
