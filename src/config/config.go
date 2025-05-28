@@ -93,16 +93,17 @@ func GetConfig() *Config {
 	}
 
 	cfg, err := ParseConfig(v)
+	if err != nil {
+		log.Fatalf("Error in parse config %v", err)
+	}
+	
 	envPort := os.Getenv("PORT")
 	if envPort != "" {
 		cfg.Server.ExternalPort = envPort
 		log.Printf("Set external port from environment -> %s", cfg.Server.ExternalPort)
 	} else {
 		cfg.Server.ExternalPort = cfg.Server.InternalPort
-		log.Printf("Set external port from environment -> %s", cfg.Server.ExternalPort)
-	}
-	if err != nil {
-		log.Fatalf("Error in parse config %v", err)
+		log.Printf("Environment variable PORT not set; using internal port value -> %s", cfg.Server.ExternalPort)
 	}
 
 	return cfg
