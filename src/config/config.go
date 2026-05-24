@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -96,6 +97,9 @@ func GetConfig() *Config {
 	if err != nil {
 		log.Fatalf("Error in parse config %v", err)
 	}
+
+	// Validate critical secrets are set via environment variables
+	validateSecrets(cfg)
 	
 	envPort := os.Getenv("PORT")
 	if envPort != "" {
@@ -107,6 +111,26 @@ func GetConfig() *Config {
 	}
 
 	return cfg
+}
+
+// validateSecrets checks that critical secrets are set via environment variables
+func validateSecrets(cfg *Config) {
+	if cfg.JWT.Secret == "" {
+		fmt.Fprintf(os.Stderr, "fatal: JWT_SECRET environment variable is not set\n")
+		fmt.Fprintf(os.Stderr, "Generate one with: openssl rand -base64 32\n")
+		os.Exit(1)
+	}
+	if cfg.JWT.RefreshSecret == "" {
+		fmt.Fprintf(os.Stderr, "fatal: JWT_REFRESH_SECRET environment variable is not set\n")
+		fmt.Fprintf(os.Stderr, "Generate one with: openssl rand -base64 32\n")
+		os.Exit(1)
+	}
+	if cfg.Postgres.Password == "" {
+		log.Println("WARNING: POSTGRES_PASSWORD is not set; database connection may fail")
+	}
+	if cfg.Redis.Password == "" {
+		log.Println("WARNING: REDIS_PASSWORD is not set; Redis connection may fail")
+	}
 }
 
 func ParseConfig(v *viper.Viper) (*Config, error) {

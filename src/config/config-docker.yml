@@ -14,7 +14,7 @@ postgres:
   host: postgres_container
   port: 5432
   user: postgres
-  password: admin
+  password: ""  # Set via POSTGRES_PASSWORD env var
   dbName: car_sale_db
   sslMode: disable
   maxIdleConns: 15
@@ -23,7 +23,7 @@ postgres:
 redis:
   host: redis_container
   port: 6379
-  password: password
+  password: ""  # Set via REDIS_PASSWORD env var
   db: 0
   dialTimeout: 5
   readTimeout: 5
@@ -43,7 +43,7 @@ otp:
   digits: 6
   limiter: 100
 jwt:
-  secret: "mySecretKey"
-  refreshSecret: "mySecretKey"
+  secret: ""  # REQUIRED: Set via JWT_SECRET env var
+  refreshSecret: ""  # REQUIRED: Set via JWT_REFRESH_SECRET env var
   accessTokenExpireDuration: 60
   refreshTokenExpireDuration: 60
